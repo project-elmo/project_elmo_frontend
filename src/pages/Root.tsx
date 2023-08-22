@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { MdAdd, MdOutlineChevronLeft } from 'react-icons/md';
-import { SERVICE_NAME } from '@/constants';
+import { ROUTES, SERVICE_NAME } from '@/constants';
 import Button from '@/components/Button';
 
 const navigation = [
-  { name: 'Train', path: '/' },
-  { name: 'Test', path: '/test' },
-  { name: 'History', path: '/history' },
+  { name: 'Train', path: ROUTES.MAIN },
+  { name: 'Test', path: ROUTES.TEST },
+  { name: 'History', path: ROUTES.HISTORY },
 ];
 
 export default function Root() {

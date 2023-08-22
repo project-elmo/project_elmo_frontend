@@ -9,7 +9,7 @@ interface Props {
 export default function Button({
   children,
   type = 'button',
-  className,
+  className = '',
   listStyle = false,
   onClick,
 }: Props) {
