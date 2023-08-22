@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { MdAdd, MdOutlineChevronLeft } from 'react-icons/md';
 import { SERVICE_NAME } from '@/constants';
+import Button from '@/components/Button';
 
 const navigation = [
   { name: 'Train', path: '/' },
@@ -41,22 +42,23 @@ export default function Root() {
         {showNav ? (
           <nav className="w-80 p-1.5 bg-secondary border-r-2 border-line">
             <div className="flex gap-1.5">
-              <button className="flex-1 text-left list-btn">
+              <Button listStyle className="flex-1 text-left">
                 <MdAdd className="inline-block mr-2" />
                 <span>New Model</span>
-              </button>
-              <button className="list-btn" onClick={() => setShowNav(false)}>
+              </Button>
+              <Button listStyle onClick={() => setShowNav(false)}>
                 <MdOutlineChevronLeft />
-              </button>
+              </Button>
             </div>
           </nav>
         ) : (
-          <button
-            className="absolute m-1.5 list-btn"
+          <Button
+            listStyle
             onClick={() => setShowNav(true)}
+            className="absolute m-1.5"
           >
             <MdOutlineChevronLeft />
-          </button>
+          </Button>
         )}
         <Outlet />
       </section>

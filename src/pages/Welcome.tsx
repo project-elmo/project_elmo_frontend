@@ -47,7 +47,9 @@ export default function Welcome() {
         to this disclaimer. If you do not agree with any part of this
         disclaimer, please do not use our service.
       </p>
-      <Button>Continue</Button>
+      <div className="text-center">
+        <Button>Continue</Button>
+      </div>
     </MainTemplate>
   );
 }
