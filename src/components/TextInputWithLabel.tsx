@@ -41,13 +41,15 @@ export default function TextInputWithLabel({
   );
 }
 
-const TooltipTrigger = React.forwardRef<HTMLButtonElement>(
-  (props, forwardedRef) => (
-    <button disabled {...props} ref={forwardedRef}>
-      <MdOutlineInfo className="text-neutral-400" />
-    </button>
-  )
-);
+const TooltipTrigger = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger> & {
+    children: React.ReactNode;
+    asChild?: boolean;
+  }
+>((props, forwardedRef) => (
+  <TooltipPrimitive.Trigger {...props} ref={forwardedRef} />
+));
 
 interface TooltipProps {
   info: string;
@@ -57,9 +59,11 @@ const Tooltip = ({ info }: TooltipProps) => {
   return (
     <TooltipPrimitive.Provider>
       <TooltipPrimitive.Root>
-        <TooltipPrimitive.Trigger asChild>
-          <TooltipTrigger />
-        </TooltipPrimitive.Trigger>
+        <TooltipTrigger asChild>
+          <button disabled>
+            <MdOutlineInfo className="text-neutral-400" />
+          </button>
+        </TooltipTrigger>
         <TooltipPrimitive.Content
           sideOffset={4}
           className="inline-flex items-center border shadow shadow-line/30 rounded-md bg-white px-4 py-2.5 text-xs"
