@@ -1,8 +1,9 @@
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
 @layer base {
-  html {
+  #root {
     @apply text-primary;
   }
 
@@ -16,5 +17,17 @@
 
   h3 {
     @apply text-3xl font-bold;
+  }
+}
+
+@layer components {
+  .list-btn {
+    @apply p-3;
+    @apply text-sm font-bold;
+    @apply bg-white border-2 border-line rounded-md;
+  }
+
+  .list-btn svg {
+    @apply text-xl;
   }
 }
