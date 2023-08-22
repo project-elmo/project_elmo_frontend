@@ -2,13 +2,13 @@
 export default {
   content: ['/index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    colors: {
-      primary: '#2d3648',
-      secondary: '#edf0f7',
-      line: '#d2d2d2',
-      disabled: '#717d96',
-    },
     extend: {
+      colors: {
+        primary: '#2d3648',
+        secondary: '#edf0f7',
+        line: '#d2d2d2',
+        disabled: '#717d96',
+      },
       fontSize: {
         '3xl': '2rem',
         '4xl': '2.625rem',
