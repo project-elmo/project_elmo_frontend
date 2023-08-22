@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
-import { SERVICE_NAME } from '@/constants';
+import { ROUTES, SERVICE_NAME } from '@/constants';
 
 export default function Welcome() {
+  const navigate = useNavigate();
+
   return (
     <MainTemplate title="Welcome!">
       <p className="font-bold">
@@ -48,7 +51,7 @@ export default function Welcome() {
         disclaimer, please do not use our service.
       </p>
       <div className="text-center">
-        <Button>Continue</Button>
+        <Button onClick={() => navigate(ROUTES.SETTING)}>Continue</Button>
       </div>
     </MainTemplate>
   );
