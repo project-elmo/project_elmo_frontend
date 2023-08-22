@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { MdAdd, MdOutlineChevronLeft } from 'react-icons/md';
+import { SERVICE_NAME } from '@/constants';
 
 const navigation = [
   { name: 'Train', path: '/' },
@@ -15,7 +16,9 @@ export default function Root() {
   return (
     <section className="flex flex-col h-screen">
       <header className="flex gap-10 sm:block p-6 border-b-2 border-b-line">
-        <h3 className="sm:absolute mt-3 sm:ml-10 text-2xl sm:text-3xl">ELMO</h3>
+        <h3 className="sm:absolute mt-3 sm:ml-10 text-2xl sm:text-3xl">
+          {SERVICE_NAME}
+        </h3>
         <nav>
           <ul className="flex justify-center gap-8">
             {navigation.map((menu) => {
@@ -34,7 +37,7 @@ export default function Root() {
           </ul>
         </nav>
       </header>
-      <section className="flex flex-1">
+      <section className="flex flex-1 w-screen">
         {showNav ? (
           <nav className="w-80 p-1.5 bg-secondary border-r-2 border-line">
             <div className="flex gap-1.5">
