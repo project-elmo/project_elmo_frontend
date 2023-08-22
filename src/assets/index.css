@@ -21,6 +21,12 @@
 }
 
 @layer components {
+  .btn {
+    @apply w-64 p-3;
+    @apply text-white text-sm;
+    @apply bg-primary;
+  }
+
   .list-btn {
     @apply p-3;
     @apply text-sm font-bold;
