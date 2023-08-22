@@ -15,7 +15,7 @@ export default function Root() {
   return (
     <section className="flex flex-col h-screen">
       <header className="flex gap-10 sm:block p-6 border-b-2 border-b-line">
-        <h3 className="sm:absolute p-3 sm:pl-10 text-2xl sm:text-3xl">ELMO</h3>
+        <h3 className="sm:absolute mt-3 sm:ml-10 text-2xl sm:text-3xl">ELMO</h3>
         <nav>
           <ul className="flex justify-center gap-8">
             {navigation.map((menu) => {
@@ -23,7 +23,7 @@ export default function Root() {
               return (
                 <li
                   key={menu.name}
-                  className={`w-20 p-3 text-center font-bold ${
+                  className={`w-20 p-3 text-center font-bold  ${
                     isActive ? 'border-b-2 border-primary' : 'text-disabled'
                   }`}
                 >
