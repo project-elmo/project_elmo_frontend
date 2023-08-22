@@ -23,7 +23,7 @@ export default function Root() {
               return (
                 <li
                   key={menu.name}
-                  className={`w-20 p-3 text-center font-bold  ${
+                  className={`w-20 h-12 p-3 text-center font-bold ${
                     isActive ? 'border-b-2 border-primary' : 'text-disabled'
                   }`}
                 >
