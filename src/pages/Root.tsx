@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { MdAdd, MdOutlineChevronLeft } from 'react-icons/md';
 
 const navigation = [
   { name: 'Train', path: '/' },
@@ -8,9 +10,10 @@ const navigation = [
 
 export default function Root() {
   const { pathname } = useLocation() as { pathname: string };
+  const [showNav, setShowNav] = useState(true);
 
   return (
-    <section>
+    <section className="flex flex-col h-screen">
       <header className="flex gap-10 sm:block p-6 border-b-2 border-b-line">
         <h3 className="sm:absolute p-3 sm:pl-10 text-2xl sm:text-3xl">ELMO</h3>
         <nav>
@@ -31,8 +34,27 @@ export default function Root() {
           </ul>
         </nav>
       </header>
-      <section>
-        <nav>nav</nav>
+      <section className="flex flex-1">
+        {showNav ? (
+          <nav className="w-80 p-1.5 bg-secondary border-r-2 border-line">
+            <div className="flex gap-1.5">
+              <button className="flex-1 text-left list-btn">
+                <MdAdd className="inline-block mr-2" />
+                <span>New Model</span>
+              </button>
+              <button className="list-btn" onClick={() => setShowNav(false)}>
+                <MdOutlineChevronLeft />
+              </button>
+            </div>
+          </nav>
+        ) : (
+          <button
+            className="absolute m-1.5 list-btn"
+            onClick={() => setShowNav(true)}
+          >
+            <MdOutlineChevronLeft />
+          </button>
+        )}
         <Outlet />
       </section>
     </section>
