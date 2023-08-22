@@ -16,10 +16,10 @@ export default function Root() {
 
   return (
     <section className="flex flex-col h-screen">
-      <header className="flex gap-10 sm:block p-6 border-b-2 border-b-line">
-        <h3 className="sm:absolute mt-3 sm:ml-10 text-2xl sm:text-3xl">
-          {SERVICE_NAME}
-        </h3>
+      <header className="relative flex justify-around gap-10 md:block p-6 border-b-2 border-b-line">
+        <div className="md:w-80 h-full flex justify-center items-center md:absolute md:top-0 md:left-0">
+          <h3 className="text-2xl md:text-3xl">{SERVICE_NAME}</h3>
+        </div>
         <nav>
           <ul className="flex justify-center gap-8">
             {navigation.map((menu) => {
