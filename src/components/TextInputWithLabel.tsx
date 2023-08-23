@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { MdOutlineInfo } from 'react-icons/md';
 import TextInput from '@/components/TextInput';
+import Label from '@/components/Label';
 
 interface Props {
-  id?: string;
+  id: string;
   label: string;
   info?: string;
   value?: string;
@@ -25,9 +26,7 @@ export default function TextInputWithLabel({
   return (
     <div className="w-full">
       <div className="mb-2 flex items-center gap-1">
-        <label htmlFor={id} className="text-sm font-semibold">
-          {label}
-        </label>
+        <Label id={id} label={label} className="text-sm font-semibold" />
         {info && <Tooltip info={info} />}
       </div>
       <TextInput
