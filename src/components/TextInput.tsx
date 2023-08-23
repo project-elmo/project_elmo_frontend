@@ -21,7 +21,7 @@ export default function TextInput({
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChange}
-      className="w-full p-3 border-2 border-line rounded-md placeholder:text-line"
+      className="input"
     />
   );
 }
