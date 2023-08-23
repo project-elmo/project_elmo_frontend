@@ -143,7 +143,8 @@ const ModelListItem = ({
         <Label
           id={model.name}
           label={model.name}
-          className={`text-sm cursor-pointer ${
+          isSide
+          className={`font-normal cursor-pointer ${
             !model.downloaded && 'text-line'
           }`}
         ></Label>
