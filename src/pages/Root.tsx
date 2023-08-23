@@ -5,9 +5,9 @@ import { ROUTES, SERVICE_NAME } from '@/constants';
 import Button from '@/components/Button';
 
 const navigation = [
-  { name: 'Train', path: ROUTES.MAIN },
+  { name: 'Train', path: ROUTES.TRAIN },
   { name: 'Test', path: ROUTES.TEST },
-  { name: 'History', path: ROUTES.HISTORY },
+  { name: 'History', path: ROUTES.MAIN },
 ];
 
 export default function Root() {
