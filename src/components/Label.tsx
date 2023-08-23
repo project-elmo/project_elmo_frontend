@@ -32,7 +32,7 @@ export default function Label({
     <div className={`flex items-center gap-1 ${!isSide && 'mb-2'}`}>
       <LabelRef
         htmlFor={id || ''}
-        className={`text-sm font-semibold ${className}`}
+        className={`text-sm ${!isSide && 'font-semibold'} ${className}`}
       >
         {label}
       </LabelRef>
