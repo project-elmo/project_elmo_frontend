@@ -14,7 +14,7 @@ const LabelRef = React.forwardRef<
 ));
 
 interface LabelProps {
-  id: string;
+  id?: string;
   label: string;
   info?: string;
   className?: string;
@@ -30,7 +30,10 @@ export default function Label({
 }: LabelProps) {
   return (
     <div className={`flex items-center gap-1 ${!isSide && 'mb-2'}`}>
-      <LabelRef htmlFor={id} className={`text-sm font-semibold ${className}`}>
+      <LabelRef
+        htmlFor={id || ''}
+        className={`text-sm font-semibold ${className}`}
+      >
         {label}
       </LabelRef>
       {info && <Tooltip info={info} />}
