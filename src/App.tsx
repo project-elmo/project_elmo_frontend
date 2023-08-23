@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from '@/pages/Root';
-import Welcome from '@/pages/Welcome';
-import Setting from '@/pages/Setting';
-import { ROUTES } from './constants';
+import WelcomePage from '@/pages/WelcomePage';
+import SettingPage from '@/pages/SettingPage';
+import { ROUTES } from '@/constants';
 
 const router = createBrowserRouter([
   {
@@ -11,11 +11,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.WELCOME,
-        element: <Welcome />,
+        element: <WelcomePage />,
       },
       {
         path: ROUTES.SETTING,
-        element: <Setting />,
+        element: <SettingPage />,
       },
     ],
   },

@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
 import { ROUTES, SERVICE_NAME } from '@/constants';
 
-export default function Welcome() {
+export default function WelcomePage() {
   const navigate = useNavigate();
 
   return (

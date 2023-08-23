@@ -3,7 +3,7 @@ import MainTemplate from '@/components/MainTemplate';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
 import { SERVICE_NAME } from '@/constants';
 
-export default function Setting() {
+export default function SettingPage() {
   return (
     <MainTemplate
       title="Environment Setting"
