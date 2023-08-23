@@ -13,13 +13,20 @@ const CheckBoxIndicator = React.forwardRef<
 
 interface CheckboxProps {
   id: string;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
 }
 
-export default function CheckBox({ id }: CheckboxProps) {
+export default function CheckBox({
+  id,
+  checked = false,
+  onCheckedChange,
+}: CheckboxProps) {
   return (
     <CheckboxPrimitive.Root
-      defaultChecked
       id={id}
+      checked={checked}
+      onCheckedChange={onCheckedChange}
       className="flex h-5 w-5 items-center justify-center border border-primary"
     >
       <CheckBoxIndicator>

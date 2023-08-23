@@ -18,7 +18,7 @@ interface LabelProps {
   className?: string;
 }
 
-export default function Label({ id, label, className = '' }: LabelProps) {
+export default function Label({ id, label, className }: LabelProps) {
   return (
     <LabelRef htmlFor={id} className={className}>
       {label}
