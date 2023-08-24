@@ -2,6 +2,7 @@ import useFunnel from '@/hooks/useFunnel';
 import StepModel from '@/pages/train/StepModel';
 import StepDataset from '@/pages/train/StepDataset';
 import StepParameter from '@/pages/train/StepParameter';
+import StepTraining from '@/pages/train/StepTraining';
 
 export default function TrainingPage() {
   const [Funnel, setStep] = useFunnel([
@@ -22,6 +23,9 @@ export default function TrainingPage() {
       </Funnel.Step>
       <Funnel.Step name="parameter">
         <StepParameter onNext={() => setStep('training')} />
+      </Funnel.Step>
+      <Funnel.Step name="training">
+        <StepTraining onNext={() => setStep('done')} />
       </Funnel.Step>
     </Funnel>
   );
