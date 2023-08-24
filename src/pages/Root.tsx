@@ -5,7 +5,7 @@ import { ROUTES, SERVICE_NAME } from '@/constants';
 import Button from '@/components/Button';
 
 const navigation = [
-  { name: 'Train', path: ROUTES.TRAIN },
+  { name: 'Training', path: ROUTES.TRAIN },
   { name: 'Test', path: ROUTES.TEST },
   { name: 'History', path: ROUTES.MAIN },
 ];
@@ -27,7 +27,7 @@ export default function Root() {
               return (
                 <li
                   key={menu.name}
-                  className={`w-20 h-12 p-3 text-center font-bold ${
+                  className={`w-24 h-12 p-3 text-center font-bold ${
                     isActive ? 'border-b-2 border-primary' : 'text-disabled'
                   }`}
                 >
