@@ -21,7 +21,7 @@ export default function Select({ items, value, onValueChange }: Props) {
           <MdOutlineExpandMore className="text-lg" />
         </SelectPrimitive.Icon>
       </SelectTrigger>
-      <SelectContent className="bg-white p-2 border rounded-md shadow shadow-line/30">
+      <SelectContent className="bg-white p-2 border rounded-md shadow shadow-line/30 z-20">
         <SelectScrollUpButton className="flex items-center justify-center">
           <MdOutlineExpandLess />
         </SelectScrollUpButton>
