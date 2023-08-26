@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { ReactFlowProvider } from 'reactflow';
 import { MdOutlineAdd, MdOutlineChevronLeft } from 'react-icons/md';
-import { ROUTES, SERVICE_NAME } from '@/constants';
 import Button from '@/components/Button';
+import SideNav from '@/components/SideNav';
+import { ROUTES, SERVICE_NAME } from '@/constants';
 
 const navigation = [
-  { name: 'Train', path: ROUTES.TRAIN },
+  { name: 'Training', path: ROUTES.TRAIN },
   { name: 'Test', path: ROUTES.TEST },
   { name: 'History', path: ROUTES.MAIN },
 ];
@@ -13,6 +15,26 @@ const navigation = [
 export default function Root() {
   const { pathname } = useLocation() as { pathname: string };
   const [showNav, setShowNav] = useState(true);
+  // TODO: API에서 모델 조회
+  const [models, setModels] = useState([
+    {
+      id: '1',
+      name: 'meta-llama/Llama-2-7b',
+    },
+    {
+      id: '2',
+      name: '문장분석 감성분류 모델',
+    },
+    {
+      id: '3',
+      name: '혐오표현 분류 모델',
+    },
+    {
+      id: '4',
+      name: '초등학생을 위한 진로코치 대화 모델',
+    },
+  ]);
+  const [selected, setSelected] = useState(models[0].id);
 
   return (
     <section className="flex flex-col h-screen">
@@ -27,7 +49,7 @@ export default function Root() {
               return (
                 <li
                   key={menu.name}
-                  className={`w-20 h-12 p-3 text-center font-bold ${
+                  className={`w-24 h-12 p-3 text-center font-bold ${
                     isActive ? 'border-b-2 border-primary' : 'text-disabled'
                   }`}
                 >
@@ -40,7 +62,7 @@ export default function Root() {
       </header>
       <section className="flex flex-1 w-screen">
         {showNav ? (
-          <nav className="w-80 p-1.5 bg-secondary border-r-2 border-line">
+          <SideNav side="left">
             <div className="flex gap-1.5">
               <Button listStyle className="flex-1 text-left">
                 <MdOutlineAdd className="inline-block mr-2" />
@@ -50,7 +72,20 @@ export default function Root() {
                 <MdOutlineChevronLeft />
               </Button>
             </div>
-          </nav>
+            <ul className="mt-1.5">
+              {models.map((model) => (
+                <li
+                  key={model.id}
+                  onClick={() => setSelected(model.id)}
+                  className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
+                    model.id === selected && 'font-bold bg-slate-200'
+                  }`}
+                >
+                  {model.name}
+                </li>
+              ))}
+            </ul>
+          </SideNav>
         ) : (
           <Button
             listStyle
@@ -60,7 +95,9 @@ export default function Root() {
             <MdOutlineChevronLeft />
           </Button>
         )}
-        <Outlet />
+        <ReactFlowProvider>
+          <Outlet />
+        </ReactFlowProvider>
       </section>
     </section>
   );
