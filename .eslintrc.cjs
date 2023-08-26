@@ -13,10 +13,6 @@ module.exports = {
   parserOptions: { ecmaVersion: 12, sourceType: 'module' },
   plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
     '@typescript-eslint/no-unused-vars': ['warn'],
   },
 };
