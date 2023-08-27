@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
 import { MdOutlineAdd, MdOutlineChevronLeft } from 'react-icons/md';
 import Button from '@/components/Button';
@@ -35,6 +35,7 @@ export default function Root() {
     },
   ]);
   const [selected, setSelected] = useState(models[0].id);
+  const navigate = useNavigate();
 
   return (
     <section className="flex flex-col h-screen">
@@ -64,7 +65,11 @@ export default function Root() {
         {showNav ? (
           <SideNav side="left">
             <div className="flex gap-1.5">
-              <Button listStyle className="flex-1 text-left">
+              <Button
+                listStyle
+                className="flex-1 text-left"
+                onClick={() => navigate(ROUTES.TRAIN)}
+              >
                 <MdOutlineAdd className="inline-block mr-2" />
                 <span>New Model</span>
               </Button>
