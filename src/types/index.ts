@@ -4,5 +4,5 @@ export type PreTrainedModel = {
   description: string;
   version: string;
   base_model: string;
-  downloaded: false;
+  is_downloaded: false; // TODO: 임시값
 };
