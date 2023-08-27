@@ -14,4 +14,5 @@ export const ROUTES = {
 
 export const QUERY_KEYS = {
   HEALTH: 'health',
+  PRE_TRAINED_MODELS: 'preTrainedModels',
 } as const;
