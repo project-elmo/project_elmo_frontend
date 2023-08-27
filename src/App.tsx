@@ -1,10 +1,20 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Root from '@/pages/Root';
 import WelcomePage from '@/pages/WelcomePage';
 import SettingPage from '@/pages/SettingPage';
 import TrainingPage from '@/pages/train';
 import HistoryPage from '@/pages/HistoryPage';
-import { ROUTES } from '@/constants';
+import { QUERY_KEYS, ROUTES } from '@/constants';
+import { healthCheck } from './api/rest';
+import { useEffect } from 'react';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -31,8 +41,26 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
-  return <RouterProvider router={router} />;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Init />
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
-export default App;
+function Init() {
+  const { isSuccess } = useQuery({
+    queryKey: [QUERY_KEYS.HEALTH],
+    queryFn: healthCheck,
+  });
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    console.log('health check');
+  }, [isSuccess]);
+
+  return <></>;
+}
