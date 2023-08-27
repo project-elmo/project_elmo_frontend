@@ -1,5 +1,9 @@
 export const SERVICE_NAME = 'ELMO';
 
+export const SOCKET_API_URL = `${
+  import.meta.env.VITE_SOCKET_URL
+}/api/training/ws/progress/`;
+
 export const ROUTES = {
   MAIN: '/',
   WELCOME: '/welcome',

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   QueryClient,
@@ -5,14 +6,13 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { healthCheck } from '@/api/rest';
 import Root from '@/pages/Root';
 import WelcomePage from '@/pages/WelcomePage';
 import SettingPage from '@/pages/SettingPage';
 import TrainingPage from '@/pages/train';
 import HistoryPage from '@/pages/HistoryPage';
 import { QUERY_KEYS, ROUTES } from '@/constants';
-import { healthCheck } from './api/rest';
-import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
