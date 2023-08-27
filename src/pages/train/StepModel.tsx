@@ -1,74 +1,25 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { MdDownload } from 'react-icons/md';
+import { getPreTrainedModels } from '@/api/rest';
 import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
+import { QUERY_KEYS } from '@/constants';
+import { PreTrainedModel } from '@/types';
 
 interface Props {
   onNext: () => void;
 }
 
-// TODO: 나중에 API 호출 후 대체
-type Model = {
-  id: number;
-  name: string;
-  description: string;
-  downloaded: boolean;
-};
-const models: Model[] = [
-  {
-    id: 1,
-    name: 'skt/kogpt2-base-v2',
-    description: 'KoGPT2',
-    downloaded: false,
-  },
-  {
-    id: 2,
-    name: 'gpt2',
-    description: 'GPT2',
-    downloaded: true,
-  },
-  {
-    id: 3,
-    name: 'meta-llama/Llama-2-7b',
-    description: 'Llama',
-    downloaded: false,
-  },
-  {
-    id: 4,
-    name: 'meta-llama/Llama-2-13b-hf',
-    description: 'Llama',
-    downloaded: false,
-  },
-  {
-    id: 5,
-    name: 'meta-llama/Llama-2-13b-hf1',
-    description: 'Llama',
-    downloaded: false,
-  },
-  {
-    id: 6,
-    name: 'meta-llama/Llama-2-13b-hf2',
-    description: 'Llama',
-    downloaded: false,
-  },
-  {
-    id: 7,
-    name: 'meta-llama/Llama-2-13b-hf3',
-    description: 'Llama',
-    downloaded: false,
-  },
-  {
-    id: 8,
-    name: 'meta-llama/Llama-2-13b-hf4',
-    description: 'Llama',
-    downloaded: false,
-  },
-];
-
 export default function StepModel({ onNext }: Props) {
-  const [selected, setSelected] = useState<Model | null>(null);
+  const [selected, setSelected] = useState<PreTrainedModel | null>(null);
+
+  const { data: models } = useQuery({
+    queryKey: [QUERY_KEYS.PRE_TRAINED_MODELS],
+    queryFn: getPreTrainedModels,
+  });
 
   return (
     <MainTemplate
@@ -80,24 +31,25 @@ export default function StepModel({ onNext }: Props) {
           <div className="flex flex-col basis-3/5">
             <h4 className="px-6 py-3 font-bold bg-secondary">Models</h4>
             <ul className="h-full border border-line overflow-y-scroll">
-              {models.map((model) => (
+              {models?.map((model) => (
                 <ModelListItem
-                  key={model.id}
+                  key={model.pm_no}
                   model={model}
-                  checked={selected?.id === model.id}
-                  onCheckedChange={() => setSelected(model)}
+                  checked={selected?.pm_no === model.pm_no}
+                  onCheckedChange={() =>
+                    setSelected(selected === model ? null : model)
+                  }
                 />
               ))}
             </ul>
           </div>
-          <div className="flex-1 p-4 border border-line">
+          <div className="flex-1 p-4 border border-line overflow-y-scroll">
             {selected ? (
               <>
-                <p className="text-xs">
-                  {/* TODO: 다운로드를 마치지 않은 모델은 어떻게 할지 정하기 */}
+                <p className="text-xs mb-2">
                   {selected?.downloaded ? 'Downloaded' : 'Downloading'}
                 </p>
-                <h3 className="my-2 text-2xl">{selected.name}</h3>
+                <h3 className="text-2xl mb-2">{selected.name}</h3>
                 <p>{selected.description}</p>
               </>
             ) : (
@@ -114,7 +66,7 @@ export default function StepModel({ onNext }: Props) {
 }
 
 interface ModelListItemProps {
-  model: Model;
+  model: PreTrainedModel;
   checked: boolean;
   onCheckedChange: () => void;
 }
@@ -124,16 +76,13 @@ const ModelListItem = ({
   checked,
   onCheckedChange,
 }: ModelListItemProps) => {
-  const onClickListItem = () => {
+  const onClickDownload = () => {
     onCheckedChange();
     // TODO: 모델 다운로드 여부 확인 후 없으면 다운로드
   };
 
   return (
-    <li
-      className="flex justify-between items-center p-3 border-b border-line cursor-pointer"
-      onClick={onClickListItem}
-    >
+    <li className="flex justify-between items-center p-3 border-b border-line">
       <div className="flex gap-4 items-center">
         <CheckBox
           id={model.name}
@@ -144,12 +93,15 @@ const ModelListItem = ({
           id={model.name}
           label={model.name}
           isSide
-          className={`font-normal cursor-pointer ${
-            !model.downloaded && 'text-line'
-          }`}
+          className={`font-normal ${!model.downloaded && 'text-line'}`}
         ></Label>
       </div>
-      {!model.downloaded && <MdDownload className="text-line" />}
+      <Button
+        className="w-fit p-0 bg-transparent text-line font"
+        onClick={onClickDownload}
+      >
+        {!model.downloaded && <MdDownload />}
+      </Button>
     </li>
   );
 };
