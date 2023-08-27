@@ -47,7 +47,7 @@ export default function StepModel({ onNext }: Props) {
             {selected ? (
               <>
                 <p className="text-xs mb-2">
-                  {selected?.downloaded ? 'Downloaded' : 'Downloading'}
+                  {selected?.is_downloaded ? 'Downloaded' : 'Downloading'}
                 </p>
                 <h3 className="text-2xl mb-2">{selected.name}</h3>
                 <p>{selected.description}</p>
@@ -93,14 +93,14 @@ const ModelListItem = ({
           id={model.name}
           label={model.name}
           isSide
-          className={`font-normal ${!model.downloaded && 'text-line'}`}
+          className={`font-normal ${!model.is_downloaded && 'text-line'}`}
         ></Label>
       </div>
       <Button
         className="w-fit p-0 bg-transparent text-line font"
         onClick={onClickDownload}
       >
-        {!model.downloaded && <MdDownload />}
+        {!model.is_downloaded && <MdDownload />}
       </Button>
     </li>
   );
