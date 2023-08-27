@@ -6,4 +6,8 @@ export const ROUTES = {
   SETTING: '/setting',
   TRAIN: '/train',
   TEST: '/test',
-};
+} as const;
+
+export const QUERY_KEYS = {
+  HEALTH: 'health',
+} as const;
