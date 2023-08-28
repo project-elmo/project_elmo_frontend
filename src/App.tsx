@@ -26,6 +26,10 @@ const router = createBrowserRouter([
         element: <HistoryPage />,
       },
       {
+        path: ROUTES.HISTORY,
+        element: <HistoryPage />,
+      },
+      {
         path: ROUTES.WELCOME,
         element: <WelcomePage />,
       },
