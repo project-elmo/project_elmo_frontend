@@ -9,7 +9,11 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { getFineTunedModels } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
-import { MdOutlineAdd, MdOutlineChevronLeft } from 'react-icons/md';
+import {
+  MdOutlineAdd,
+  MdOutlineChevronLeft,
+  MdOutlineSettings,
+} from 'react-icons/md';
 import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
 import { QUERY_KEYS, ROUTES, SERVICE_NAME } from '@/constants';
@@ -59,7 +63,7 @@ export default function Root() {
       </header>
       <section className="flex flex-1 w-screen">
         {showNav ? (
-          <SideNav side="left">
+          <SideNav side="left" className="flex flex-col">
             <div className="flex gap-1.5">
               <Button
                 listStyle
@@ -73,7 +77,7 @@ export default function Root() {
                 <MdOutlineChevronLeft />
               </Button>
             </div>
-            <ul className="mt-1.5">
+            <ul className="mt-1.5 grow">
               {models?.map((model) => (
                 <Link to={`${ROUTES.MAIN}${model.fm_no}`} key={model.fm_no}>
                   <li
@@ -88,6 +92,13 @@ export default function Root() {
                 </Link>
               ))}
             </ul>
+            <Link
+              to={ROUTES.SETTING}
+              className="-mx-2 p-4 pt-5 flex items-center gap-3 border-t-2 border-line text-neutral-400"
+            >
+              <MdOutlineSettings className="text-xl" />
+              <span>Settings</span>
+            </Link>
           </SideNav>
         ) : (
           <Button
