@@ -17,3 +17,11 @@ export type ModelDownloadProgress = {
   end_time: string;
   sec_per_dl: string;
 };
+
+export type FineTunedModel = {
+  fm_no: number;
+  user_no: number;
+  pm_no: number;
+  fm_name: string;
+  fm_description: string;
+};
