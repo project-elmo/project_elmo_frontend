@@ -1,4 +1,4 @@
-import { PreTrainedModel } from '@/types';
+import { FineTunedModel, PreTrainedModel } from '@/types';
 import axios from 'axios';
 
 const API_PREFIX = `${import.meta.env.VITE_API_URL}/api`;
@@ -30,4 +30,12 @@ export const downloadModel = async (name: string) => {
     throw new Error(res.statusText);
   }
   return res;
+};
+
+export const getFineTunedModels = async (): Promise<FineTunedModel[]> => {
+  const res = await axiosInstance.get('/history/finetuned_models');
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
 };

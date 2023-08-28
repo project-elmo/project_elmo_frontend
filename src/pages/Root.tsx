@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getFineTunedModels } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
 import { MdOutlineAdd, MdOutlineChevronLeft } from 'react-icons/md';
 import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
-import { ROUTES, SERVICE_NAME } from '@/constants';
+import { QUERY_KEYS, ROUTES, SERVICE_NAME } from '@/constants';
 
 const navigation = [
   { name: 'Training', path: ROUTES.TRAIN },
@@ -15,27 +17,13 @@ const navigation = [
 export default function Root() {
   const { pathname } = useLocation() as { pathname: string };
   const [showNav, setShowNav] = useState(true);
-  // TODO: API에서 모델 조회
-  const [models, setModels] = useState([
-    {
-      id: '1',
-      name: 'meta-llama/Llama-2-7b',
-    },
-    {
-      id: '2',
-      name: '문장분석 감성분류 모델',
-    },
-    {
-      id: '3',
-      name: '혐오표현 분류 모델',
-    },
-    {
-      id: '4',
-      name: '초등학생을 위한 진로코치 대화 모델',
-    },
-  ]);
-  const [selected, setSelected] = useState(models[0].id);
+  const [selected, setSelected] = useState(0);
   const navigate = useNavigate();
+
+  const { data: models } = useQuery({
+    queryKey: [QUERY_KEYS.FINE_TUNED_MODELS],
+    queryFn: getFineTunedModels,
+  });
 
   return (
     <section className="flex flex-col h-screen">
@@ -78,15 +66,15 @@ export default function Root() {
               </Button>
             </div>
             <ul className="mt-1.5">
-              {models.map((model) => (
+              {models?.map((model) => (
                 <li
-                  key={model.id}
-                  onClick={() => setSelected(model.id)}
+                  key={model.fm_no}
+                  onClick={() => setSelected(model.fm_no)}
                   className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
-                    model.id === selected && 'font-bold bg-slate-200'
+                    model.fm_no === selected && 'font-bold bg-slate-200'
                   }`}
                 >
-                  {model.name}
+                  {model.fm_name}
                 </li>
               ))}
             </ul>
