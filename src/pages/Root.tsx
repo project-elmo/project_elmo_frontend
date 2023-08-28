@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getFineTunedModels } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
@@ -16,16 +10,11 @@ import {
 } from 'react-icons/md';
 import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
-import { QUERY_KEYS, ROUTES, SERVICE_NAME } from '@/constants';
-
-const navigation = [
-  { name: 'Training', path: ROUTES.TRAIN },
-  { name: 'Test', path: ROUTES.TEST },
-  { name: 'History', path: ROUTES.MAIN },
-];
+import Header from '@/components/Header';
+import Container from '@/components/Container';
+import { QUERY_KEYS, ROUTES } from '@/constants';
 
 export default function Root() {
-  const { pathname } = useLocation() as { pathname: string };
   const { fmNo } = useParams();
   const [showNav, setShowNav] = useState(true);
   const navigate = useNavigate();
@@ -36,31 +25,8 @@ export default function Root() {
   });
 
   return (
-    <section className="flex flex-col h-screen">
-      <header className="relative flex justify-around gap-10 md:block p-6 border-b-2 border-b-line">
-        <div className="md:w-80 h-full flex justify-center items-center md:absolute md:top-0 md:left-0">
-          <Link to={ROUTES.MAIN}>
-            <h3 className="text-2xl md:text-3xl">{SERVICE_NAME}</h3>
-          </Link>
-        </div>
-        <nav>
-          <ul className="flex justify-center gap-8">
-            {navigation.map((menu) => {
-              const isActive = pathname === menu.path;
-              return (
-                <li
-                  key={menu.name}
-                  className={`w-24 h-12 p-3 text-center font-bold ${
-                    isActive ? 'border-b-2 border-primary' : 'text-disabled'
-                  }`}
-                >
-                  <Link to={menu.path}>{menu.name}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </header>
+    <Container>
+      <Header />
       <section className="flex flex-1 w-screen">
         {showNav ? (
           <SideNav side="left" className="flex flex-col">
@@ -113,6 +79,6 @@ export default function Root() {
           <Outlet />
         </ReactFlowProvider>
       </section>
-    </section>
+    </Container>
   );
 }

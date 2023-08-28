@@ -20,3 +20,7 @@ export const QUERY_KEYS = {
   TRAINING_SESSIONS: 'trainingSessions',
   TRAINING_PARAMETER: 'trainingParameter',
 } as const;
+
+export const LOCAL_STORAGE_KEYS = {
+  ONBOARDED: 'onboarded',
+} as const;
