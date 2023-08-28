@@ -7,45 +7,16 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { healthCheck } from '@/api/rest';
-import Root from '@/pages/Root';
-import WelcomePage from '@/pages/WelcomePage';
-import SettingPage from '@/pages/SettingPage';
-import TrainingPage from '@/pages/train';
-import HistoryPage from '@/pages/HistoryPage';
-import { QUERY_KEYS, ROUTES } from '@/constants';
+import { useUser } from '@/contexts/UserContext';
+import { routes } from '@/utils/routes';
+import { QUERY_KEYS } from '@/constants';
 
 const queryClient = new QueryClient();
 
-const router = createBrowserRouter([
-  {
-    path: ROUTES.MAIN,
-    element: <Root />,
-    children: [
-      {
-        index: true,
-        element: <HistoryPage />,
-      },
-      {
-        path: ROUTES.HISTORY,
-        element: <HistoryPage />,
-      },
-      {
-        path: ROUTES.WELCOME,
-        element: <WelcomePage />,
-      },
-      {
-        path: ROUTES.SETTING,
-        element: <SettingPage />,
-      },
-      {
-        path: ROUTES.TRAIN,
-        element: <TrainingPage />,
-      },
-    ],
-  },
-]);
-
 export default function App() {
+  const { isOnboarded } = useUser();
+  const router = createBrowserRouter(routes(isOnboarded));
+
   return (
     <QueryClientProvider client={queryClient}>
       <Init />
