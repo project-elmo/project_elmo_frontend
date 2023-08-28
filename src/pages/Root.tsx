@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getFineTunedModels } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
@@ -16,8 +22,8 @@ const navigation = [
 
 export default function Root() {
   const { pathname } = useLocation() as { pathname: string };
+  const { fmNo } = useParams();
   const [showNav, setShowNav] = useState(true);
-  const [selected, setSelected] = useState(0);
   const navigate = useNavigate();
 
   const { data: models } = useQuery({
@@ -29,7 +35,9 @@ export default function Root() {
     <section className="flex flex-col h-screen">
       <header className="relative flex justify-around gap-10 md:block p-6 border-b-2 border-b-line">
         <div className="md:w-80 h-full flex justify-center items-center md:absolute md:top-0 md:left-0">
-          <h3 className="text-2xl md:text-3xl">{SERVICE_NAME}</h3>
+          <Link to={ROUTES.MAIN}>
+            <h3 className="text-2xl md:text-3xl">{SERVICE_NAME}</h3>
+          </Link>
         </div>
         <nav>
           <ul className="flex justify-center gap-8">
@@ -67,15 +75,17 @@ export default function Root() {
             </div>
             <ul className="mt-1.5">
               {models?.map((model) => (
-                <li
-                  key={model.fm_no}
-                  onClick={() => setSelected(model.fm_no)}
-                  className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
-                    model.fm_no === selected && 'font-bold bg-slate-200'
-                  }`}
-                >
-                  {model.fm_name}
-                </li>
+                <Link to={`${ROUTES.MAIN}${model.fm_no}`} key={model.fm_no}>
+                  <li
+                    className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
+                      fmNo &&
+                      model.fm_no === Number(fmNo) &&
+                      'font-bold bg-slate-200'
+                    }`}
+                  >
+                    {model.fm_name}
+                  </li>
+                </Link>
               ))}
             </ul>
           </SideNav>

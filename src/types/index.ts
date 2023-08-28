@@ -25,3 +25,12 @@ export type FineTunedModel = {
   fm_name: string;
   fm_description: string;
 };
+
+export type TrainingSession = {
+  session_no: string;
+  fm_no: number;
+  parent_session_no: string;
+  start_time: string;
+  end_time: string;
+  ts_model_name: string;
+};

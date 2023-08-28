@@ -6,6 +6,7 @@ export const SOCKET_API_URL = `${
 
 export const ROUTES = {
   MAIN: '/',
+  HISTORY: '/:fmNo',
   WELCOME: '/welcome',
   SETTING: '/setting',
   TRAIN: '/train',
@@ -16,4 +17,5 @@ export const QUERY_KEYS = {
   HEALTH: 'health',
   PRE_TRAINED_MODELS: 'preTrainedModels',
   FINE_TUNED_MODELS: 'fineTunedModels',
+  TRAINING_SESSIONS: 'trainingSessions',
 } as const;

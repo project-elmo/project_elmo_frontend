@@ -39,6 +39,7 @@ export default function StepModel({ onNext }: Props) {
   });
 
   const handleSocketMessage = (event: MessageEvent<string>) => {
+    console.log(event.data);
     setDownloadProgress(JSON.parse(event.data));
   };
 
