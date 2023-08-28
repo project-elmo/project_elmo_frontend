@@ -34,3 +34,23 @@ export type TrainingSession = {
   end_time: string;
   ts_model_name: string;
 };
+
+export type TrainingParameter = {
+  parameter_no: number;
+  session_no: number;
+  fm_no: number;
+  model_name: string;
+  epochs: number;
+  save_strategy: string;
+  logging_strategy: string;
+  evaluation_strategy: string;
+  learning_rate: number;
+  weight_decay: number;
+  batch_size: number;
+  eval_steps: number;
+  save_steps: number;
+  save_total_limits: number;
+  run_on_gpu: boolean;
+  load_best_at_the_end: boolean;
+  dataset: string;
+};

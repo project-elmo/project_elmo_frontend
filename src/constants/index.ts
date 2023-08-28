@@ -18,4 +18,5 @@ export const QUERY_KEYS = {
   PRE_TRAINED_MODELS: 'preTrainedModels',
   FINE_TUNED_MODELS: 'fineTunedModels',
   TRAINING_SESSIONS: 'trainingSessions',
+  TRAINING_PARAMETER: 'trainingParameter',
 } as const;
