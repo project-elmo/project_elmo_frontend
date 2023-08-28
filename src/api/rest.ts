@@ -1,4 +1,5 @@
 import {
+  Dataset,
   FineTunedModel,
   PreTrainedModel,
   TrainingParameter,
@@ -61,6 +62,14 @@ export const getTrainingParameter = async (
   const res = await axiosInstance.get(
     `/history/training_parameters/${sessionNo}`
   );
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const getDatasets = async (): Promise<Dataset[]> => {
+  const res = await axiosInstance.get('/training/get_datasets');
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }

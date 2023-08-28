@@ -19,6 +19,7 @@ export const QUERY_KEYS = {
   FINE_TUNED_MODELS: 'fineTunedModels',
   TRAINING_SESSIONS: 'trainingSessions',
   TRAINING_PARAMETER: 'trainingParameter',
+  DATASETS: 'datasets',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {
