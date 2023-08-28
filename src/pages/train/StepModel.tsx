@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MdDownload } from 'react-icons/md';
-import { getPreTrainedModels } from '@/api/rest';
+import { downloadModel, getPreTrainedModels } from '@/api/rest';
+import { connectSocket } from '@/utils';
 import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
-import { QUERY_KEYS } from '@/constants';
-import { PreTrainedModel } from '@/types';
+import Spinner from '@/components/Spinner';
+import { QUERY_KEYS, SOCKET_API_URL } from '@/constants';
+import { ModelDownloadProgress, PreTrainedModel } from '@/types';
 
 interface Props {
   onNext: () => void;
@@ -15,11 +17,35 @@ interface Props {
 
 export default function StepModel({ onNext }: Props) {
   const [selected, setSelected] = useState<PreTrainedModel | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadProgress, setDownloadProgress] =
+    useState<ModelDownloadProgress | null>(null);
+  const socket = useRef<WebSocket | null>(null);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!downloadProgress) return;
+    if (downloadProgress.curr_percent === 100) {
+      setIsDownloading(false);
+      setDownloadProgress(null);
+      socket.current?.close();
+      queryClient.invalidateQueries([QUERY_KEYS.PRE_TRAINED_MODELS]);
+    }
+  }, [downloadProgress, queryClient]);
 
   const { data: models } = useQuery({
     queryKey: [QUERY_KEYS.PRE_TRAINED_MODELS],
     queryFn: getPreTrainedModels,
   });
+
+  const handleSocketMessage = (event: MessageEvent<string>) => {
+    setDownloadProgress(JSON.parse(event.data));
+  };
+
+  const handleDownload = () => {
+    socket.current = connectSocket<string>(SOCKET_API_URL, handleSocketMessage);
+    setIsDownloading(true);
+  };
 
   return (
     <MainTemplate
@@ -36,19 +62,33 @@ export default function StepModel({ onNext }: Props) {
                   key={model.pm_no}
                   model={model}
                   checked={selected?.pm_no === model.pm_no}
+                  isDownloading={isDownloading}
                   onCheckedChange={() =>
                     setSelected(selected === model ? null : model)
                   }
+                  onDownload={handleDownload}
                 />
               ))}
             </ul>
           </div>
-          <div className="flex-1 p-4 border border-line overflow-y-scroll">
+          <div className="flex-1 p-4 border border-line overflow-y-scroll whitespace-pre-line">
             {selected ? (
               <>
-                <p className="text-xs mb-2">
-                  {selected?.is_downloaded ? 'Downloaded' : 'Downloading'}
-                </p>
+                <div className="text-xs mb-2">
+                  <p className="mb-2">
+                    {selected?.is_downloaded ? 'Downloaded' : 'Downloading...'}
+                  </p>
+                  {isDownloading &&
+                    downloadProgress?.model_name === selected.name && (
+                      <p>
+                        <span>
+                          {downloadProgress.curr_size}&#32;/&#32;
+                          {downloadProgress.total}
+                        </span>
+                        <span>&#32;({downloadProgress.curr_percent}%)</span>
+                      </p>
+                    )}
+                </div>
                 <h3 className="text-2xl mb-2">{selected.name}</h3>
                 <p>{selected.description}</p>
               </>
@@ -58,7 +98,9 @@ export default function StepModel({ onNext }: Props) {
           </div>
         </div>
         <div className="mt-6 text-center">
-          <Button onClick={onNext}>Next</Button>
+          <Button disabled={!selected?.is_downloaded} onClick={onNext}>
+            Next
+          </Button>
         </div>
       </div>
     </MainTemplate>
@@ -68,21 +110,30 @@ export default function StepModel({ onNext }: Props) {
 interface ModelListItemProps {
   model: PreTrainedModel;
   checked: boolean;
+  isDownloading: boolean;
   onCheckedChange: () => void;
+  onDownload: () => void;
 }
 
 const ModelListItem = ({
   model,
   checked,
+  isDownloading,
   onCheckedChange,
+  onDownload,
 }: ModelListItemProps) => {
+  const downloadMutation = useMutation({
+    mutationFn: () => downloadModel(model.name),
+    onSuccess: onDownload,
+  });
+
   const onClickDownload = () => {
     onCheckedChange();
-    // TODO: 모델 다운로드 여부 확인 후 없으면 다운로드
+    downloadMutation.mutate();
   };
 
   return (
-    <li className="flex justify-between items-center p-3 border-b border-line">
+    <li className="h-12 flex justify-between items-center p-3 border-b border-line">
       <div className="flex gap-4 items-center">
         <CheckBox
           id={model.name}
@@ -96,12 +147,22 @@ const ModelListItem = ({
           className={`font-normal ${!model.is_downloaded && 'text-line'}`}
         ></Label>
       </div>
-      <Button
-        className="w-fit p-0 bg-transparent text-line font"
-        onClick={onClickDownload}
-      >
-        {!model.is_downloaded && <MdDownload />}
-      </Button>
+      <div className="h-full">
+        {!model.is_downloaded && (
+          <>
+            {isDownloading ? (
+              <Spinner />
+            ) : (
+              <Button
+                className="w-fit p-0 bg-transparent text-line"
+                onClick={onClickDownload}
+              >
+                <MdDownload />
+              </Button>
+            )}
+          </>
+        )}
+      </div>
     </li>
   );
 };
