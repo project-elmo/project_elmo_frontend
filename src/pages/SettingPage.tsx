@@ -11,10 +11,10 @@ export default function SettingPage() {
     >
       <form>
         <TextInputWithLabel
-          id="server-url"
-          label="Server URL"
+          id="model-save-path"
+          label="Model save path"
           info="example information"
-          placeholder={`http://localhost:8080`}
+          placeholder={`home/{user}/elmo/data/models`}
         />
         <div className="mt-6 text-center">
           <Button type="submit">Start {SERVICE_NAME}</Button>
