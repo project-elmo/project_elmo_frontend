@@ -1,15 +1,27 @@
 import { useRef, useState } from 'react';
-import { MdOutlineAdd, MdOutlineClose } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import { getDatasets } from '@/api/rest';
+import { MdOutlineAdd } from 'react-icons/md';
 import MainTemplate from '@/components/MainTemplate';
 import Button from '@/components/Button';
+import CheckBox from '@/components/CheckBox';
+import Label from '@/components/Label';
+import { QUERY_KEYS } from '@/constants';
+import { Dataset } from '@/types';
 
 interface Props {
   onNext: () => void;
 }
 
 export default function StepDataset({ onNext }: Props) {
-  const [datasets, setDatasets] = useState<File[]>([]);
+  const [datasetFiles, setDatasetFiles] = useState<File[]>([]);
+  const [selected, setSelected] = useState<Dataset | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  const { data: datasets } = useQuery({
+    queryKey: [QUERY_KEYS.DATASETS],
+    queryFn: getDatasets,
+  });
 
   const handleClickFileUpload = () => {
     fileInput.current?.click();
@@ -20,19 +32,14 @@ export default function StepDataset({ onNext }: Props) {
     if (!files) return;
 
     const fileArray = Array.from(files);
-    console.log(fileArray);
-    setDatasets([...datasets, ...fileArray]);
-  };
-
-  const handleDeleteFile = (lastModified: number) => {
-    const filteredDatasets = datasets.filter(
-      (dataset) => dataset.lastModified !== lastModified
-    );
-    setDatasets(filteredDatasets);
+    setDatasetFiles([...datasetFiles, ...fileArray]);
   };
 
   return (
-    <MainTemplate title="Add Datasets" description="json, excel, csv">
+    <MainTemplate
+      title="Add Datasets"
+      description="Upload dataset files(json, excel, csv) and select one."
+    >
       <div>
         <div className="flex flex-col h-96">
           <h4 className="px-6 py-3 font-bold border-2 border-secondary">
@@ -50,26 +57,57 @@ export default function StepDataset({ onNext }: Props) {
             <Button className="list-file" onClick={handleClickFileUpload}>
               <MdOutlineAdd className="m-auto text-lg" />
             </Button>
-            {datasets.map((dataset) => (
-              <li
-                key={dataset.lastModified}
-                className="list-file flex justify-between items-center"
-              >
-                <span>{dataset.name}</span>
-                <Button
-                  className="w-fit bg-transparent text-primary text-lg"
-                  onClick={() => handleDeleteFile(dataset.lastModified)}
-                >
-                  <MdOutlineClose />
-                </Button>
-              </li>
+            {datasets?.map((dataset) => (
+              <DatasetlListItem
+                key={dataset.filename}
+                dataset={dataset}
+                checked={selected?.filename === dataset.filename}
+                onCheckedChange={() =>
+                  setSelected(selected === dataset ? null : dataset)
+                }
+              />
             ))}
           </ul>
         </div>
         <div className="mt-6 text-center">
-          <Button onClick={onNext}>Next</Button>
+          <Button onClick={onNext} disabled={!selected}>
+            Next
+          </Button>
         </div>
       </div>
     </MainTemplate>
   );
 }
+
+interface DatasetListItemProps {
+  dataset: Dataset;
+  checked: boolean;
+  onCheckedChange: () => void;
+}
+
+const DatasetlListItem = ({
+  dataset,
+  checked,
+  onCheckedChange,
+}: DatasetListItemProps) => {
+  return (
+    <li
+      key={dataset.filename}
+      className="list-file flex justify-between items-center"
+    >
+      <div className="flex gap-4 items-center">
+        <CheckBox
+          id={dataset.filename}
+          checked={checked}
+          onCheckedChange={onCheckedChange}
+        />
+        <Label
+          id={dataset.filename}
+          label={dataset.filename}
+          isSide
+          className="font-normal"
+        ></Label>
+      </div>
+    </li>
+  );
+};

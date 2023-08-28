@@ -54,3 +54,10 @@ export type TrainingParameter = {
   load_best_at_the_end: boolean;
   dataset: string;
 };
+
+export type Dataset = {
+  file_path: string;
+  size: number;
+  filename: string;
+  extension: string;
+};
