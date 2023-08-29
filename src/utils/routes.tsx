@@ -27,17 +27,16 @@ export const routes = (isOnboarded: boolean) => {
           element: <HistoryPage />,
         },
         {
-          path: ROUTES.HISTORY,
-          element: <HistoryPage />,
-        },
-
-        {
           path: ROUTES.SETTING,
           element: <SettingPage />,
         },
         {
-          path: ROUTES.TRAIN,
+          path: ROUTES.TRAINING,
           element: <TrainingPage />,
+        },
+        {
+          path: ROUTES.HISTORY,
+          element: <HistoryPage />,
         },
       ],
     },

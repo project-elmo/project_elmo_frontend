@@ -110,80 +110,87 @@ export default function HistoryPage() {
         </div>
       </section>
       {selected && (
-        <SideNav side="right" className="p-1.5">
-          <div className="text-right">
-            <Button listStyle onClick={handleCloseRightNav}>
-              <MdOutlineClose />
-            </Button>
-          </div>
-          <div className="px-1.5 py-2">
-            <TextInputWithLabel
-              id="trained-model-name"
-              label="Trained Model Name"
-              value={selected.ts_model_name}
-              onChange={() => {}}
-            />
-            {trainingParameter && (
-              <div className="max-h-[30rem] flex flex-col gap-3 mt-3 overflow-y-scroll">
-                <Parameter
-                  label="Model Name"
-                  value={trainingParameter.model_name}
-                />
-                <Parameter label="Epochs" value={trainingParameter.epochs} />
-                <Parameter
-                  label="Save Strategy"
-                  value={trainingParameter.save_strategy}
-                />
-                <Parameter
-                  label="Logging Strategy"
-                  value={trainingParameter.logging_strategy}
-                />
-                <Parameter
-                  label="Evaluation Strategy"
-                  value={trainingParameter.evaluation_strategy}
-                />
-                <Parameter
-                  label="Learning Rate"
-                  value={trainingParameter.learning_rate}
-                />
-                <Parameter
-                  label="Weight Decay"
-                  value={trainingParameter.weight_decay}
-                />
-                <Parameter
-                  label="Batch Size"
-                  value={trainingParameter.batch_size}
-                />
-                <Parameter
-                  label="Eval Steps"
-                  value={trainingParameter.eval_steps}
-                />
-                <Parameter
-                  label="Save Steps"
-                  value={trainingParameter.save_steps}
-                />
-                <Parameter
-                  label="Save Total Limits"
-                  value={trainingParameter.save_total_limits}
-                />
-                <Parameter
-                  label="Run on GPU"
-                  value={trainingParameter.run_on_gpu ? 'on' : 'off'}
-                />
-                <Parameter
-                  label="Load Best At The End"
-                  value={trainingParameter.load_best_at_the_end ? 'on' : 'off'}
-                />
-                {trainingParameter.dataset && (
+        <SideNav
+          side="right"
+          className="flex flex-col justify-between p-1.5 pb-6"
+        >
+          <div>
+            <div className="text-right">
+              <Button listStyle onClick={handleCloseRightNav}>
+                <MdOutlineClose />
+              </Button>
+            </div>
+            <div className="px-1.5 py-2">
+              <TextInputWithLabel
+                id="trained-model-name"
+                label="Trained Model Name"
+                value={selected.ts_model_name}
+                onChange={() => {}}
+              />
+              {trainingParameter && (
+                <div className="max-h-[calc(100vh-21rem)] flex flex-col gap-3 mt-3 overflow-y-scroll">
                   <Parameter
-                    label="Dataset"
-                    value={trainingParameter.dataset}
+                    label="Model Name"
+                    value={trainingParameter.model_name}
                   />
-                )}
-              </div>
-            )}
+                  <Parameter label="Epochs" value={trainingParameter.epochs} />
+                  <Parameter
+                    label="Save Strategy"
+                    value={trainingParameter.save_strategy}
+                  />
+                  <Parameter
+                    label="Logging Strategy"
+                    value={trainingParameter.logging_strategy}
+                  />
+                  <Parameter
+                    label="Evaluation Strategy"
+                    value={trainingParameter.evaluation_strategy}
+                  />
+                  <Parameter
+                    label="Learning Rate"
+                    value={trainingParameter.learning_rate}
+                  />
+                  <Parameter
+                    label="Weight Decay"
+                    value={trainingParameter.weight_decay}
+                  />
+                  <Parameter
+                    label="Batch Size"
+                    value={trainingParameter.batch_size}
+                  />
+                  <Parameter
+                    label="Eval Steps"
+                    value={trainingParameter.eval_steps}
+                  />
+                  <Parameter
+                    label="Save Steps"
+                    value={trainingParameter.save_steps}
+                  />
+                  <Parameter
+                    label="Save Total Limits"
+                    value={trainingParameter.save_total_limits}
+                  />
+                  <Parameter
+                    label="Run on GPU"
+                    value={trainingParameter.run_on_gpu ? 'on' : 'off'}
+                  />
+                  <Parameter
+                    label="Load Best At The End"
+                    value={
+                      trainingParameter.load_best_at_the_end ? 'on' : 'off'
+                    }
+                  />
+                  {trainingParameter.dataset && (
+                    <Parameter
+                      label="Dataset"
+                      value={trainingParameter.dataset}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-          <div className="mt-10 flex justify-center">
+          <div className="flex justify-center">
             <Button className="flex justify-center">
               <MdOutlineAdd className="text-xl" />
               <span>Continue to Train</span>

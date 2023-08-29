@@ -2,7 +2,7 @@ import { ROUTES, SERVICE_NAME } from '@/constants';
 import { Link, useLocation } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Training', path: ROUTES.TRAIN },
+  { name: 'Training', path: ROUTES.TRAINING },
   { name: 'Test', path: ROUTES.TEST },
   { name: 'History', path: ROUTES.MAIN },
 ];
