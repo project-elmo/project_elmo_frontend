@@ -9,17 +9,22 @@ import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import Spinner from '@/components/Spinner';
 import { QUERY_KEYS, SOCKET_API_URL } from '@/constants';
-import { ModelDownloadProgress, PreTrainedModel } from '@/types';
+import {
+  SocketProgress,
+  PreTrainedModel,
+  PreTrainedTrainingForm,
+} from '@/types';
 
 interface Props {
+  setFormData: React.Dispatch<React.SetStateAction<PreTrainedTrainingForm>>;
   onNext: () => void;
 }
 
-export default function StepModel({ onNext }: Props) {
+export default function StepModel({ setFormData, onNext }: Props) {
   const [selected, setSelected] = useState<PreTrainedModel | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadProgress, setDownloadProgress] =
-    useState<ModelDownloadProgress | null>(null);
+    useState<SocketProgress | null>(null);
   const socket = useRef<WebSocket | null>(null);
   const queryClient = useQueryClient();
 
@@ -38,14 +43,23 @@ export default function StepModel({ onNext }: Props) {
     queryFn: getPreTrainedModels,
   });
 
-  const handleSocketMessage = (event: MessageEvent<string>) => {
-    console.log(event.data);
-    setDownloadProgress(JSON.parse(event.data));
+  const handleSocketMessage = (data: string) => {
+    setDownloadProgress(JSON.parse(data));
   };
 
   const handleDownload = () => {
-    socket.current = connectSocket<string>(SOCKET_API_URL, handleSocketMessage);
+    socket.current = connectSocket(SOCKET_API_URL, handleSocketMessage);
     setIsDownloading(true);
+  };
+
+  const handleNext = () => {
+    if (!selected) return;
+    setFormData((prev) => ({
+      ...prev,
+      pm_no: selected.pm_no,
+      pm_name: selected.name,
+    }));
+    onNext();
   };
 
   return (
@@ -99,7 +113,7 @@ export default function StepModel({ onNext }: Props) {
           </div>
         </div>
         <div className="mt-6 text-center">
-          <Button disabled={!selected?.is_downloaded} onClick={onNext}>
+          <Button disabled={!selected?.is_downloaded} onClick={handleNext}>
             Next
           </Button>
         </div>

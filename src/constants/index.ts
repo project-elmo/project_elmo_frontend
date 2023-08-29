@@ -9,7 +9,7 @@ export const ROUTES = {
   HISTORY: '/:fmNo',
   WELCOME: '/welcome',
   SETTING: '/setting',
-  TRAIN: '/train',
+  TRAINING: '/training',
   TEST: '/test',
 } as const;
 
