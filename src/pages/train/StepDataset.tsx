@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getDatasets } from '@/api/rest';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getDatasets, uploadDatasets } from '@/api/rest';
 import { MdOutlineAdd } from 'react-icons/md';
 import MainTemplate from '@/components/MainTemplate';
 import Button from '@/components/Button';
@@ -14,13 +14,18 @@ interface Props {
 }
 
 export default function StepDataset({ onNext }: Props) {
-  const [datasetFiles, setDatasetFiles] = useState<File[]>([]);
   const [selected, setSelected] = useState<Dataset | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
 
   const { data: datasets } = useQuery({
     queryKey: [QUERY_KEYS.DATASETS],
     queryFn: getDatasets,
+  });
+
+  const uploadDatasetMutation = useMutation({
+    mutationFn: uploadDatasets,
+    onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.DATASETS]),
   });
 
   const handleClickFileUpload = () => {
@@ -31,8 +36,7 @@ export default function StepDataset({ onNext }: Props) {
     const { files } = e.target;
     if (!files) return;
 
-    const fileArray = Array.from(files);
-    setDatasetFiles([...datasetFiles, ...fileArray]);
+    uploadDatasetMutation.mutate(files[0]);
   };
 
   return (
@@ -49,7 +53,6 @@ export default function StepDataset({ onNext }: Props) {
             <input
               type="file"
               accept="application/json, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-              multiple
               className="hidden"
               ref={fileInput}
               onChange={handleFileChange}

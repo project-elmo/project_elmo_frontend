@@ -75,3 +75,17 @@ export const getDatasets = async (): Promise<Dataset[]> => {
   }
   return res.data;
 };
+
+export const uploadDatasets = async (dataset: File) => {
+  const formData = new FormData();
+  formData.append('file', dataset);
+  const res = await axiosInstance.post('/training/data_upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res;
+};
