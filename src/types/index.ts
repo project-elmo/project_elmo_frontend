@@ -4,10 +4,10 @@ export type PreTrainedModel = {
   description: string;
   version: string;
   base_model: string;
-  is_downloaded: false; // TODO: 임시값
+  is_downloaded: boolean;
 };
 
-export type ModelDownloadProgress = {
+export type SocketProgress = {
   task: string;
   model_name: string;
   total: string;
@@ -16,6 +16,16 @@ export type ModelDownloadProgress = {
   start_time: string;
   end_time: string;
   sec_per_dl: string;
+};
+
+export type TrainingResult = {
+  task: string;
+  model_name: string;
+  train_runtime: number;
+  train_samples_per_second: number;
+  train_steps_per_second: number;
+  train_loss: number;
+  epoch: number;
 };
 
 export type FineTunedModel = {
@@ -34,12 +44,7 @@ export type TrainingSession = {
   end_time: string;
   ts_model_name: string;
 };
-
-export type TrainingParameter = {
-  parameter_no: number;
-  session_no: number;
-  fm_no: number;
-  model_name: string;
+export interface Parameter {
   epochs: number;
   save_strategy: string;
   logging_strategy: string;
@@ -52,8 +57,15 @@ export type TrainingParameter = {
   save_total_limits: number;
   run_on_gpu: boolean;
   load_best_at_the_end: boolean;
+}
+
+export interface TrainingParameter extends Parameter {
+  parameter_no: number;
+  session_no: number;
+  fm_no: number;
+  model_name: string;
   dataset: string;
-};
+}
 
 export type Dataset = {
   file_path: string;
@@ -61,3 +73,12 @@ export type Dataset = {
   filename: string;
   extension: string;
 };
+
+export interface PreTrainedTrainingForm extends Parameter {
+  pm_no: number | null;
+  pm_name: string;
+  fm_name: string;
+  ts_model_name: string;
+  dataset: string;
+  task: number;
+}

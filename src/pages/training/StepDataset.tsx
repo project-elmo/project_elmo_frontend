@@ -7,13 +7,14 @@ import Button from '@/components/Button';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import { QUERY_KEYS } from '@/constants';
-import { Dataset } from '@/types';
+import { Dataset, PreTrainedTrainingForm } from '@/types';
 
 interface Props {
+  setFormData: React.Dispatch<React.SetStateAction<PreTrainedTrainingForm>>;
   onNext: () => void;
 }
 
-export default function StepDataset({ onNext }: Props) {
+export default function StepDataset({ setFormData, onNext }: Props) {
   const [selected, setSelected] = useState<Dataset | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
@@ -37,6 +38,15 @@ export default function StepDataset({ onNext }: Props) {
     if (!files) return;
 
     uploadDatasetMutation.mutate(files[0]);
+  };
+
+  const handleNext = () => {
+    if (!selected) return;
+    setFormData((prev) => ({
+      ...prev,
+      dataset: selected.file_path,
+    }));
+    onNext();
   };
 
   return (
@@ -73,7 +83,7 @@ export default function StepDataset({ onNext }: Props) {
           </ul>
         </div>
         <div className="mt-6 text-center">
-          <Button onClick={onNext} disabled={!selected}>
+          <Button onClick={handleNext} disabled={!selected}>
             Next
           </Button>
         </div>
