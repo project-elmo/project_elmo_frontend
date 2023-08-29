@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import Root from '@/pages/Root';
 import WelcomePage from '@/pages/WelcomePage';
 import SettingPage from '@/pages/SettingPage';
-import TrainingPage from '@/pages/train';
+import TrainingPage from '@/pages/training';
 import HistoryPage from '@/pages/HistoryPage';
 import { ROUTES } from '@/constants';
 

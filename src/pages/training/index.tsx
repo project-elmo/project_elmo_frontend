@@ -1,9 +1,9 @@
 import useFunnel from '@/hooks/useFunnel';
-import StepModel from '@/pages/train/StepModel';
-import StepDataset from '@/pages/train/StepDataset';
-import StepParameter from '@/pages/train/StepParameter';
-import StepTraining from '@/pages/train/StepTraining';
-import StepDone from '@/pages/train/StepDone';
+import StepModel from '@/pages/training/StepModel';
+import StepDataset from '@/pages/training/StepDataset';
+import StepParameter from '@/pages/training/StepParameter';
+import StepTraining from '@/pages/training/StepTraining';
+import StepDone from '@/pages/training/StepDone';
 
 export default function TrainingPage() {
   const [Funnel, setStep] = useFunnel([
