@@ -1,25 +1,39 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useFunnel from '@/hooks/useFunnel';
 import StepModel from '@/pages/training/StepModel';
 import StepDataset from '@/pages/training/StepDataset';
 import StepParameter from '@/pages/training/StepParameter';
 import StepTraining from '@/pages/training/StepTraining';
 import StepDone from '@/pages/training/StepDone';
-import { PreTrainedTrainingForm, TrainingResult } from '@/types';
+import {
+  FineTunedModel,
+  TrainingForm,
+  TrainingResult,
+  TrainingSession,
+} from '@/types';
 
 export default function TrainingPage() {
-  const [Funnel, setStep] = useFunnel([
-    'model',
-    'dataset',
-    'parameter',
-    'training',
-    'done',
-  ] as const);
-  const [formData, setFormData] = useState<PreTrainedTrainingForm>({
-    pm_no: null,
-    pm_name: '',
-    fm_name: '',
+  const { state } = useLocation() as {
+    state: {
+      pmNo?: number;
+      pmName?: string;
+      fmNo?: number;
+      fmName?: string;
+      parentSessionNo?: string;
+    };
+  };
+  const [Funnel, setStep] = useFunnel(
+    ['model', 'dataset', 'parameter', 'training', 'done'] as const,
+    state?.fmNo ? 'dataset' : 'model'
+  );
+  const [formData, setFormData] = useState<TrainingForm>({
+    pm_no: state?.pmNo ?? null,
+    pm_name: state?.pmName || '',
+    fm_no: state?.fmNo ?? undefined,
+    fm_name: state?.fmName || '',
     ts_model_name: '',
+    parent_session_no: state?.parentSessionNo || undefined,
     dataset: '',
     task: 0,
     epochs: 3,
@@ -36,6 +50,11 @@ export default function TrainingPage() {
     load_best_at_the_end: false,
   });
   const [result, setResult] = useState<TrainingResult | null>(null);
+  const [fineTunedModel, setFineTunedModel] = useState<FineTunedModel | null>(
+    null
+  );
+  const [trainingSession, setTrainingSession] =
+    useState<TrainingSession | null>(null);
 
   useEffect(() => {
     if (!result) return;
@@ -61,6 +80,8 @@ export default function TrainingPage() {
           onNext={() => setStep('training')}
           formData={formData}
           setFormData={setFormData}
+          setFineTunedModel={setFineTunedModel}
+          setTrainingSession={setTrainingSession}
         />
       </Funnel.Step>
       <Funnel.Step name="training">
@@ -70,7 +91,11 @@ export default function TrainingPage() {
         />
       </Funnel.Step>
       <Funnel.Step name="done">
-        <StepDone result={result} />
+        <StepDone
+          result={result}
+          fineTunedModel={fineTunedModel}
+          trainingSession={trainingSession}
+        />
       </Funnel.Step>
     </Funnel>
   );

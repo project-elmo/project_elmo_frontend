@@ -2,7 +2,7 @@ import {
   Dataset,
   FineTunedModel,
   PreTrainedModel,
-  PreTrainedTrainingForm,
+  TrainingForm,
   TrainingParameter,
   TrainingSession,
 } from '@/types';
@@ -92,8 +92,8 @@ export const uploadDatasets = async (dataset: File) => {
 };
 
 export const trainPreTrainedModel = async (
-  formData: PreTrainedTrainingForm
-) => {
+  formData: TrainingForm
+): Promise<FineTunedModel> => {
   const res = await axiosInstance.post(
     '/training/training/train_pretrained_model',
     formData
@@ -101,5 +101,18 @@ export const trainPreTrainedModel = async (
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }
-  return res;
+  return res.data;
+};
+
+export const retrainModel = async (
+  formData: TrainingForm
+): Promise<TrainingSession> => {
+  const res = await axiosInstance.post(
+    '/training/training/re_train_model',
+    formData
+  );
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
 };

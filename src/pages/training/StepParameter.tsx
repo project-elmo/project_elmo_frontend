@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { trainPreTrainedModel } from '@/api/rest';
+import { retrainModel, trainPreTrainedModel } from '@/api/rest';
 import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
 import RadioGroupWithLabel from '@/components/RadioGroupWithLabel';
@@ -8,20 +8,33 @@ import SelectWithLabel from '@/components/SelectWithLabel';
 import SliderWithLabel from '@/components/SliderWithLabel';
 import SwitchWithLabel from '@/components/SwitchWithLabel';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
-import { Parameter, PreTrainedTrainingForm } from '@/types';
+import {
+  FineTunedModel,
+  Parameter,
+  TrainingForm,
+  TrainingSession,
+} from '@/types';
 
 interface Props {
-  formData: PreTrainedTrainingForm;
-  setFormData: React.Dispatch<React.SetStateAction<PreTrainedTrainingForm>>;
+  formData: TrainingForm;
+  setFormData: React.Dispatch<React.SetStateAction<TrainingForm>>;
+  setFineTunedModel: React.Dispatch<
+    React.SetStateAction<FineTunedModel | null>
+  >;
+  setTrainingSession: React.Dispatch<
+    React.SetStateAction<TrainingSession | null>
+  >;
   onNext: () => void;
 }
 
 export default function StepParameter({
   formData,
   setFormData,
+  setFineTunedModel,
+  setTrainingSession,
   onNext,
 }: Props) {
-  const [modelName, setModelName] = useState<string>(formData.pm_name);
+  const [modelName, setModelName] = useState<string>('');
   const [parameter, setParameter] = useState<Parameter>({
     epochs: 3,
     save_strategy: 'steps',
@@ -39,15 +52,21 @@ export default function StepParameter({
 
   const trainPreTrainedModelMutation = useMutation({
     mutationFn: trainPreTrainedModel,
+    onSuccess: (data) => setFineTunedModel(data),
+  });
+
+  const retrainModelMutation = useMutation({
+    mutationFn: retrainModel,
+    onSuccess: (data) => setTrainingSession(data),
   });
 
   const handleClickTraining = () => {
     setFormData((prev) => ({
       ...prev,
     }));
-    trainPreTrainedModelMutation.mutate({
+    const newFormData = {
       ...formData,
-      fm_name: modelName,
+      fm_name: formData.fm_no ? formData.fm_name : modelName,
       ts_model_name: modelName,
       epochs: parameter.epochs,
       save_strategy: parameter.save_strategy,
@@ -61,7 +80,10 @@ export default function StepParameter({
       save_total_limits: parameter.save_total_limits,
       run_on_gpu: parameter.run_on_gpu,
       load_best_at_the_end: parameter.load_best_at_the_end,
-    });
+    };
+    formData.fm_no
+      ? retrainModelMutation.mutate(newFormData)
+      : trainPreTrainedModelMutation.mutate(newFormData);
     onNext();
   };
 
@@ -77,6 +99,7 @@ export default function StepParameter({
               id="model-name"
               label="Model Name"
               info="Model name info"
+              placeholder={formData.pm_name}
               value={modelName}
               onChange={({ target }) => setModelName(target.value)}
             />

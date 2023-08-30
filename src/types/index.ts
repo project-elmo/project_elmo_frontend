@@ -30,15 +30,19 @@ export type TrainingResult = {
 
 export type FineTunedModel = {
   fm_no: number;
+  fm_name: string;
   user_no: number;
   pm_no: number;
-  fm_name: string;
+  pm_name: string;
   fm_description: string;
 };
 
 export type TrainingSession = {
   session_no: string;
   fm_no: number;
+  fm_name: string;
+  pm_no: number;
+  pm_name: string;
   parent_session_no: string;
   start_time: string;
   end_time: string;
@@ -74,10 +78,12 @@ export type Dataset = {
   extension: string;
 };
 
-export interface PreTrainedTrainingForm extends Parameter {
+export interface TrainingForm extends Parameter {
   pm_no: number | null;
   pm_name: string;
+  fm_no?: number;
   fm_name: string;
+  parent_session_no?: string;
   ts_model_name: string;
   dataset: string;
   task: number;

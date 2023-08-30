@@ -9,14 +9,10 @@ import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import Spinner from '@/components/Spinner';
 import { QUERY_KEYS, SOCKET_API_URL } from '@/constants';
-import {
-  SocketProgress,
-  PreTrainedModel,
-  PreTrainedTrainingForm,
-} from '@/types';
+import { SocketProgress, PreTrainedModel, TrainingForm } from '@/types';
 
 interface Props {
-  setFormData: React.Dispatch<React.SetStateAction<PreTrainedTrainingForm>>;
+  setFormData: React.Dispatch<React.SetStateAction<TrainingForm>>;
   onNext: () => void;
 }
 
