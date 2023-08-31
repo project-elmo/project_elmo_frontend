@@ -10,7 +10,10 @@ export const ROUTES = {
   WELCOME: '/welcome',
   SETTING: '/setting',
   TRAINING: '/training',
-  TEST: '/test',
+  TEST: {
+    INDEX: '/test',
+    DETAIL: '/test/:fmNo',
+  },
 } as const;
 
 export const QUERY_KEYS = {

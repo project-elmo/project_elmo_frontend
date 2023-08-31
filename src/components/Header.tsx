@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navigation = [
   { name: 'Training', path: ROUTES.TRAINING },
-  { name: 'Test', path: ROUTES.TEST },
+  { name: 'Test', path: ROUTES.TEST.INDEX },
   { name: 'History', path: ROUTES.MAIN },
 ];
 
