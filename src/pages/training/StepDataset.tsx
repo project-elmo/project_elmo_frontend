@@ -7,10 +7,10 @@ import Button from '@/components/Button';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import { QUERY_KEYS } from '@/constants';
-import { Dataset, PreTrainedTrainingForm } from '@/types';
+import { Dataset, TrainingForm } from '@/types';
 
 interface Props {
-  setFormData: React.Dispatch<React.SetStateAction<PreTrainedTrainingForm>>;
+  setFormData: React.Dispatch<React.SetStateAction<TrainingForm>>;
   onNext: () => void;
 }
 
@@ -55,10 +55,8 @@ export default function StepDataset({ setFormData, onNext }: Props) {
       description="Upload dataset files(json, excel, csv) and select one."
     >
       <div>
-        <div className="flex flex-col h-96">
-          <h4 className="px-6 py-3 font-bold border-2 border-secondary">
-            Dataset List
-          </h4>
+        <div className="flex flex-col h-96 border-2 border-secondary">
+          <h4 className="px-6 py-3 font-bold">Dataset List</h4>
           <ul className="h-full p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
             <input
               type="file"

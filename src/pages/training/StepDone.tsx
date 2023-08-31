@@ -2,14 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import MainTemplate from '@/components/MainTemplate';
 import Button from '@/components/Button';
 import { ROUTES } from '@/constants';
-import { TrainingResult } from '@/types';
+import { FineTunedModel, TrainingResult, TrainingSession } from '@/types';
 
 interface Props {
   result: TrainingResult | null;
+  fineTunedModel: FineTunedModel | null;
+  trainingSession: TrainingSession | null;
 }
 
-export default function StepDone({ result }: Props) {
+export default function StepDone({
+  result,
+  fineTunedModel,
+  trainingSession,
+}: Props) {
   const navigate = useNavigate();
+  const isRetrain = !!trainingSession;
 
   return (
     <MainTemplate title="Done!">
@@ -31,7 +38,17 @@ export default function StepDone({ result }: Props) {
           </div>
         )}
         <div className="mt-12 text-center">
-          <Button onClick={() => navigate(ROUTES.MAIN)}>Go History</Button>
+          <Button
+            onClick={() =>
+              navigate(
+                `${ROUTES.MAIN}${
+                  isRetrain ? trainingSession.fm_no : fineTunedModel?.fm_no
+                }`
+              )
+            }
+          >
+            Go History
+          </Button>
         </div>
       </div>
     </MainTemplate>

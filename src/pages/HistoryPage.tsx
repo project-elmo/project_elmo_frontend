@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { tree, HierarchyPointNode, stratify } from 'd3';
 import ReactFlow, { Node, Edge, Controls, MiniMap } from 'reactflow';
@@ -9,7 +9,7 @@ import SideNav from '@/components/SideNav';
 import FlowNode from '@/components/flow/FlowNode';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
 import Button from '@/components/Button';
-import { QUERY_KEYS } from '@/constants';
+import { QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
 import 'reactflow/dist/style.css';
 
@@ -25,6 +25,7 @@ export default function HistoryPage() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [nodes, setNodes] = useState<Node<TrainingSession>[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
+  const navigate = useNavigate();
 
   const { data: sessions } = useQuery({
     queryKey: [QUERY_KEYS.TRAINING_SESSIONS, fmNo],
@@ -70,6 +71,18 @@ export default function HistoryPage() {
   const handleCloseRightNav = () => {
     setNodes((prev) => prev.map((node) => ({ ...node, selected: false })));
     setSelected(null);
+  };
+
+  const handleClickTrain = () => {
+    navigate(ROUTES.TRAINING, {
+      state: {
+        pmNo: selected?.pm_no,
+        fmNo: selected?.fm_no,
+        pmName: selected?.pm_name,
+        fmName: selected?.fm_name,
+        parentSessionNo: selected?.session_no,
+      },
+    });
   };
 
   return (
@@ -191,7 +204,7 @@ export default function HistoryPage() {
             </div>
           </div>
           <div className="flex justify-center">
-            <Button className="flex justify-center">
+            <Button className="flex justify-center" onClick={handleClickTrain}>
               <MdOutlineAdd className="text-xl" />
               <span>Continue to Train</span>
             </Button>

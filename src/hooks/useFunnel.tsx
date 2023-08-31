@@ -1,8 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Children, isValidElement, useState } from 'react';
 
-export default function useFunnel<T extends readonly string[]>(steps: T) {
-  const [step, setStep] = useState(steps[0]);
+export default function useFunnel<T extends readonly string[]>(
+  steps: T,
+  initialStep = steps[0]
+) {
+  const [step, setStep] = useState(initialStep);
 
   const FunnelComponent = Object.assign(
     (props: Omit<FunnelProps<T>, 'step'>) => (
