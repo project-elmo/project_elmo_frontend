@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getFineTunedModels } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
@@ -16,8 +22,11 @@ import { QUERY_KEYS, ROUTES } from '@/constants';
 
 export default function Root() {
   const { fmNo } = useParams();
+  const { pathname } = useLocation();
   const [showNav, setShowNav] = useState(true);
   const navigate = useNavigate();
+
+  const isTestPage = pathname.includes(ROUTES.TEST.INDEX);
 
   const { data: models } = useQuery({
     queryKey: [QUERY_KEYS.FINE_TUNED_MODELS],
@@ -46,7 +55,14 @@ export default function Root() {
               </div>
               <ul className="mt-1.5 max-h-[calc(100vh-14.5rem)] overflow-x-hidden overflow-y-scroll">
                 {models?.map((model) => (
-                  <Link to={`${ROUTES.MAIN}${model.fm_no}`} key={model.fm_no}>
+                  <Link
+                    to={
+                      isTestPage
+                        ? `${ROUTES.TEST.INDEX}/${model.fm_no}`
+                        : `${ROUTES.MAIN}${model.fm_no}`
+                    }
+                    key={model.fm_no}
+                  >
                     <li
                       className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
                         fmNo &&

@@ -4,6 +4,7 @@ import WelcomePage from '@/pages/WelcomePage';
 import SettingPage from '@/pages/SettingPage';
 import TrainingPage from '@/pages/training';
 import HistoryPage from '@/pages/HistoryPage';
+import TestPage from '@/pages/TestPage';
 import { ROUTES } from '@/constants';
 
 export const routes = (isOnboarded: boolean) => {
@@ -33,6 +34,19 @@ export const routes = (isOnboarded: boolean) => {
         {
           path: ROUTES.TRAINING,
           element: <TrainingPage />,
+        },
+        {
+          path: ROUTES.TEST.INDEX,
+          children: [
+            {
+              index: true,
+              element: <TestPage />,
+            },
+            {
+              path: ROUTES.TEST.DETAIL,
+              element: <TestPage />,
+            },
+          ],
         },
         {
           path: ROUTES.HISTORY,

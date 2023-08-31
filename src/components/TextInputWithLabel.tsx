@@ -9,6 +9,7 @@ interface Props {
   value?: string;
   placeholder?: string;
   disabled?: boolean;
+  className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,6 +20,7 @@ export default function TextInputWithLabel({
   value,
   placeholder,
   disabled,
+  className,
   onChange,
 }: Props) {
   return (
@@ -29,6 +31,7 @@ export default function TextInputWithLabel({
         value={value}
         placeholder={placeholder}
         disabled={disabled}
+        className={className}
         onChange={onChange}
       />
     </div>
