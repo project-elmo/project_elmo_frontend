@@ -25,6 +25,7 @@ export const QUERY_KEYS = {
   TRAINING_PARAMETER: 'trainingParameter',
   DATASETS: 'datasets',
   CHAT_HISTORY: 'chatHistory',
+  FINE_TUNED_WITH_TESTS: 'fineTunedWithTests',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {

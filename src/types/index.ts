@@ -31,10 +31,12 @@ export type TrainingResult = {
 export type FineTunedModel = {
   fm_no: number;
   fm_name: string;
-  user_no: number;
-  pm_no: number;
-  pm_name: string;
-  fm_description: string;
+  user_no?: number;
+  pm_no?: number;
+  pm_name?: string;
+  fm_description?: string;
+  list_sessions?: TrainingSession[];
+  list_test?: Test[];
 };
 
 export type TrainingSession = {
@@ -48,6 +50,7 @@ export type TrainingSession = {
   end_time: string;
   ts_model_name: string;
 };
+
 export interface Parameter {
   epochs: number;
   save_strategy: string;
@@ -89,22 +92,31 @@ export interface TrainingForm extends Parameter {
   task: number;
 }
 
-export interface Test {
+export type Test = {
   test_no: number;
   session_no: number;
-}
+  ts_model_name: string;
+  fm_no: number;
+  fm_name: string;
+};
 
-export interface TestMessage {
+export type TestMessage = {
   msg_no: number;
   msg: string;
   created_at: string;
   is_user: boolean;
   test_no: number;
-}
+};
 
-export interface TestMessageForm {
+export type TestMessageForm = {
   test_no: number;
   task: number;
   msg: string;
   max_length: number;
-}
+};
+
+export type MenuItem = {
+  name: string;
+  to: string;
+  selected: boolean;
+};
