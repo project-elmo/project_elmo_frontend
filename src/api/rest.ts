@@ -1,5 +1,5 @@
 import {
-  ChatMessage,
+  TestMessage,
   Dataset,
   FineTunedModel,
   PreTrainedModel,
@@ -131,7 +131,7 @@ export const createTest = async (sessionNo: number): Promise<Test> => {
 
 export const getChatHistory = async (
   testNo: number
-): Promise<ChatMessage[]> => {
+): Promise<TestMessage[]> => {
   const res = await axiosInstance.get(`/test/chat_history`, {
     params: { test_no: testNo },
   });

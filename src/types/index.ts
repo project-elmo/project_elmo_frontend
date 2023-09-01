@@ -94,7 +94,7 @@ export interface Test {
   session_no: number;
 }
 
-export interface ChatMessage {
+export interface TestMessage {
   msg_no: number;
   msg: string;
   created_at: string;

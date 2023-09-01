@@ -5,7 +5,7 @@ import { MdSend } from 'react-icons/md';
 import Button from '@/components/Button';
 import Textarea from '@/components/Textarea';
 import { QUERY_KEYS } from '@/constants';
-import { ChatMessage } from '@/types';
+import { TestMessage } from '@/types';
 
 interface Props {
   testNo: number;
@@ -69,7 +69,7 @@ export default function TestChat({ testNo }: Props) {
 }
 
 interface MessageItemProps {
-  message: ChatMessage;
+  message: TestMessage;
 }
 
 function MessageItem({ message }: MessageItemProps) {
