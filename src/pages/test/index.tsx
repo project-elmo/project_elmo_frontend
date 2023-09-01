@@ -11,7 +11,7 @@ export default function TestPage() {
       <section className="h-full m-auto relative">
         {fmNo ? (
           testNo ? (
-            <TestChat />
+            <TestChat testNo={Number(testNo)} />
           ) : (
             <TestCreate fmNo={Number(fmNo)} />
           )

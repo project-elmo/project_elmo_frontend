@@ -93,3 +93,11 @@ export interface Test {
   test_no: number;
   session_no: number;
 }
+
+export interface ChatMessage {
+  msg_no: number;
+  msg: string;
+  created_at: string;
+  is_user: number;
+  test_no: number;
+}

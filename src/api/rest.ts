@@ -1,4 +1,5 @@
 import {
+  ChatMessage,
   Dataset,
   FineTunedModel,
   PreTrainedModel,
@@ -121,6 +122,18 @@ export const retrainModel = async (
 export const createTest = async (sessionNo: number): Promise<Test> => {
   const res = await axiosInstance.post('/test/create_test', null, {
     params: { session_no: sessionNo },
+  });
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const getChatHistory = async (
+  testNo: number
+): Promise<ChatMessage[]> => {
+  const res = await axiosInstance.get(`/test/chat_history`, {
+    params: { test_no: testNo },
   });
   if (res.status !== 200) {
     throw new Error(res.statusText);

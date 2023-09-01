@@ -24,6 +24,7 @@ export const QUERY_KEYS = {
   TRAINING_SESSIONS: 'trainingSessions',
   TRAINING_PARAMETER: 'trainingParameter',
   DATASETS: 'datasets',
+  CHAT_HISTORY: 'chatHistory',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {
