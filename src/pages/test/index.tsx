@@ -7,18 +7,16 @@ export default function TestPage() {
   const { fmNo, testNo } = useParams();
 
   return (
-    <main className="flex-1">
-      <section className="h-full m-auto relative">
-        {fmNo ? (
-          testNo ? (
-            <TestChat testNo={Number(testNo)} />
-          ) : (
-            <TestCreate fmNo={Number(fmNo)} />
-          )
+    <>
+      {fmNo ? (
+        testNo ? (
+          <TestChat testNo={Number(testNo)} />
         ) : (
-          <TestMain />
-        )}
-      </section>
-    </main>
+          <TestCreate fmNo={Number(fmNo)} />
+        )
+      ) : (
+        <TestMain />
+      )}
+    </>
   );
 }
