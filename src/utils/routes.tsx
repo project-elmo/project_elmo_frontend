@@ -4,7 +4,7 @@ import WelcomePage from '@/pages/WelcomePage';
 import SettingPage from '@/pages/SettingPage';
 import TrainingPage from '@/pages/training';
 import HistoryPage from '@/pages/HistoryPage';
-import TestPage from '@/pages/TestPage';
+import TestPage from '@/pages/test';
 import { ROUTES } from '@/constants';
 
 export const routes = (isOnboarded: boolean) => {
@@ -43,7 +43,11 @@ export const routes = (isOnboarded: boolean) => {
               element: <TestPage />,
             },
             {
-              path: ROUTES.TEST.DETAIL,
+              path: ROUTES.TEST.CREATE,
+              element: <TestPage />,
+            },
+            {
+              path: ROUTES.TEST.CHAT,
               element: <TestPage />,
             },
           ],

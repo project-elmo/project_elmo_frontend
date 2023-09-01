@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MdOutlineAdd, MdSend } from 'react-icons/md';
+import { MdSend } from 'react-icons/md';
 import Button from '@/components/Button';
-import Textarea from '@/components/TextArea';
+import Textarea from '@/components/Textarea';
+import TestMain from './TestMain';
 
 type Message = {
   id: number;
@@ -73,7 +74,7 @@ export default function TestPage() {
       <section className="h-full m-auto relative">
         {fmNo ? (
           <>
-            <div className="h-[calc(100vh-6.125rem)] overflow-y-scroll">
+            <div className="h-[calc(100vh-10.375rem)] overflow-y-scroll">
               <ul className="flex flex-col gap-2.5 text-left ">
                 {messages.map((message) => (
                   <MessageItem key={message.id} message={message} />
@@ -104,16 +105,7 @@ export default function TestPage() {
             </form>
           </>
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-line">
-            <h3>Please select a model.</h3>
-            <p>
-              Or click
-              <span className="mx-2 font-semibold">
-                <MdOutlineAdd className="inline-block" /> New Model
-              </span>
-              and start training your own LLM.
-            </p>
-          </div>
+          <TestMain />
         )}
       </section>
     </main>

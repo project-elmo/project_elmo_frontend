@@ -88,7 +88,7 @@ export default function Root() {
           <Button
             listStyle
             onClick={() => setShowNav(true)}
-            className="absolute m-1.5"
+            className="absolute m-1.5 z-10"
           >
             <MdOutlineChevronLeft />
           </Button>

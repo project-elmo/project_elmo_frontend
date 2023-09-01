@@ -12,7 +12,8 @@ export const ROUTES = {
   TRAINING: '/training',
   TEST: {
     INDEX: '/test',
-    DETAIL: '/test/:fmNo',
+    CREATE: '/test/:fmNo',
+    CHAT: '/test/:fmNo/:testNo',
   },
 } as const;
 
