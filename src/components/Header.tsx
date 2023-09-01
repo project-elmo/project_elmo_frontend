@@ -1,5 +1,5 @@
 import { ROUTES, SERVICE_NAME } from '@/constants';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const navigation = [
   { name: 'Training', path: ROUTES.TRAINING },
@@ -7,8 +7,11 @@ const navigation = [
   { name: 'History', path: ROUTES.MAIN },
 ];
 
-export default function Header() {
-  const { pathname } = useLocation() as { pathname: string };
+interface Props {
+  currentPage: string;
+}
+
+export default function Header({ currentPage }: Props) {
   return (
     <header className="relative flex justify-around gap-10 md:block p-6 border-b-2 border-b-line">
       <div className="md:w-80 h-full flex justify-center items-center md:absolute md:top-0 md:left-0">
@@ -19,7 +22,7 @@ export default function Header() {
       <nav>
         <ul className="flex justify-center gap-8">
           {navigation.map((menu) => {
-            const isActive = pathname === menu.path;
+            const isActive = currentPage === menu.name.toLowerCase();
             return (
               <li
                 key={menu.name}

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getTrainingSessions } from '@/api/rest';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { createTest, getTrainingSessions } from '@/api/rest';
 import MainTemplate from '@/components/MainTemplate';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
-import { QUERY_KEYS } from '@/constants';
+import { QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingSession } from '@/types';
 
 interface Props {
@@ -13,12 +14,24 @@ interface Props {
 }
 
 export default function TestCreate({ fmNo }: Props) {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<TrainingSession | null>(null);
+  const navigate = useNavigate();
 
   const { data: sessions } = useQuery({
     queryKey: [QUERY_KEYS.TRAINING_SESSIONS, fmNo],
     queryFn: () => getTrainingSessions(fmNo),
   });
+
+  const createTestMutation = useMutation({
+    mutationFn: createTest,
+    onSuccess: (data) =>
+      navigate(`${ROUTES.TEST.INDEX}/${fmNo}/${data.test_no}`),
+  });
+
+  const handleClickStartTest = () => {
+    if (!selected) return;
+    createTestMutation.mutate(Number(selected.session_no));
+  };
 
   return (
     <MainTemplate
@@ -30,17 +43,19 @@ export default function TestCreate({ fmNo }: Props) {
           <TrainingSessionItem
             key={session.session_no}
             session={session}
-            checked={selected === session.ts_model_name}
+            checked={selected?.session_no === session.session_no}
             onCheckedChange={() =>
               setSelected(
-                selected === session.ts_model_name ? '' : session.ts_model_name
+                selected?.session_no === session.session_no ? null : session
               )
             }
           />
         ))}
       </ul>
       <div className="mt-6 text-center">
-        <Button disabled={!selected}>Start test</Button>
+        <Button onClick={handleClickStartTest} disabled={!selected}>
+          Start test
+        </Button>
       </div>
     </MainTemplate>
   );
