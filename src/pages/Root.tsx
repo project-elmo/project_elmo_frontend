@@ -26,7 +26,11 @@ export default function Root() {
   const [showNav, setShowNav] = useState(true);
   const navigate = useNavigate();
 
-  const isTestPage = pathname.includes(ROUTES.TEST.INDEX);
+  const currentPage = pathname.includes(ROUTES.TEST.INDEX)
+    ? 'test'
+    : pathname.includes(ROUTES.TRAINING)
+    ? 'training'
+    : 'history';
 
   const { data: models } = useQuery({
     queryKey: [QUERY_KEYS.FINE_TUNED_MODELS],
@@ -35,7 +39,7 @@ export default function Root() {
 
   return (
     <Container>
-      <Header />
+      <Header currentPage={currentPage} />
       <section className="flex flex-1 w-screen">
         {showNav ? (
           <SideNav side="left" className="flex flex-col justify-between">
@@ -57,7 +61,7 @@ export default function Root() {
                 {models?.map((model) => (
                   <Link
                     to={
-                      isTestPage
+                      currentPage === 'test'
                         ? `${ROUTES.TEST.INDEX}/${model.fm_no}`
                         : `${ROUTES.MAIN}${model.fm_no}`
                     }
