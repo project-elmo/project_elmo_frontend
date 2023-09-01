@@ -28,7 +28,7 @@ export default function Slider({
         className="relative flex w-full touch-none items-center"
       >
         <SliderTrack className="relative h-0.5 w-full bg-line cursor-pointer" />
-        <SliderThumb className="block h-5 w-5 rounded-full bg-white border shadow shadow-line cursor-pointer">
+        <SliderThumb className="block h-5 w-5 rounded-full bg-white border shadow shadow-line cursor-pointer focus:outline-none">
           <span className="block h-5 w-5 text-center translate-y-6">
             {value}
           </span>
