@@ -98,6 +98,13 @@ export interface TestMessage {
   msg_no: number;
   msg: string;
   created_at: string;
-  is_user: number;
+  is_user: boolean;
   test_no: number;
+}
+
+export interface TestMessageForm {
+  test_no: number;
+  task: number;
+  msg: string;
+  max_length: number;
 }

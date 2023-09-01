@@ -7,6 +7,7 @@ import {
   TrainingForm,
   TrainingParameter,
   TrainingSession,
+  TestMessageForm,
 } from '@/types';
 import axios from 'axios';
 
@@ -135,6 +136,16 @@ export const getChatHistory = async (
   const res = await axiosInstance.get(`/test/chat_history`, {
     params: { test_no: testNo },
   });
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const createMessage = async (
+  formData: TestMessageForm
+): Promise<TestMessage[]> => {
+  const res = await axiosInstance.post('/test/create_message', formData);
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }
