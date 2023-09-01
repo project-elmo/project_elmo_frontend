@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MdOutlineAdd, MdSend } from 'react-icons/md';
+import { MdSend } from 'react-icons/md';
 import Button from '@/components/Button';
-import TextInput from '@/components/TextInput';
+import Textarea from '@/components/Textarea';
 
 type Message = {
   id: number;
@@ -56,54 +55,49 @@ const messages: Message[] = [
   },
 ];
 
-export default function TestPage() {
-  const { fmNo } = useParams();
+export default function TestChat() {
   const [text, setText] = useState('');
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      setText('');
+      // TODO: API 요청
+    }
+  };
+
   return (
-    <main className="flex-1">
-      <section className="h-full m-auto relative">
-        {fmNo ? (
-          <>
-            <div>
-              <ul className="flex flex-col gap-2.5 text-left h-[calc(100vh-11.875rem)] overflow-y-scroll">
-                {messages.map((message) => (
-                  <MessageItem key={message.id} message={message} />
-                ))}
-              </ul>
-            </div>
-            <form className="sticky bottom-0">
-              <div className="max-w-screen-md flex p-4 relative m-auto">
-                <TextInput
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Send a message"
-                  className="px-4 py-4 shadow-md shadow-line/40"
-                />
-                <Button
-                  type="submit"
-                  disabled={!text}
-                  className="w-fit p-2 absolute right-8 bottom-7 rounded-md text-xl disabled:bg-transparent disabled:text-line"
-                >
-                  <MdSend />
-                </Button>
-              </div>
-            </form>
-          </>
-        ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-line">
-            <h3>Please select a model.</h3>
-            <p>
-              Or click
-              <span className="mx-2 font-semibold">
-                <MdOutlineAdd className="inline-block" /> New Model
-              </span>
-              and start training your own LLM.
-            </p>
-          </div>
-        )}
-      </section>
-    </main>
+    <>
+      <div className="h-[calc(100vh-10.375rem)] overflow-y-scroll">
+        <ul className="flex flex-col gap-2.5 text-left ">
+          {messages.map((message) => (
+            <MessageItem key={message.id} message={message} />
+          ))}
+        </ul>
+        <div className="h-[5.75rem]"></div>
+      </div>
+      <form
+        onKeyDown={handleKeyDown}
+        className="absolute bottom-0 w-full bg-gradient-to-t from-white from-20%"
+      >
+        <div className="relative max-w-screen-md m-auto flex p-4">
+          <Textarea
+            value={text}
+            autoFocus
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Send a message"
+            className="h-16 max-h-32 pl-4 pr-16 py-5 shadow-md shadow-line/40 resize-none"
+          />
+          <Button
+            type="submit"
+            disabled={!text}
+            className="w-fit p-2 absolute right-8 bottom-[1.875rem] rounded-md text-xl disabled:bg-transparent disabled:text-line"
+          >
+            <MdSend />
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }
 
