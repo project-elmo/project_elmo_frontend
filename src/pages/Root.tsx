@@ -7,7 +7,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getFineTunedModels } from '@/api/rest';
+import { getFineTunedModelsWithTests } from '@/api/rest';
 import { ReactFlowProvider } from 'reactflow';
 import {
   MdOutlineAdd,
@@ -18,12 +18,14 @@ import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
 import Header from '@/components/Header';
 import Container from '@/components/Container';
+import Collapsible from '@/components/CollapsibleMenu';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 
 export default function Root() {
-  const { fmNo } = useParams();
+  const { fmNo, testNo } = useParams();
   const { pathname } = useLocation();
   const [showNav, setShowNav] = useState(true);
+  const [opened, setOpened] = useState<number[]>([]);
   const navigate = useNavigate();
 
   const currentPage = pathname.includes(ROUTES.TEST.INDEX)
@@ -33,8 +35,8 @@ export default function Root() {
     : 'history';
 
   const { data: models } = useQuery({
-    queryKey: [QUERY_KEYS.FINE_TUNED_MODELS],
-    queryFn: getFineTunedModels,
+    queryKey: [QUERY_KEYS.FINE_TUNED_WITH_TESTS],
+    queryFn: getFineTunedModelsWithTests,
   });
 
   return (
@@ -57,28 +59,36 @@ export default function Root() {
                   <MdOutlineChevronLeft />
                 </Button>
               </div>
-              <ul className="mt-1.5 max-h-[calc(100vh-14.5rem)] overflow-x-hidden overflow-y-scroll">
+              <div className="flex flex-col gap-1.5 mt-1.5 max-h-[calc(100vh-14.5rem)] overflow-x-hidden overflow-y-scroll">
                 {models?.map((model) => (
-                  <Link
-                    to={
-                      currentPage === 'test'
-                        ? `${ROUTES.TEST.INDEX}/${model.fm_no}`
-                        : `${ROUTES.MAIN}${model.fm_no}`
-                    }
+                  <Collapsible
                     key={model.fm_no}
-                  >
-                    <li
-                      className={`-mx-1.5 px-4 py-3 cursor-pointer hover:bg-slate-200 ${
-                        fmNo &&
-                        model.fm_no === Number(fmNo) &&
-                        'font-bold bg-slate-200'
-                      }`}
-                    >
-                      {model.fm_name}
-                    </li>
-                  </Link>
+                    trigger={{
+                      name: model.fm_name,
+                      to:
+                        currentPage === 'test'
+                          ? `${ROUTES.TEST.INDEX}/${model.fm_no}`
+                          : `${ROUTES.MAIN}${model.fm_no}`,
+                      selected: Number(fmNo) === model.fm_no,
+                    }}
+                    contents={model.list_test?.map((test) => ({
+                      name: test.ts_model_name,
+                      to: `${ROUTES.TEST.INDEX}/${model.fm_no}/${test.test_no}`,
+                      selected:
+                        currentPage === 'test' &&
+                        Number(test.test_no) === Number(testNo),
+                    }))}
+                    isOpen={opened.includes(model.fm_no)}
+                    onOpenChange={(open) =>
+                      setOpened((prev) =>
+                        open
+                          ? [...prev, model.fm_no]
+                          : prev.filter((fmNo) => fmNo !== model.fm_no)
+                      )
+                    }
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
             <Link
               to={ROUTES.SETTING}

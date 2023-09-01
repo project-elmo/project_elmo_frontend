@@ -151,3 +151,13 @@ export const createMessage = async (
   }
   return res.data;
 };
+
+export const getFineTunedModelsWithTests = async (): Promise<
+  FineTunedModel[]
+> => {
+  const res = await axiosInstance.get('/test/tests');
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
