@@ -88,3 +88,8 @@ export interface TrainingForm extends Parameter {
   dataset: string;
   task: number;
 }
+
+export interface Test {
+  test_no: number;
+  session_no: number;
+}

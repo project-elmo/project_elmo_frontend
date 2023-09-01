@@ -2,6 +2,7 @@ import {
   Dataset,
   FineTunedModel,
   PreTrainedModel,
+  Test,
   TrainingForm,
   TrainingParameter,
   TrainingSession,
@@ -111,6 +112,16 @@ export const retrainModel = async (
     '/training/training/re_train_model',
     formData
   );
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const createTest = async (sessionNo: number): Promise<Test> => {
+  const res = await axiosInstance.post('/test/create_test', null, {
+    params: { session_no: sessionNo },
+  });
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }
