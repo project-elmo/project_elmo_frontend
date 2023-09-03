@@ -52,7 +52,7 @@ export default function StepDataset({ setFormData, onNext }: Props) {
   return (
     <MainTemplate
       title="Add Datasets"
-      description="Upload dataset files(json, excel, csv) and select one."
+      description="Upload dataset files(json, csv) and select one."
     >
       <div>
         <div className="flex flex-col h-96 border-2 border-secondary">
@@ -60,7 +60,7 @@ export default function StepDataset({ setFormData, onNext }: Props) {
           <ul className="h-full p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
             <input
               type="file"
-              accept="application/json, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              accept="application/json, .csv"
               className="hidden"
               ref={fileInput}
               onChange={handleFileChange}
