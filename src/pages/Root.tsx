@@ -92,7 +92,7 @@ export default function Root() {
             </div>
             <Link
               to={ROUTES.SETTING}
-              className="-mx-2 p-4 pt-5 flex items-center gap-3 border-t-2 border-line text-neutral-400"
+              className="-mx-2 p-4 pt-5 flex items-center gap-3 border-t-2 border-line "
             >
               <MdOutlineSettings className="text-xl" />
               <span>Settings</span>
