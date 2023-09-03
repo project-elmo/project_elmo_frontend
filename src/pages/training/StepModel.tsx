@@ -108,7 +108,7 @@ export default function StepModel({ setFormData, onNext }: Props) {
             )}
           </div>
         </div>
-        <div className="mt-6 text-center">
+        <div className="py-6 text-center">
           <Button disabled={!selected?.is_downloaded} onClick={handleNext}>
             Next
           </Button>

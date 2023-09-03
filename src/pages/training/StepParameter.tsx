@@ -241,7 +241,7 @@ export default function StepParameter({
             />
           </div>
         </div>
-        <div className="mt-10 text-center">
+        <div className="py-6 text-center">
           <Button onClick={handleClickTraining}>Start Training!</Button>
         </div>
       </div>

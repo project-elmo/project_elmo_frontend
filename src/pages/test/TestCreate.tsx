@@ -52,7 +52,7 @@ export default function TestCreate({ fmNo }: Props) {
           />
         ))}
       </ul>
-      <div className="mt-6 text-center">
+      <div className="py-6 text-center">
         <Button onClick={handleClickStartTest} disabled={!selected}>
           Start test
         </Button>
