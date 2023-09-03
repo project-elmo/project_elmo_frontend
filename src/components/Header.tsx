@@ -8,7 +8,7 @@ const navigation = [
 ];
 
 interface Props {
-  currentPage: string;
+  currentPage?: string;
 }
 
 export default function Header({ currentPage }: Props) {
