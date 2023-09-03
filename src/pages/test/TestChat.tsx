@@ -78,6 +78,10 @@ export default function TestChat({ testNo }: Props) {
   });
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.nativeEvent.isComposing) {
+      e.stopPropagation();
+      return;
+    }
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       createMessageMutation.mutate(formData);
