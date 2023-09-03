@@ -37,7 +37,7 @@ export default function StepDone({
             <ResultItem label="Epoch" value={result.epoch} />
           </div>
         )}
-        <div className="mt-12 text-center">
+        <div className="py-12 text-center">
           <Button
             onClick={() =>
               navigate(

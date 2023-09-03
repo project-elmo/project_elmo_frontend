@@ -57,12 +57,12 @@ export default function WelcomePage() {
             mission-critical tasks.
           </p>
         </div>
-        <p className="text-sm mb-6">
+        <p className="text-sm">
           By proceeding with the use of {SERVICE_NAME}, you signify your
           agreement to this disclaimer. If you do not agree with any part of
           this disclaimer, please do not use our service.
         </p>
-        <div className="text-center">
+        <div className="py-6 text-center">
           <Button onClick={handleClickContinue}>Continue</Button>
         </div>
       </MainTemplate>

@@ -35,7 +35,7 @@ export default function CollapsibleMenu({
           <CollapsiblePrimitive.Content key={`${content.name}-${content.to}`}>
             <Link
               to={content.to}
-              className={`group flex select-none items-center justify-between text-sm mt-1.5 p-2 pl-4 hover:bg-white ${
+              className={`group flex select-none items-center justify-between text-sm mt-1.5 p-2 pl-8 hover:bg-white ${
                 content.selected && 'bg-white'
               }`}
             >

@@ -80,7 +80,7 @@ export default function StepDataset({ setFormData, onNext }: Props) {
             ))}
           </ul>
         </div>
-        <div className="mt-6 text-center">
+        <div className="py-6 text-center">
           <Button onClick={handleNext} disabled={!selected}>
             Next
           </Button>

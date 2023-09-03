@@ -16,7 +16,7 @@ export default function SettingPage() {
           info="example information"
           placeholder={`home/{user}/elmo/data/models`}
         />
-        <div className="mt-6 text-center">
+        <div className="py-6 text-center">
           <Button type="submit">Start {SERVICE_NAME}</Button>
         </div>
       </form>
