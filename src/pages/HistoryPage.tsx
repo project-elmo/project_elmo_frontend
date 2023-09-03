@@ -7,7 +7,6 @@ import { MdOutlineAdd, MdOutlineClose } from 'react-icons/md';
 import { getTrainingParameter, getTrainingSessions } from '@/api/rest';
 import SideNav from '@/components/SideNav';
 import FlowNode from '@/components/flow/FlowNode';
-import TextInputWithLabel from '@/components/TextInputWithLabel';
 import Button from '@/components/Button';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
@@ -134,11 +133,9 @@ export default function HistoryPage() {
               </Button>
             </div>
             <div className="px-1.5 py-2">
-              <TextInputWithLabel
-                id="trained-model-name"
+              <Parameter
                 label="Trained Model Name"
                 value={selected.ts_model_name}
-                onChange={() => {}}
               />
               {trainingParameter && (
                 <div className="max-h-[calc(100vh-21rem)] flex flex-col gap-3 mt-3 overflow-y-scroll">
