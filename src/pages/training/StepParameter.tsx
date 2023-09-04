@@ -46,7 +46,6 @@ export default function StepParameter({
     eval_steps: 500,
     save_steps: 500,
     save_total_limits: -1,
-    run_on_gpu: true,
     load_best_at_the_end: false,
   });
 
@@ -219,27 +218,17 @@ export default function StepParameter({
               }
             />
           </div>
-          <div className="flex gap-16">
-            <SwitchWithLabel
-              id="run-on-gpu"
-              label="Run on GPU"
-              checked={parameter.run_on_gpu}
-              onCheckedChange={(checked: boolean) =>
-                setParameter((prev) => ({ ...prev, run_on_gpu: checked }))
-              }
-            />
-            <SwitchWithLabel
-              id="load-best-at-end"
-              label="Load Best At The End"
-              checked={parameter.load_best_at_the_end}
-              onCheckedChange={(checked: boolean) =>
-                setParameter((prev) => ({
-                  ...prev,
-                  load_best_at_the_end: checked,
-                }))
-              }
-            />
-          </div>
+          <SwitchWithLabel
+            id="load-best-at-end"
+            label="Load Best At The End"
+            checked={parameter.load_best_at_the_end}
+            onCheckedChange={(checked: boolean) =>
+              setParameter((prev) => ({
+                ...prev,
+                load_best_at_the_end: checked,
+              }))
+            }
+          />
         </div>
         <div className="py-6 text-center">
           <Button onClick={handleClickTraining}>Start Training!</Button>
