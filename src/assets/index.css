@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #root {
+    @apply text-primary;
+  }
+
+  h1 {
+    @apply text-5xl font-bold;
+  }
+
+  h2 {
+    @apply text-4xl font-bold;
+  }
+
+  h3 {
+    @apply text-3xl font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply w-64 p-3;
+    @apply text-white text-sm;
+    @apply bg-primary;
+  }
+
+  .list-btn {
+    @apply p-3;
+    @apply text-sm font-bold;
+    @apply bg-white border-2 border-line rounded-md;
+  }
+
+  .list-btn svg {
+    @apply text-xl;
+  }
+
+  .list-file {
+    @apply w-full h-12;
+    @apply p-3;
+    @apply text-primary;
+    @apply bg-white border-2 border-line rounded-md;
+  }
+
+  .input {
+    @apply w-full;
+    @apply px-4 py-3;
+    @apply text-base text-primary placeholder:text-line;
+    @apply bg-white border-2 border-line rounded-md focus:outline-primary;
+  }
+}
