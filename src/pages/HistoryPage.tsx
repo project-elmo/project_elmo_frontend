@@ -11,6 +11,7 @@ import Button from '@/components/Button';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
 import 'reactflow/dist/style.css';
+import TextWithLabel from '@/components/TextWithLabel';
 
 const nodeTypes = {
   flowNode: FlowNode,
@@ -133,65 +134,68 @@ export default function HistoryPage() {
               </Button>
             </div>
             <div className="px-1.5 py-2">
-              <Parameter
+              <TextWithLabel
                 label="Trained Model Name"
                 value={selected.ts_model_name}
               />
               {trainingParameter && (
                 <div className="max-h-[calc(100vh-21rem)] flex flex-col gap-3 mt-3 overflow-y-scroll">
-                  <Parameter
+                  <TextWithLabel
                     label="Model Name"
                     value={trainingParameter.model_name}
                   />
-                  <Parameter label="Epochs" value={trainingParameter.epochs} />
-                  <Parameter
+                  <TextWithLabel
+                    label="Epochs"
+                    value={trainingParameter.epochs}
+                  />
+                  <TextWithLabel
                     label="Save Strategy"
                     value={trainingParameter.save_strategy}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Logging Strategy"
                     value={trainingParameter.logging_strategy}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Evaluation Strategy"
                     value={trainingParameter.evaluation_strategy}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Learning Rate"
                     value={trainingParameter.learning_rate}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Weight Decay"
                     value={trainingParameter.weight_decay}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Batch Size"
                     value={trainingParameter.batch_size}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Eval Steps"
                     value={trainingParameter.eval_steps}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Save Steps"
                     value={trainingParameter.save_steps}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Save Total Limits"
                     value={trainingParameter.save_total_limits}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Run on GPU"
                     value={trainingParameter.run_on_gpu ? 'on' : 'off'}
                   />
-                  <Parameter
+                  <TextWithLabel
                     label="Load Best At The End"
                     value={
                       trainingParameter.load_best_at_the_end ? 'on' : 'off'
                     }
                   />
                   {trainingParameter.dataset && (
-                    <Parameter
+                    <TextWithLabel
                       label="Dataset"
                       value={trainingParameter.dataset}
                     />
@@ -209,19 +213,5 @@ export default function HistoryPage() {
         </SideNav>
       )}
     </main>
-  );
-}
-
-interface ParameterProps {
-  label: string;
-  value: string | number;
-}
-
-function Parameter({ label, value }: ParameterProps) {
-  return (
-    <div className="text-sm">
-      <h4 className="font-semibold mb-2">{label}</h4>
-      <p>{value}</p>
-    </div>
   );
 }

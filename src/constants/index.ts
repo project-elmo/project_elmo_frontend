@@ -26,6 +26,7 @@ export const QUERY_KEYS = {
   DATASETS: 'datasets',
   CHAT_HISTORY: 'chatHistory',
   FINE_TUNED_WITH_TESTS: 'fineTunedWithTests',
+  SETTING: 'setting',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {

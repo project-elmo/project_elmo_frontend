@@ -62,7 +62,7 @@ export interface Parameter {
   eval_steps: number;
   save_steps: number;
   save_total_limits: number;
-  run_on_gpu: boolean;
+  run_on_gpu?: boolean;
   load_best_at_the_end: boolean;
 }
 
@@ -119,4 +119,10 @@ export type MenuItem = {
   name: string;
   to: string;
   selected: boolean;
+};
+
+export type Setting = {
+  model_path: string;
+  result_path: string;
+  is_gpu: boolean;
 };
