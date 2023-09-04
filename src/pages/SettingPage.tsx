@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getSetting } from '@/api/rest';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getSetting, updateSetting } from '@/api/rest';
 import Button from '@/components/Button';
 import MainTemplate from '@/components/MainTemplate';
 import SwitchWithLabel from '@/components/SwitchWithLabel';
 import TextWithLabel from '@/components/TextWithLabel';
+import Toast from '@/components/Toast';
 import { QUERY_KEYS } from '@/constants';
 import { Setting } from '@/types';
 
@@ -14,6 +15,7 @@ export default function SettingPage() {
     result_path: '',
     is_gpu: false,
   });
+  const [toastOpen, setToastOpen] = useState(false);
 
   const { data: setting } = useQuery({
     queryKey: [QUERY_KEYS.SETTING],
@@ -25,12 +27,22 @@ export default function SettingPage() {
     setFormData(setting);
   }, [setting]);
 
+  const updateSettingMutation = useMutation({
+    mutationFn: updateSetting,
+    onSuccess: () => setToastOpen(true),
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    updateSettingMutation.mutate(formData);
+  };
+
   return (
     <MainTemplate
       title="Environment Settings"
       description={`You can change these values at any time.`}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <TextWithLabel label="Model save path" value={formData.model_path} />
           <SwitchWithLabel
@@ -50,6 +62,12 @@ export default function SettingPage() {
           <Button type="submit">Change Settings</Button>
         </div>
       </form>
+
+      <Toast
+        title="Successfully changed"
+        open={toastOpen}
+        onOpenChange={(open) => setToastOpen(open)}
+      />
     </MainTemplate>
   );
 }
