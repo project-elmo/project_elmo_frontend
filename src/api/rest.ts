@@ -170,3 +170,11 @@ export const getSetting = async (): Promise<Setting> => {
   }
   return res.data;
 };
+
+export const updateSetting = async (formData: Setting) => {
+  const res = await axiosInstance.post('/setting/update_setting', formData);
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res;
+};
