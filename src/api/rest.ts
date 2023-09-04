@@ -8,6 +8,7 @@ import {
   TrainingParameter,
   TrainingSession,
   TestMessageForm,
+  Setting,
 } from '@/types';
 import axios from 'axios';
 
@@ -156,6 +157,14 @@ export const getFineTunedModelsWithTests = async (): Promise<
   FineTunedModel[]
 > => {
   const res = await axiosInstance.get('/test/tests');
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const getSetting = async (): Promise<Setting> => {
+  const res = await axiosInstance.post('/setting/get_setting');
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }

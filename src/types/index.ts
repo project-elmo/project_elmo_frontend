@@ -120,3 +120,9 @@ export type MenuItem = {
   to: string;
   selected: boolean;
 };
+
+export type Setting = {
+  model_path: string;
+  result_path: string;
+  is_gpu: boolean;
+};
