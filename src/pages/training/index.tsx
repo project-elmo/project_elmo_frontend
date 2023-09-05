@@ -46,7 +46,7 @@ export default function TrainingPage() {
     eval_steps: 500,
     save_steps: 500,
     save_total_limits: -1,
-    run_on_gpu: true,
+    max_length: 512,
     load_best_at_the_end: false,
   });
   const [result, setResult] = useState<TrainingResult | null>(null);

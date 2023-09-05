@@ -46,6 +46,7 @@ export default function StepParameter({
     eval_steps: 500,
     save_steps: 500,
     save_total_limits: -1,
+    max_length: 512,
     load_best_at_the_end: false,
   });
 
@@ -77,7 +78,7 @@ export default function StepParameter({
       eval_steps: parameter.eval_steps,
       save_steps: parameter.save_steps,
       save_total_limits: parameter.save_total_limits,
-      run_on_gpu: parameter.run_on_gpu,
+      max_length: parameter.max_length,
       load_best_at_the_end: parameter.load_best_at_the_end,
     };
     formData.fm_no
@@ -218,20 +219,37 @@ export default function StepParameter({
               }
             />
           </div>
-          <SwitchWithLabel
-            id="load-best-at-end"
-            label="Load Best At The End"
-            checked={parameter.load_best_at_the_end}
-            onCheckedChange={(checked: boolean) =>
-              setParameter((prev) => ({
-                ...prev,
-                load_best_at_the_end: checked,
-              }))
-            }
-          />
+          <div className="flex gap-8 items-center">
+            <SliderWithLabel
+              id="maximum-length"
+              label="Maximum Length"
+              info="Maximum Length info"
+              value={parameter.max_length}
+              min={1}
+              max={512}
+              onValueChange={(nums: number[]) =>
+                setParameter((prev) => ({ ...prev, max_length: nums[0] }))
+              }
+            />
+            <div className="w-full">
+              <SwitchWithLabel
+                id="load-best-at-end"
+                label="Load Best At The End"
+                checked={parameter.load_best_at_the_end}
+                onCheckedChange={(checked: boolean) =>
+                  setParameter((prev) => ({
+                    ...prev,
+                    load_best_at_the_end: checked,
+                  }))
+                }
+              />
+            </div>
+          </div>
         </div>
         <div className="py-6 text-center">
-          <Button onClick={handleClickTraining}>Start Training!</Button>
+          <Button disabled={!modelName} onClick={handleClickTraining}>
+            Start Training!
+          </Button>
         </div>
       </div>
     </MainTemplate>
