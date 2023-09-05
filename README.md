@@ -6,13 +6,18 @@
 <h4 align="center">
 Easy LLM Online Model Optimizer
 </h4>
-
-<h4 align="center">
-  <a href="https://elmo-beta.vercel.app//" target="_blank">
-    배포
+<p align="center">
+  <a href="https://github.com/project-elmo/frontend/blob/main/README.md" target="_blank">
+    한국어
   </a>
 	|
-  <a href="#" target="_blank">시연</a>
+  <a href="https://github.com/project-elmo/frontend/blob/main/README-en.md" target="_blank">English</a>
+</p>
+<h4 align="center">
+  <a href="https://elmo-beta.vercel.app/" target="_blank">
+    🌐 배포
+  </a> | 
+  <a href="#" target="_blank">🖥️ 시연</a>
 </h4>
 
 <p align="center">
@@ -21,7 +26,8 @@ Easy LLM Online Model Optimizer
   <a href="#프로젝트-구조">프로젝트 구조</a> •
   <a href="#사용-방법">사용 방법</a> •
   <a href="#기술-스택">기술 스택</a> •
-  <a href="#참고-자료">참고 자료</a>
+  <a href="#참고-자료">참고 자료</a> •
+  <a href="#출처-알림">출처 알림</a>
 </p>
 
 <div align="center">
@@ -95,7 +101,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/c9eef064-58d9-4d5e-ab44-d1e923cc0c1e" alt="데이터셋 업로드" width="500">
 
 - 데이터셋 업로드
-  - json, csv 파일 추가
+  - JSON, CSV 파일 추가
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="파라미터 조정" width="500">
 <img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="모델 훈련 과정" width="500">
@@ -111,7 +117,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="이전 훈련 결과" width="500">
 
 - 이전 훈련 결과 조회
-  - 훈련 결과를 플로우 차트로 표시
+  - 모델 관계를 플로우 차트로 표시
   - 훈련 모델의 메타데이터 표시
 - 이전 모델 훈련 결과 다운로드
   - 가중치 파일 로컬 다운로드
@@ -153,7 +159,7 @@ Easy LLM Online Model Optimizer
   poetry install
   ```
 
-  3. redis & mysql 준비
+  3. Redis & MySQL 준비
 
   ```python
   (macOS)
@@ -203,7 +209,7 @@ Easy LLM Online Model Optimizer
 
    https://pnpm.io/ko/installation
 
-2. 패키지 설치
+2. 필요한 패키지 설치
    ```sh
    pnpm install
    ```
@@ -235,7 +241,7 @@ Easy LLM Online Model Optimizer
 
 ![python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![hugging face](https://img.shields.io/badge/hugging%20face-f3d13b?style=for-the-badge)
-![unicorn](https://img.shields.io/badge/unicorn-5d98d3?style=for-the-badge)
+![uvicorn](https://img.shields.io/badge/uvicorn-4752b1?style=for-the-badge)
 ![gunicorn](https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![mysql](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![redis](https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
@@ -259,4 +265,13 @@ Easy LLM Online Model Optimizer
 
 ## 참고 자료
 
-TODO
+- [[커버스토리] 챗GPT 타고 확산하는 ‘거대언어모델’…sLLM 구축 확대일로](http://www.itdaily.kr/news/articleView.html?idxno=215587)
+- [작지만 똑똑한 AI … sLLM 시대 온다](https://www.mk.co.kr/news/it/10791394)
+- Touvron, Hugo, et al. "LLaMA: Open and Efficient Foundation Language Models." (2023).
+
+## 출처 알림
+
+- 로고 이미지: [Emoji Kitchen](https://emojikitchen.dev/)
+- 백엔드 템플릿: [FastAPI Boilerplate](https://github.com/teamhide/fastapi-boilerplate)
+- 시연 영상에 사용된 데모데이터 셋: [CareCall for Seniors](https://github.com/naver-ai/carecall-corpus)
+  - 모든 데이터에 대한 모든 권리(저작권 등 지식재산권 포함)는 네이버에게 있습니다
