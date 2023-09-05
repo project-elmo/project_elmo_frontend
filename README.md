@@ -36,7 +36,7 @@ Easy LLM Online Model Optimizer
 
 인공지능에 대한 배경지식이 없어도 LLM을 학습시켜 나만의 GPT를 만들 수 있는 솔루션 오픈 소스 프로젝트
 
-- 개발 기간: 2023.08 ~ 2023.09 (6주)
+- 개발 기간: 2023.08 ~ 2023.09 (4주)
 
 ### 1. 개발 배경
 
@@ -98,6 +98,8 @@ Easy LLM Online Model Optimizer
   - json, csv 파일 추가
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="파라미터 조정" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="모델 훈련 과정" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/0f180642-39c2-4dd1-9472-d6d5c68bd4b4" alt="모델 훈련 결과" width="500">
 
 - 모델 훈련
   - LLM 트레이닝 파라미터 조정
@@ -106,7 +108,7 @@ Easy LLM Online Model Optimizer
 
 ### 2. 모델 관리
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/301c4024-239b-419a-8822-890573050d67" alt="이전 훈련 결과" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="이전 훈련 결과" width="500">
 
 - 이전 훈련 결과 조회
   - 훈련 결과를 플로우 차트로 표시
