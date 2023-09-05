@@ -260,3 +260,9 @@ Easy LLM Online Model Optimizer
 ## 참고 자료
 
 TODO
+
+## 출처 알림
+
+- https://emojikitchen.dev/
+- 템플릿 https://github.com/teamhide/fastapi-boilerplate
+- 데모데이터 셋(모든 데이터에 대한 모든 권리(저작권 등 지식재산권 포함)는 네이버에게 있습니다) https://github.com/naver-ai/carecall-corpus
