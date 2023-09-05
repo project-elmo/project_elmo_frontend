@@ -235,7 +235,7 @@ Easy LLM Online Model Optimizer
 
 ![python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![hugging face](https://img.shields.io/badge/hugging%20face-f3d13b?style=for-the-badge)
-![unicorn](https://img.shields.io/badge/unicorn-5d98d3?style=for-the-badge)
+![uvicorn](https://img.shields.io/badge/uvicorn-4752b1?style=for-the-badge)
 ![gunicorn](https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![mysql](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![redis](https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
@@ -259,10 +259,13 @@ Easy LLM Online Model Optimizer
 
 ## 참고 자료
 
-TODO
+- [[커버스토리] 챗GPT 타고 확산하는 ‘거대언어모델’…sLLM 구축 확대일로](http://www.itdaily.kr/news/articleView.html?idxno=215587)
+- [작지만 똑똑한 AI … sLLM 시대 온다](https://www.mk.co.kr/news/it/10791394)
+- Touvron, Hugo, et al. "LLaMA: Open and Efficient Foundation Language Models." (2023).
 
 ## 출처 알림
 
-- https://emojikitchen.dev/
-- 템플릿 https://github.com/teamhide/fastapi-boilerplate
-- 데모데이터 셋(모든 데이터에 대한 모든 권리(저작권 등 지식재산권 포함)는 네이버에게 있습니다) https://github.com/naver-ai/carecall-corpus
+- 로고 이미지: [Emoji Kitchen](https://emojikitchen.dev/)
+- 백엔드 템플릿: [FastAPI Boilerplate](https://github.com/teamhide/fastapi-boilerplate)
+- 시연 영상에 사용된 데모데이터 셋: [CareCall for Seniors](https://github.com/naver-ai/carecall-corpus)
+  - 모든 데이터에 대한 모든 권리(저작권 등 지식재산권 포함)는 네이버에게 있습니다
