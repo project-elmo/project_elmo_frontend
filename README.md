@@ -6,13 +6,18 @@
 <h4 align="center">
 Easy LLM Online Model Optimizer
 </h4>
-
-<h4 align="center">
-  <a href="https://elmo-beta.vercel.app//" target="_blank">
-    배포
+<p align="center">
+  <a href="https://github.com/project-elmo/frontend/blob/main/README.md" target="_blank">
+    한국어
   </a>
 	|
-  <a href="#" target="_blank">시연</a>
+  <a href="https://github.com/project-elmo/frontend/blob/main/README-en.md" target="_blank">English</a>
+</p>
+<h4 align="center">
+  <a href="https://elmo-beta.vercel.app/" target="_blank">
+    🌐 배포
+  </a> | 
+  <a href="#" target="_blank">🖥️ 시연</a>
 </h4>
 
 <p align="center">
@@ -21,7 +26,8 @@ Easy LLM Online Model Optimizer
   <a href="#프로젝트-구조">프로젝트 구조</a> •
   <a href="#사용-방법">사용 방법</a> •
   <a href="#기술-스택">기술 스택</a> •
-  <a href="#참고-자료">참고 자료</a>
+  <a href="#참고-자료">참고 자료</a> •
+  <a href="#출처-알림">출처 알림</a>
 </p>
 
 <div align="center">
@@ -95,7 +101,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/c9eef064-58d9-4d5e-ab44-d1e923cc0c1e" alt="데이터셋 업로드" width="500">
 
 - 데이터셋 업로드
-  - json, csv 파일 추가
+  - JSON, CSV 파일 추가
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="파라미터 조정" width="500">
 <img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="모델 훈련 과정" width="500">
@@ -111,7 +117,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="이전 훈련 결과" width="500">
 
 - 이전 훈련 결과 조회
-  - 훈련 결과를 플로우 차트로 표시
+  - 모델 관계를 플로우 차트로 표시
   - 훈련 모델의 메타데이터 표시
 - 이전 모델 훈련 결과 다운로드
   - 가중치 파일 로컬 다운로드
@@ -153,7 +159,7 @@ Easy LLM Online Model Optimizer
   poetry install
   ```
 
-  3. redis & mysql 준비
+  3. Redis & MySQL 준비
 
   ```python
   (macOS)
@@ -203,7 +209,7 @@ Easy LLM Online Model Optimizer
 
    https://pnpm.io/ko/installation
 
-2. 패키지 설치
+2. 필요한 패키지 설치
    ```sh
    pnpm install
    ```
