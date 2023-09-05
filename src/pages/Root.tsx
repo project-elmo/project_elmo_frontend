@@ -59,7 +59,7 @@ export default function Root() {
                   <MdOutlineChevronLeft />
                 </Button>
               </div>
-              <div className="flex flex-col gap-1.5 mt-1.5 max-h-[calc(100vh-14.5rem)] overflow-x-hidden overflow-y-scroll">
+              <div className="flex flex-col gap-1.5 mt-1.5 max-h-[calc(100vh-12.5rem)] overflow-x-hidden overflow-y-scroll">
                 {models?.map((model) => (
                   <Collapsible
                     key={model.fm_no}

@@ -64,6 +64,7 @@ export interface Parameter {
   save_total_limits: number;
   run_on_gpu?: boolean;
   load_best_at_the_end: boolean;
+  max_length: number;
 }
 
 export interface TrainingParameter extends Parameter {
