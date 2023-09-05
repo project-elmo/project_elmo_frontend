@@ -164,7 +164,7 @@ export const getFineTunedModelsWithTests = async (): Promise<
 };
 
 export const getSetting = async (): Promise<Setting> => {
-  const res = await axiosInstance.post('/setting/get_setting');
+  const res = await axiosInstance.get('/setting/get_setting');
   if (res.status !== 200) {
     throw new Error(res.statusText);
   }

@@ -4,18 +4,25 @@ import * as SwitchPrimitive from '@radix-ui/react-switch';
 interface Props {
   id: string;
   checked: boolean;
+  disabled?: boolean;
   onCheckedChange: (checked: boolean) => void;
 }
 
-export default function Switch({ id, checked, onCheckedChange }: Props) {
+export default function Switch({
+  id,
+  checked,
+  disabled = false,
+  onCheckedChange,
+}: Props) {
   return (
     <SwitchRoot
       id={id}
       checked={checked}
+      disabled={disabled}
       onCheckedChange={onCheckedChange}
-      className="radix-state-checked:border-primary relative inline-flex items-center h-6 w-10 cursor-pointer rounded-full border-2 border-line transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-opacity-75"
+      className="radix-state-checked:border-primary relative inline-flex items-center h-6 w-10 rounded-full border-2 border-line transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-primary radix-disabled:cursor-not-allowed"
     >
-      <SwitchThumb className="radix-state-checked:bg-primary radix-state-checked:translate-x-4 radix-state-unchecked:translate-x-0 pointer-events-none inline-block h-5 w-5 border-2 border-white transform rounded-full bg-line shadow-lg ring-0 transition duration-200 ease-in-out" />
+      <SwitchThumb className="radix-state-checked:bg-primary radix-state-checked:translate-x-4 radix-state-unchecked:translate-x-0 pointer-events-none inline-block h-5 w-5 border-2 border-white transform rounded-full bg-line shadow-lg ring-0 transition duration-200 ease-in-out radix-disabled:cursor-not-allowed" />
     </SwitchRoot>
   );
 }

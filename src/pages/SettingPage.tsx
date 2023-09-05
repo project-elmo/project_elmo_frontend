@@ -13,7 +13,7 @@ export default function SettingPage() {
   const [formData, setFormData] = useState<Setting>({
     model_path: '',
     result_path: '',
-    is_gpu: false,
+    is_gpu_use: false,
   });
   const [toastOpen, setToastOpen] = useState(false);
 
@@ -48,12 +48,13 @@ export default function SettingPage() {
           <SwitchWithLabel
             id="run_on_gpu"
             label="Run on GPU"
-            checked={formData.is_gpu}
+            checked={formData.is_gpu_use}
+            disabled={!setting?.is_gpu_available}
             className="font-semibold"
             onCheckedChange={(checked: boolean) =>
               setFormData((prev) => ({
                 ...prev,
-                is_gpu: checked,
+                is_gpu_use: checked,
               }))
             }
           />
