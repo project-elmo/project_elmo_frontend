@@ -124,5 +124,6 @@ export type MenuItem = {
 export type Setting = {
   model_path: string;
   result_path: string;
-  is_gpu: boolean;
+  is_gpu_use: boolean;
+  is_gpu_available?: boolean;
 };
