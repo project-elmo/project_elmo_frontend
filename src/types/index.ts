@@ -114,6 +114,11 @@ export type TestMessageForm = {
   task: number;
   msg: string;
   max_length: number;
+  temperature: number;
+  top_k: number;
+  top_p: number;
+  repetition_penalty: number;
+  no_repeat_ngram_size: number;
 };
 
 export type MenuItem = {
