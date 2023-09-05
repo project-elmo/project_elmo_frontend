@@ -6,7 +6,8 @@ interface Props {
   id: string;
   label: string;
   info?: string;
-  value?: string;
+  value?: string | number;
+  type?: 'text' | 'number';
   placeholder?: string;
   disabled?: boolean;
   className?: string;
@@ -18,6 +19,7 @@ export default function TextInputWithLabel({
   label,
   info,
   value,
+  type = 'text',
   placeholder,
   disabled,
   className,
@@ -29,6 +31,7 @@ export default function TextInputWithLabel({
       <TextInput
         id={id}
         value={value}
+        type={type}
         placeholder={placeholder}
         disabled={disabled}
         className={className}

@@ -8,6 +8,7 @@ import SideNav from '@/components/SideNav';
 import SliderWithLabel from '@/components/SliderWithLabel';
 import { QUERY_KEYS } from '@/constants';
 import { TestMessage, TestMessageForm } from '@/types';
+import TextInputWithLabel from '@/components/TextInputWithLabel';
 
 interface Props {
   testNo: number;
@@ -19,6 +20,11 @@ export default function TestChat({ testNo }: Props) {
     msg: '',
     task: 0,
     max_length: 50,
+    temperature: 1,
+    top_k: 0,
+    top_p: 1,
+    repetition_penalty: 1,
+    no_repeat_ngram_size: 0,
   });
   const messageRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
@@ -133,13 +139,73 @@ export default function TestChat({ testNo }: Props) {
       </section>
       <SideNav side="right" className="p-4">
         <SliderWithLabel
-          id="max-length"
+          id="maximum-length"
           label="Maximum Length"
+          info="Maximum Length info"
           value={formData.max_length}
           max={512}
           min={10}
           onValueChange={(value) =>
             setFormData((prev) => ({ ...prev, max_length: value[0] }))
+          }
+        />
+        <SliderWithLabel
+          id="temperature"
+          label="Temperature"
+          info="Temperature info"
+          value={formData.temperature}
+          max={2}
+          step={0.1}
+          onValueChange={(value) =>
+            setFormData((prev) => ({ ...prev, temperature: value[0] }))
+          }
+        />
+        <TextInputWithLabel
+          id="top-k"
+          label="Top K"
+          info="Top K info"
+          type="number"
+          value={formData.top_k}
+          className="mb-4"
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, top_k: Number(e.target.value) }))
+          }
+        />
+        <SliderWithLabel
+          id="top-p"
+          label="Top P"
+          info="Top P info"
+          value={formData.top_p}
+          max={2}
+          step={0.1}
+          onValueChange={(value) =>
+            setFormData((prev) => ({ ...prev, top_p: value[0] }))
+          }
+        />
+        <SliderWithLabel
+          id="repetition-penalty"
+          label="Repetition Penalty"
+          info="Repetition Penalty info"
+          value={formData.repetition_penalty}
+          min={1}
+          max={2}
+          step={0.1}
+          onValueChange={(value) =>
+            setFormData((prev) => ({ ...prev, repetition_penalty: value[0] }))
+          }
+        />
+        <TextInputWithLabel
+          id="no-repeat-ngram-size"
+          label="No Repeat Ngram Size"
+          info="No Repeat Ngram Size info"
+          type="number"
+          value={formData.no_repeat_ngram_size}
+          className="mb-4"
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              no_repeat_ngram_size: Number(e.target.value),
+            }))
           }
         />
       </SideNav>

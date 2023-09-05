@@ -64,6 +64,7 @@ export interface Parameter {
   save_total_limits: number;
   run_on_gpu?: boolean;
   load_best_at_the_end: boolean;
+  max_length: number;
 }
 
 export interface TrainingParameter extends Parameter {
@@ -113,6 +114,11 @@ export type TestMessageForm = {
   task: number;
   msg: string;
   max_length: number;
+  temperature: number;
+  top_k: number;
+  top_p: number;
+  repetition_penalty: number;
+  no_repeat_ngram_size: number;
 };
 
 export type MenuItem = {
