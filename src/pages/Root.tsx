@@ -22,6 +22,7 @@ import Container from '@/components/Container';
 import Collapsible from '@/components/CollapsibleMenu';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import Toast from '@/components/Toast';
 
 export default function Root() {
   const { fmNo, testNo } = useParams();
