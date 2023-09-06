@@ -45,19 +45,24 @@ export default function SettingPage() {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <TextWithLabel label="Model save path" value={formData.model_path} />
-          <SwitchWithLabel
-            id="run_on_gpu"
-            label="Run on GPU"
-            checked={formData.is_gpu_use}
-            disabled={!setting?.is_gpu_available}
-            className="font-semibold"
-            onCheckedChange={(checked: boolean) =>
-              setFormData((prev) => ({
-                ...prev,
-                is_gpu_use: checked,
-              }))
-            }
-          />
+          <div className="flex items-center gap-4">
+            <SwitchWithLabel
+              id="run_on_gpu"
+              label="Run on GPU"
+              checked={formData.is_gpu_use}
+              disabled={!setting?.is_gpu_available}
+              className="font-semibold"
+              onCheckedChange={(checked: boolean) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  is_gpu_use: checked,
+                }))
+              }
+            />
+            {setting && !setting?.is_gpu_available && (
+              <p className="text-sm text-disabled">GPU not available</p>
+            )}
+          </div>
         </div>
         <div className="py-6 text-center">
           <Button type="submit">Change Settings</Button>
