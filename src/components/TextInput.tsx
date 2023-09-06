@@ -1,7 +1,6 @@
 interface Props {
   id?: string;
-  value?: string | number;
-  type?: 'text' | 'number';
+  value?: string;
   placeholder?: string;
   disabled?: boolean;
   className?: string;
@@ -11,7 +10,6 @@ interface Props {
 export default function TextInput({
   id,
   value,
-  type = 'text',
   placeholder,
   disabled,
   className,
@@ -21,8 +19,6 @@ export default function TextInput({
     <input
       id={id}
       value={value}
-      type={type}
-      min={0}
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChange}
