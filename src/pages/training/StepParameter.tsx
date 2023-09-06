@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { retrainModel, trainPreTrainedModel } from '@/api/rest';
 import Button from '@/components/Button';
@@ -49,6 +49,34 @@ export default function StepParameter({
     max_length: 512,
     load_best_at_the_end: false,
   });
+  const [message, setMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (!parameter.load_best_at_the_end && modelName) {
+      setMessage('');
+      return;
+    }
+    if (!modelName) {
+      setMessage('Model name should not be empty.');
+      return;
+    }
+    if (parameter.save_strategy !== parameter.evaluation_strategy) {
+      setMessage(
+        'Save strategy and evaluation strategy should be the same when load best at the end is true.'
+      );
+      return;
+    }
+    if (
+      parameter.save_strategy === 'steps' &&
+      parameter.save_steps % parameter.eval_steps != 0
+    ) {
+      setMessage(
+        'Save steps should be a multiple of eval steps when load best at the end is true and save strategy is steps.'
+      );
+      return;
+    }
+    setMessage('');
+  }, [parameter, modelName]);
 
   const trainPreTrainedModelMutation = useMutation({
     mutationFn: trainPreTrainedModel,
@@ -246,8 +274,11 @@ export default function StepParameter({
             </div>
           </div>
         </div>
-        <div className="py-6 text-center">
-          <Button disabled={!modelName} onClick={handleClickTraining}>
+        <div className="pb-6 text-center">
+          <p className="w-full h-8 mb-2 flex justify-center items-end text-red-400 text-sm">
+            {message}
+          </p>
+          <Button disabled={!!message} onClick={handleClickTraining}>
             Start Training!
           </Button>
         </div>
