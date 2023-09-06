@@ -8,10 +8,10 @@ import { getTrainingParameter, getTrainingSessions } from '@/api/rest';
 import SideNav from '@/components/SideNav';
 import FlowNode from '@/components/flow/FlowNode';
 import Button from '@/components/Button';
+import TextWithLabel from '@/components/TextWithLabel';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
 import 'reactflow/dist/style.css';
-import TextWithLabel from '@/components/TextWithLabel';
 
 const nodeTypes = {
   flowNode: FlowNode,
