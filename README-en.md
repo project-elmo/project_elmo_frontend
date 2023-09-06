@@ -145,7 +145,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   docker compose build
   docker compose up --build
   ```
-- Without Docker :
+- <details close>
+      <summary>Without Docker</summary>
 
   1. Install poetry to add packages
 
@@ -202,6 +203,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   ```python
   poetry run python3 main.py --env {env} --debug
   ```
+
+  </details>
 
 ### 2. Client
 

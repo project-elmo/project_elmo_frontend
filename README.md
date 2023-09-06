@@ -145,9 +145,9 @@ Easy LLM Online Model Optimizer
   docker compose build
   docker compose up --build
   ```
-- Docker 없이 사용:
-
-  1. 패키지 추가를 위한 poetry 설치
+- <details close>
+    <summary>Docker 없이 사용</summary>
+    1. 패키지 추가를 위한 poetry 설치
 
   ```python
   pip install poetry==1.6.0
@@ -202,6 +202,8 @@ Easy LLM Online Model Optimizer
   ```python
   poetry run python3 main.py --env {env} --debug
   ```
+
+  </details>
 
 ### 2. 클라이언트
 
