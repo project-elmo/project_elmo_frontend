@@ -56,7 +56,7 @@ export interface Parameter {
   save_strategy: string;
   logging_strategy: string;
   evaluation_strategy: string;
-  learning_rate: number;
+  learning_rate: number | string;
   weight_decay: number;
   batch_size: number;
   eval_steps: number;
@@ -115,10 +115,10 @@ export type TestMessageForm = {
   msg: string;
   max_length: number;
   temperature: number;
-  top_k: number;
+  top_k: string;
   top_p: number;
   repetition_penalty: number;
-  no_repeat_ngram_size: number;
+  no_repeat_ngram_size: string;
 };
 
 export type MenuItem = {
