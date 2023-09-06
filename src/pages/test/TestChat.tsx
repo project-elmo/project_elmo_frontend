@@ -6,9 +6,10 @@ import Button from '@/components/Button';
 import Textarea from '@/components/Textarea';
 import SideNav from '@/components/SideNav';
 import SliderWithLabel from '@/components/SliderWithLabel';
+import TextInputWithLabel from '@/components/TextInputWithLabel';
+import { formatNumber } from '@/utils';
 import { QUERY_KEYS } from '@/constants';
 import { TestMessage, TestMessageForm } from '@/types';
-import TextInputWithLabel from '@/components/TextInputWithLabel';
 
 interface Props {
   testNo: number;
@@ -21,10 +22,10 @@ export default function TestChat({ testNo }: Props) {
     task: 0,
     max_length: 50,
     temperature: 1,
-    top_k: 0,
+    top_k: '0',
     top_p: 1,
     repetition_penalty: 1,
-    no_repeat_ngram_size: 0,
+    no_repeat_ngram_size: '0',
   });
   const messageRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
@@ -164,11 +165,13 @@ export default function TestChat({ testNo }: Props) {
           id="top-k"
           label="Top K"
           info="The number of highest probability vocabulary tokens to keep for top-k-filtering."
-          type="number"
           value={formData.top_k}
           className="mb-4"
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, top_k: Number(e.target.value) }))
+          onChange={({ target }) =>
+            setFormData((prev) => ({
+              ...prev,
+              top_k: formatNumber(target.value),
+            }))
           }
         />
         <SliderWithLabel
@@ -198,13 +201,12 @@ export default function TestChat({ testNo }: Props) {
           id="no-repeat-ngram-size"
           label="No Repeat Ngram Size"
           info="This stops the model from repeating the same group of words in a specific size."
-          type="number"
           value={formData.no_repeat_ngram_size}
           className="mb-4"
-          onChange={(e) =>
+          onChange={({ target }) =>
             setFormData((prev) => ({
               ...prev,
-              no_repeat_ngram_size: Number(e.target.value),
+              no_repeat_ngram_size: formatNumber(target.value),
             }))
           }
         />

@@ -8,6 +8,7 @@ import SelectWithLabel from '@/components/SelectWithLabel';
 import SliderWithLabel from '@/components/SliderWithLabel';
 import SwitchWithLabel from '@/components/SwitchWithLabel';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
+import { formatNumber } from '@/utils';
 import {
   FineTunedModel,
   Parameter,
@@ -40,7 +41,7 @@ export default function StepParameter({
     save_strategy: 'steps',
     logging_strategy: 'steps',
     evaluation_strategy: 'no',
-    learning_rate: 5e-5,
+    learning_rate: '0.00005',
     weight_decay: 0,
     batch_size: 8,
     eval_steps: 500,
@@ -100,7 +101,7 @@ export default function StepParameter({
       save_strategy: parameter.save_strategy,
       logging_strategy: parameter.logging_strategy,
       evaluation_strategy: parameter.evaluation_strategy,
-      learning_rate: parameter.learning_rate,
+      learning_rate: Number(parameter.learning_rate),
       weight_decay: parameter.weight_decay,
       batch_size: parameter.batch_size,
       eval_steps: parameter.eval_steps,
@@ -191,7 +192,7 @@ export default function StepParameter({
               onChange={({ target }) =>
                 setParameter((prev) => ({
                   ...prev,
-                  learning_rate: Number(target.value),
+                  learning_rate: formatNumber(target.value),
                 }))
               }
             />
