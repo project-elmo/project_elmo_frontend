@@ -126,7 +126,6 @@ export default function StepParameter({
             <TextInputWithLabel
               id="model-name"
               label="Model Name"
-              info="Model name info"
               placeholder={formData.pm_name}
               value={modelName}
               onChange={({ target }) => setModelName(target.value)}
@@ -134,8 +133,9 @@ export default function StepParameter({
             <SliderWithLabel
               id="epochs"
               label="Epochs"
-              info="Epochs info"
+              info="One complete round of learning where the model goes through all the training data once. The more rounds, the better the model can learn."
               value={parameter.epochs}
+              min={1}
               onValueChange={(nums: number[]) =>
                 setParameter((prev) => ({ ...prev, epochs: nums[0] }))
               }
@@ -144,7 +144,10 @@ export default function StepParameter({
           <div className="flex">
             <RadioGroupWithLabel
               label="Save Strategy"
-              info="Save Strategy info"
+              info={`The checkpoint save strategy to adopt during training.  Possible values are:
+              "no": No save is done during training.
+              "epoch": Save is done at the end of each epoch.
+              "steps": Save is done every save_steps.`}
               items={['no', 'steps', 'epoch']}
               value={parameter.save_strategy}
               onValueChange={(value: string) =>
@@ -153,7 +156,10 @@ export default function StepParameter({
             />
             <RadioGroupWithLabel
               label="Logging Strategy"
-              info="Logging Strategy info"
+              info={`The logging strategy to adopt during training. Possible values are:
+              "no": No save is done during training.
+              "epoch": Save is done at the end of each epoch.
+              "steps": Save is done every save_steps.`}
               items={['no', 'steps', 'epoch']}
               value={parameter.logging_strategy}
               onValueChange={(value: string) =>
@@ -162,7 +168,10 @@ export default function StepParameter({
             />
             <RadioGroupWithLabel
               label="Evaluation Strategy"
-              info="Evaluation Strategy info"
+              info={`The evaluation strategy to adopt during training. Possible values are:
+              "no": No evaluation is done during training.
+              "steps": Evaluation is done (and logged) every eval_steps.
+              "epoch": Evaluation is done at the end of each epoch.`}
               items={['no', 'steps', 'epoch']}
               value={parameter.evaluation_strategy}
               onValueChange={(value: string) =>
@@ -177,7 +186,7 @@ export default function StepParameter({
             <TextInputWithLabel
               id="learning-rate"
               label="Learning Rate"
-              info="Learning Rate info"
+              info={`Model's speed of learning. Higher values mean faster learning but can miss important details. Lower values are slower but more thorough.`}
               value={String(parameter.learning_rate)}
               onChange={({ target }) =>
                 setParameter((prev) => ({
@@ -189,7 +198,7 @@ export default function StepParameter({
             <SliderWithLabel
               id="weight-decay"
               label="Weight Decay"
-              info="Weight Decay info"
+              info="This helps the model to not focus too much on any single pattern, making it more balanced."
               value={parameter.weight_decay}
               max={0.1}
               step={0.01}
@@ -201,7 +210,7 @@ export default function StepParameter({
           <div className="flex gap-8">
             <SelectWithLabel
               label="Batch Size"
-              info="Batch Size info"
+              info="The number of examples the model learns from in each mini-lesson within a round."
               items={[2, 4, 8, 16, 32, 64, 128, 256, 512].map(String)}
               value={String(parameter.batch_size)}
               onValueChange={(value: string) =>
@@ -210,7 +219,7 @@ export default function StepParameter({
             />
             <SelectWithLabel
               label="Eval Steps"
-              info="Eval Steps info"
+              info={`Number of update steps between two evaluations if evaluation_strategy="steps".`}
               items={[
                 1, 5, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
               ].map(String)}
@@ -221,7 +230,7 @@ export default function StepParameter({
             />
             <SelectWithLabel
               label="Save Steps"
-              info="Save Steps info"
+              info={`Number of updates steps before two checkpoint saves if save_strategy="steps".`}
               items={[
                 1, 5, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
               ].map(String)}
@@ -232,7 +241,7 @@ export default function StepParameter({
             />
             <SelectWithLabel
               label="Save Total Limits"
-              info="Save Total Limits info"
+              info={`If a value is passed, will limit the total amount of checkpoints.`}
               items={['unlimited', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
               value={
                 parameter.save_total_limits === -1
@@ -251,7 +260,7 @@ export default function StepParameter({
             <SliderWithLabel
               id="maximum-length"
               label="Maximum Length"
-              info="Maximum Length info"
+              info={`The maximum length the generated tokens can have.`}
               value={parameter.max_length}
               min={1}
               max={512}
@@ -263,6 +272,7 @@ export default function StepParameter({
               <SwitchWithLabel
                 id="load-best-at-end"
                 label="Load Best At The End"
+                info={`Whether or not to load the best model found during training at the end of training. When this option is enabled, the best checkpoint will always be saved.`}
                 checked={parameter.load_best_at_the_end}
                 onCheckedChange={(checked: boolean) =>
                   setParameter((prev) => ({
