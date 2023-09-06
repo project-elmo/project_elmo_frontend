@@ -141,7 +141,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="maximum-length"
           label="Maximum Length"
-          info="Maximum Length info"
+          info="The maximum length the generated tokens can have."
           value={formData.max_length}
           max={512}
           min={10}
@@ -152,7 +152,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="temperature"
           label="Temperature"
-          info="Temperature info"
+          info="This controls how random or creative the model's output is. Higher values make it more random."
           value={formData.temperature}
           max={2}
           step={0.1}
@@ -163,7 +163,7 @@ export default function TestChat({ testNo }: Props) {
         <TextInputWithLabel
           id="top-k"
           label="Top K"
-          info="Top K info"
+          info="The number of highest probability vocabulary tokens to keep for top-k-filtering."
           type="number"
           value={formData.top_k}
           className="mb-4"
@@ -174,7 +174,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="top-p"
           label="Top P"
-          info="Top P info"
+          info="This setting allows the model to keep only those words that have a high chance of coming next, as long as they collectively reach a certain likelihood."
           value={formData.top_p}
           max={2}
           step={0.1}
@@ -185,7 +185,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="repetition-penalty"
           label="Repetition Penalty"
-          info="Repetition Penalty info"
+          info="The parameter for repetition penalty. 1.0 means no penalty."
           value={formData.repetition_penalty}
           min={1}
           max={2}
@@ -197,7 +197,7 @@ export default function TestChat({ testNo }: Props) {
         <TextInputWithLabel
           id="no-repeat-ngram-size"
           label="No Repeat Ngram Size"
-          info="No Repeat Ngram Size info"
+          info="This stops the model from repeating the same group of words in a specific size."
           type="number"
           value={formData.no_repeat_ngram_size}
           className="mb-4"
