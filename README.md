@@ -17,7 +17,7 @@ Easy LLM Online Model Optimizer
   <a href="https://elmo-beta.vercel.app/" target="_blank">
     🌐 배포
   </a> | 
-  <a href="#" target="_blank">🖥️ 시연</a>
+  <a href="https://youtu.be/jVAlqwMY1co?feature=shared" target="_blank">🖥️ 시연</a>
 </h4>
 
 <p align="center">
@@ -118,7 +118,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="이전 훈련 결과" width="500">
 
 - 이전 훈련 결과 조회
-  - 모델 관계를 플로우 차트로 표시
+  - 모델 관계를 트리 구조로 표시
   - 훈련 모델의 메타데이터 표시
 - 이전 모델 훈련 결과 다운로드
   - 가중치 파일 로컬 다운로드
@@ -138,6 +138,8 @@ Easy LLM Online Model Optimizer
 ![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
 
 ## 사용 방법
+
+[📋 API 문서](https://elmo-demo.store/docs)
 
 ### 1. 서버
 
