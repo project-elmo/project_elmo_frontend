@@ -17,7 +17,7 @@ Easy LLM Online Model Optimizer
   <a href="https://elmo-beta.vercel.app/" target="_blank">
     🌐 Demo
   </a> | 
-  <a href="#" target="_blank">🖥️ Video</a>
+  <a href="https://youtu.be/jVAlqwMY1co?feature=shared" target="_blank">🖥️ Video</a>
 </h4>
 
 <p align="center">
@@ -102,6 +102,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 - Upload a dataset
   - Add JSON, CSV files
+  - ❗️ In the current demo, you can train QA (Question-Answering) models. Please ensure that the key values in JSON or the column names in CSV are labeled as 'question' and 'answer'.
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="Set parameters" width="500">
 <img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="Model training progress" width="500">
@@ -117,7 +118,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="Previous training results" width="500">
 
 - Get previous training results
-  - Display model relationships in a flow chart
+  - Display model relationships in tree structure
   - Display training model metadata
 - Download previous model training results
   - Download weight files locally
@@ -138,6 +139,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ## Development
 
+[📋 API Docs](https://elmo-demo.store/docs)
+
 ### 1. Server
 
 - With Docker:
@@ -145,7 +148,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   docker compose build
   docker compose up --build
   ```
-- Without Docker :
+- <details close>
+      <summary>Without Docker</summary>
 
   1. Install poetry to add packages
 
@@ -202,6 +206,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   ```python
   poetry run python3 main.py --env {env} --debug
   ```
+
+  </details>
 
 ### 2. Client
 

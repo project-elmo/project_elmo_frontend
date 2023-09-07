@@ -17,7 +17,7 @@ Easy LLM Online Model Optimizer
   <a href="https://elmo-beta.vercel.app/" target="_blank">
     🌐 배포
   </a> | 
-  <a href="#" target="_blank">🖥️ 시연</a>
+  <a href="https://youtu.be/jVAlqwMY1co?feature=shared" target="_blank">🖥️ 시연</a>
 </h4>
 
 <p align="center">
@@ -102,6 +102,7 @@ Easy LLM Online Model Optimizer
 
 - 데이터셋 업로드
   - JSON, CSV 파일 추가
+  - ❗️ 현재 데모에서는 QA(질문-답변) 모델을 훈련할 수 있으며, JSON의 키 값 또는 CSV의 컬럼명이 'question'과 'answer'로 라벨링되어야 함
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="파라미터 조정" width="500">
 <img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="모델 훈련 과정" width="500">
@@ -117,7 +118,7 @@ Easy LLM Online Model Optimizer
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="이전 훈련 결과" width="500">
 
 - 이전 훈련 결과 조회
-  - 모델 관계를 플로우 차트로 표시
+  - 모델 관계를 트리 구조로 표시
   - 훈련 모델의 메타데이터 표시
 - 이전 모델 훈련 결과 다운로드
   - 가중치 파일 로컬 다운로드
@@ -138,6 +139,8 @@ Easy LLM Online Model Optimizer
 
 ## 사용 방법
 
+[📋 API 문서](https://elmo-demo.store/docs)
+
 ### 1. 서버
 
 - Docker 사용:
@@ -145,9 +148,9 @@ Easy LLM Online Model Optimizer
   docker compose build
   docker compose up --build
   ```
-- Docker 없이 사용:
-
-  1. 패키지 추가를 위한 poetry 설치
+- <details close>
+    <summary>Docker 없이 사용</summary>
+    1. 패키지 추가를 위한 poetry 설치
 
   ```python
   pip install poetry==1.6.0
@@ -202,6 +205,8 @@ Easy LLM Online Model Optimizer
   ```python
   poetry run python3 main.py --env {env} --debug
   ```
+
+  </details>
 
 ### 2. 클라이언트
 
