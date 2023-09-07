@@ -17,7 +17,7 @@ Easy LLM Online Model Optimizer
   <a href="https://elmo-beta.vercel.app/" target="_blank">
     🌐 Demo
   </a> | 
-  <a href="#" target="_blank">🖥️ Video</a>
+  <a href="https://youtu.be/jVAlqwMY1co?feature=shared" target="_blank">🖥️ Video</a>
 </h4>
 
 <p align="center">
@@ -118,7 +118,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 <img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="Previous training results" width="500">
 
 - Get previous training results
-  - Display model relationships in a flow chart
+  - Display model relationships in tree structure
   - Display training model metadata
 - Download previous model training results
   - Download weight files locally
@@ -138,6 +138,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 ![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
 
 ## Development
+
+[📋 API Docs](https://elmo-demo.store/docs)
 
 ### 1. Server
 
