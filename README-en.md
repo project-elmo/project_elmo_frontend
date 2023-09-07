@@ -102,6 +102,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 - Upload a dataset
   - Add JSON, CSV files
+  - ❗️ In the current demo, you can train QA (Question-Answering) models. Please ensure that the key values in JSON or the column names in CSV are labeled as 'question' and 'answer'.
 
 <img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="Set parameters" width="500">
 <img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="Model training progress" width="500">
@@ -145,7 +146,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   docker compose build
   docker compose up --build
   ```
-- Without Docker :
+- <details close>
+      <summary>Without Docker</summary>
 
   1. Install poetry to add packages
 
@@ -202,6 +204,8 @@ Open source project solution to create your own LLM-trained GPT without a backgr
   ```python
   poetry run python3 main.py --env {env} --debug
   ```
+
+  </details>
 
 ### 2. Client
 
