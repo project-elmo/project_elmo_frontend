@@ -39,7 +39,7 @@ const RadioGroupRoot = React.forwardRef<
   <RadioGroupPrimitive.Root {...props} ref={forwardedRef} />
 ));
 
-export const RadioGroupIndicator = React.forwardRef<
+const RadioGroupIndicator = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Indicator> & {
     children: React.ReactNode;

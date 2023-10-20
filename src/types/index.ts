@@ -133,8 +133,3 @@ export type Setting = {
   is_gpu_use: boolean;
   is_gpu_available?: boolean;
 };
-
-export type AccordionItem = {
-  header: string;
-  content: React.ReactNode;
-};

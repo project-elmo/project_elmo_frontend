@@ -8,7 +8,6 @@ import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import { QUERY_KEYS } from '@/constants';
 import { Dataset, TrainingForm } from '@/types';
-import ListContainer from '@/components/ListContainer';
 
 interface Props {
   setFormData: React.Dispatch<React.SetStateAction<TrainingForm>>;
@@ -56,28 +55,31 @@ export default function StepDataset({ setFormData, onNext }: Props) {
       description="Upload dataset files(json, csv) and select one."
     >
       <div>
-        <ListContainer title="Dataset List">
-          <input
-            type="file"
-            accept="application/json, .csv"
-            className="hidden"
-            ref={fileInput}
-            onChange={handleFileChange}
-          />
-          <Button className="list-file" onClick={handleClickFileUpload}>
-            <MdOutlineAdd className="m-auto text-lg" />
-          </Button>
-          {datasets?.map((dataset) => (
-            <DatasetlListItem
-              key={dataset.filename}
-              dataset={dataset}
-              checked={selected?.filename === dataset.filename}
-              onCheckedChange={() =>
-                setSelected(selected === dataset ? null : dataset)
-              }
+        <div className="flex flex-col h-96 border-2 border-secondary">
+          <h4 className="px-6 py-3 font-bold">Dataset List</h4>
+          <ul className="h-full p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
+            <input
+              type="file"
+              accept="application/json, .csv"
+              className="hidden"
+              ref={fileInput}
+              onChange={handleFileChange}
             />
-          ))}
-        </ListContainer>
+            <Button className="list-file" onClick={handleClickFileUpload}>
+              <MdOutlineAdd className="m-auto text-lg" />
+            </Button>
+            {datasets?.map((dataset) => (
+              <DatasetlListItem
+                key={dataset.filename}
+                dataset={dataset}
+                checked={selected?.filename === dataset.filename}
+                onCheckedChange={() =>
+                  setSelected(selected === dataset ? null : dataset)
+                }
+              />
+            ))}
+          </ul>
+        </div>
         <div className="py-6 text-center">
           <Button onClick={handleNext} disabled={!selected}>
             Next
