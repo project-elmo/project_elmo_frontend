@@ -12,7 +12,6 @@ import {
   TrainingResult,
   TrainingSession,
 } from '@/types';
-import StepPurpose from './StepPurpose';
 
 export default function TrainingPage() {
   const { state } = useLocation() as {
@@ -25,8 +24,8 @@ export default function TrainingPage() {
     };
   };
   const [Funnel, setStep] = useFunnel(
-    ['purpose', 'model', 'dataset', 'parameter', 'training', 'done'] as const,
-    state?.fmNo ? 'dataset' : 'purpose'
+    ['model', 'dataset', 'parameter', 'training', 'done'] as const,
+    state?.fmNo ? 'dataset' : 'model'
   );
   const [formData, setFormData] = useState<TrainingForm>({
     pm_no: state?.pmNo ?? null,
@@ -64,9 +63,6 @@ export default function TrainingPage() {
 
   return (
     <Funnel>
-      <Funnel.Step name="purpose">
-        <StepPurpose onNext={() => setStep('model')} />
-      </Funnel.Step>
       <Funnel.Step name="model">
         <StepModel
           onNext={() => setStep('dataset')}
