@@ -4,6 +4,7 @@ import useFunnel from '@/hooks/useFunnel';
 import StepPurpose from '@/pages/training/StepPurpose';
 import StepModel from '@/pages/training/StepModel';
 import StepDataset from '@/pages/training/StepDataset';
+import StepColumn from '@/pages/training/StepColumn';
 import StepParameter from '@/pages/training/StepParameter';
 import StepTraining from '@/pages/training/StepTraining';
 import StepDone from '@/pages/training/StepDone';
@@ -25,7 +26,15 @@ export default function TrainingPage() {
     };
   };
   const [Funnel, setStep] = useFunnel(
-    ['purpose', 'model', 'dataset', 'parameter', 'training', 'done'] as const,
+    [
+      'purpose',
+      'model',
+      'dataset',
+      'column',
+      'parameter',
+      'training',
+      'done',
+    ] as const,
     state?.fmNo ? 'dataset' : 'purpose'
   );
   const [formData, setFormData] = useState<TrainingForm>({
@@ -75,9 +84,12 @@ export default function TrainingPage() {
       </Funnel.Step>
       <Funnel.Step name="dataset">
         <StepDataset
-          onNext={() => setStep('parameter')}
+          onNext={() => setStep('column')}
           setFormData={setFormData}
         />
+      </Funnel.Step>
+      <Funnel.Step name="column">
+        <StepColumn onNext={() => setStep('parameter')} />
       </Funnel.Step>
       <Funnel.Step name="parameter">
         <StepParameter

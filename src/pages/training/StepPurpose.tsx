@@ -21,19 +21,17 @@ export default function StepPurpose({ onNext }: Props) {
       title="Select Purpose"
       description="Select the purpose of your model"
     >
-      <div>
-        <ListContainer title="Choose your purpose:">
-          <RadioAccordion
-            items={items}
-            value={selected}
-            onValueChange={(value) => setSelected(value)}
-          />
-        </ListContainer>
-        <div className="py-6 text-center">
-          <Button onClick={onNext} disabled={!selected}>
-            Next
-          </Button>
-        </div>
+      <ListContainer title="Choose your purpose:">
+        <RadioAccordion
+          items={items}
+          value={selected}
+          onValueChange={(value) => setSelected(value)}
+        />
+      </ListContainer>
+      <div className="py-6 text-center">
+        <Button onClick={onNext} disabled={!selected}>
+          Next
+        </Button>
       </div>
     </MainTemplate>
   );
