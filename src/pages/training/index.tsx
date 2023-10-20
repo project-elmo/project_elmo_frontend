@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useFunnel from '@/hooks/useFunnel';
+import StepPurpose from '@/pages/training/StepPurpose';
 import StepModel from '@/pages/training/StepModel';
 import StepDataset from '@/pages/training/StepDataset';
 import StepParameter from '@/pages/training/StepParameter';
@@ -24,8 +25,8 @@ export default function TrainingPage() {
     };
   };
   const [Funnel, setStep] = useFunnel(
-    ['model', 'dataset', 'parameter', 'training', 'done'] as const,
-    state?.fmNo ? 'dataset' : 'model'
+    ['purpose', 'model', 'dataset', 'parameter', 'training', 'done'] as const,
+    state?.fmNo ? 'dataset' : 'purpose'
   );
   const [formData, setFormData] = useState<TrainingForm>({
     pm_no: state?.pmNo ?? null,
@@ -63,6 +64,9 @@ export default function TrainingPage() {
 
   return (
     <Funnel>
+      <Funnel.Step name="purpose">
+        <StepPurpose onNext={() => setStep('model')} />
+      </Funnel.Step>
       <Funnel.Step name="model">
         <StepModel
           onNext={() => setStep('dataset')}
