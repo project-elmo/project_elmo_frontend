@@ -91,6 +91,7 @@ export interface TrainingForm extends Parameter {
   ts_model_name: string;
   dataset: string;
   task: number;
+  keys_to_use: string[];
 }
 
 export type Test = {
