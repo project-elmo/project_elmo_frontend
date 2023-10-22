@@ -8,15 +8,21 @@ import {
 
 interface Props {
   items: string[];
-  value: string;
+  value?: string;
+  placeholder?: string;
   onValueChange: (value: string) => void;
 }
 
-export default function Select({ items, value, onValueChange }: Props) {
+export default function Select({
+  items,
+  value,
+  placeholder,
+  onValueChange,
+}: Props) {
   return (
     <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="input flex justify-between items-center">
-        <SelectPrimitive.Value />
+      <SelectTrigger className="input flex justify-between items-center data-[placeholder]:text-gray-400">
+        <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon>
           <MdOutlineExpandMore className="text-lg" />
         </SelectPrimitive.Icon>

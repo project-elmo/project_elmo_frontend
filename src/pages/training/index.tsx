@@ -58,6 +58,7 @@ export default function TrainingPage() {
     save_total_limits: -1,
     max_length: 512,
     load_best_at_the_end: false,
+    keys_to_use: ['question', 'answer'],
   });
   const [result, setResult] = useState<TrainingResult | null>(null);
   const [fineTunedModel, setFineTunedModel] = useState<FineTunedModel | null>(
@@ -92,7 +93,12 @@ export default function TrainingPage() {
         />
       </Funnel.Step>
       <Funnel.Step name="column">
-        <StepColumn onNext={() => setStep('parameter')} />
+        <StepColumn
+          onNext={() => setStep('parameter')}
+          task={formData.task}
+          dataset={formData.dataset}
+          setFormData={setFormData}
+        />
       </Funnel.Step>
       <Funnel.Step name="parameter">
         <StepParameter
