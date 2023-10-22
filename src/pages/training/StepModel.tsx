@@ -53,7 +53,6 @@ export default function StepModel({ setFormData, onNext }: Props) {
     setFormData((prev) => ({
       ...prev,
       pm_no: selected.pm_no,
-      pm_name: selected.name,
     }));
     onNext();
   };

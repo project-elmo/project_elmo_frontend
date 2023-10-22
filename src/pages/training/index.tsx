@@ -18,10 +18,7 @@ import {
 export default function TrainingPage() {
   const { state } = useLocation() as {
     state: {
-      pmNo?: number;
-      pmName?: string;
       fmNo?: number;
-      fmName?: string;
       parentSessionNo?: string;
     };
   };
@@ -38,10 +35,9 @@ export default function TrainingPage() {
     state?.fmNo ? 'dataset' : 'purpose'
   );
   const [formData, setFormData] = useState<TrainingForm>({
-    pm_no: state?.pmNo ?? null,
-    pm_name: state?.pmName || '',
+    pm_no: null,
     fm_no: state?.fmNo ?? undefined,
-    fm_name: state?.fmName || '',
+    fm_name: '',
     ts_model_name: '',
     parent_session_no: state?.parentSessionNo || undefined,
     dataset: '',

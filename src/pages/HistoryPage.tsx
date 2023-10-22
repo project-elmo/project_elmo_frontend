@@ -76,10 +76,7 @@ export default function HistoryPage() {
   const handleClickTrain = () => {
     navigate(ROUTES.TRAINING, {
       state: {
-        pmNo: selected?.pm_no,
         fmNo: selected?.fm_no,
-        pmName: selected?.pm_name,
-        fmName: selected?.fm_name,
         parentSessionNo: selected?.session_no,
       },
     });
