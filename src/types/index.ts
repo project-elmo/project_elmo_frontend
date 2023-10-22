@@ -84,7 +84,6 @@ export type Dataset = {
 
 export interface TrainingForm extends Parameter {
   pm_no: number | null;
-  pm_name: string;
   fm_no?: number;
   fm_name: string;
   parent_session_no?: string;

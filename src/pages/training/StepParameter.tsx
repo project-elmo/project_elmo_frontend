@@ -127,7 +127,6 @@ export default function StepParameter({
             <TextInputWithLabel
               id="model-name"
               label="Model Name"
-              placeholder={formData.pm_name}
               value={modelName}
               onChange={({ target }) => setModelName(target.value)}
             />
