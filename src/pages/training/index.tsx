@@ -74,7 +74,10 @@ export default function TrainingPage() {
   return (
     <Funnel>
       <Funnel.Step name="purpose">
-        <StepPurpose onNext={() => setStep('model')} />
+        <StepPurpose
+          onNext={() => setStep('model')}
+          setFormData={setFormData}
+        />
       </Funnel.Step>
       <Funnel.Step name="model">
         <StepModel

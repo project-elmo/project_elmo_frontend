@@ -135,6 +135,7 @@ export type Setting = {
 };
 
 export type AccordionItem = {
+  id: string;
   header: string;
   content: React.ReactNode;
 };
