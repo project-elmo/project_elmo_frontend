@@ -8,20 +8,26 @@ import {
 
 interface Props {
   items: string[];
-  value: string;
+  value?: string;
+  placeholder?: string;
   onValueChange: (value: string) => void;
 }
 
-export default function Select({ items, value, onValueChange }: Props) {
+export default function Select({
+  items,
+  value,
+  placeholder,
+  onValueChange,
+}: Props) {
   return (
     <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="input flex justify-between items-center">
-        <SelectPrimitive.Value />
+      <SelectTrigger className="input flex justify-between items-center data-[placeholder]:text-gray-400">
+        <SelectPrimitive.Value placeholder={placeholder} className="" />
         <SelectPrimitive.Icon>
           <MdOutlineExpandMore className="text-lg" />
         </SelectPrimitive.Icon>
       </SelectTrigger>
-      <SelectContent className="bg-white p-2 border rounded-md shadow shadow-line/30 z-20">
+      <SelectContent className="bg-white p-2 border rounded-md shadow shadow-line/30 z-20 ">
         <SelectScrollUpButton className="flex items-center justify-center">
           <MdOutlineExpandLess />
         </SelectScrollUpButton>
@@ -31,7 +37,7 @@ export default function Select({ items, value, onValueChange }: Props) {
               <SelectItem
                 key={item}
                 value={item}
-                className="relative flex items-center px-8 py-2 rounded-md text-sm focus:bg-secondary cursor-pointer focus:outline-none"
+                className="relative flex items-center px-8 py-2 rounded-md text-sm focus:bg-secondary cursor-pointer focus:outline-none "
               >
                 <SelectPrimitive.ItemText>{item}</SelectPrimitive.ItemText>
                 <SelectItemIndicator className="absolute left-2 inline-flex items-center">
