@@ -3,18 +3,29 @@ import MainTemplate from '@/components/MainTemplate';
 import ListContainer from '@/components/ListContainer';
 import RadioAccordion from '@/components/RadioAccordion';
 import Button from '@/components/Button';
-import { AccordionItem } from '@/types';
+import { AccordionItem, TrainingForm } from '@/types';
 
 interface Props {
+  setFormData: React.Dispatch<React.SetStateAction<TrainingForm>>;
   onNext: () => void;
 }
 
-export default function StepPurpose({ onNext }: Props) {
-  const [selected, setSelected] = useState(purposes[0].header);
+export default function StepPurpose({ setFormData, onNext }: Props) {
+  const [selected, setSelected] = useState(purposes[0].task);
   const items: AccordionItem[] = purposes.map((purpose) => ({
+    id: String(purpose.task),
     header: purpose.header,
     content: <AccordionContentItem purpose={purpose} />,
   }));
+
+  const handleNext = () => {
+    if (!selected) return;
+    setFormData((prev) => ({
+      ...prev,
+      task: selected,
+    }));
+    onNext();
+  };
 
   return (
     <MainTemplate
@@ -24,14 +35,12 @@ export default function StepPurpose({ onNext }: Props) {
       <ListContainer title="Choose your purpose:">
         <RadioAccordion
           items={items}
-          value={selected}
-          onValueChange={(value) => setSelected(value)}
+          value={String(selected)}
+          onValueChange={(value) => setSelected(Number(value))}
         />
       </ListContainer>
       <div className="py-6 text-center">
-        <Button onClick={onNext} disabled={!selected}>
-          Next
-        </Button>
+        <Button onClick={handleNext}>Next</Button>
       </div>
     </MainTemplate>
   );
@@ -56,6 +65,7 @@ const AccordionContentItem = ({ purpose }: { purpose: Purpose }) => {
 };
 
 type Purpose = {
+  task: number;
   header: string;
   description: string;
   dataRequirement: string;
@@ -64,12 +74,14 @@ type Purpose = {
 
 const purposes: Purpose[] = [
   {
+    task: 0,
     header: 'Chatbots & Conversational Agents',
     description: `A chatbot simulates human-like conversations, enabling interactions with users in a conversational manner. It's designed to assist, guide, or engage users in a dynamic dialogue.`,
     dataRequirement: `For training a chatbot, you typically need a dataset of conversational exchanges. This consists of pairs of user inputs and the desired bot responses. The data doesn't necessarily rely on a specific context.`,
     example: `User: "Hello, how are you?"\nBot: "Hello! I'm doing well. How can I assist you today?"`,
   },
   {
+    task: 1,
     header: 'Text Classification',
     description: `Text classification involves categorizing text into predefined labels or groups. It's widely used to structure data, understand sentiment, detect spam, or classify documents into specific topics.`,
     dataRequirement: `For training a text classification model, you need a dataset containing text samples and their corresponding labels. The text could be a sentence, a paragraph, or even a document.`,
