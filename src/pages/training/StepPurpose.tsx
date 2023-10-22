@@ -19,7 +19,6 @@ export default function StepPurpose({ setFormData, onNext }: Props) {
   }));
 
   const handleNext = () => {
-    if (!selected) return;
     setFormData((prev) => ({
       ...prev,
       task: selected,
