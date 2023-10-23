@@ -73,10 +73,7 @@ function TrainingSessionItem({
   onCheckedChange,
 }: TrainingSessionItemProps) {
   return (
-    <li
-      key={session.session_no}
-      className="list-file flex justify-between items-center"
-    >
+    <li key={session.session_no} className="list">
       <div className="flex gap-4 items-center">
         <CheckBox
           id={session.session_no}

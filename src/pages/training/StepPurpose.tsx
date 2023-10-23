@@ -55,7 +55,7 @@ const AccordionContentItem = ({ purpose }: { purpose: Purpose }) => {
       </p>
       <div className="font-semibold">
         <span>Example: </span>
-        <p className="mt-1 p-3 rounded bg-secondary whitespace-pre">
+        <p className="mt-1 p-3 rounded bg-gray-100 whitespace-pre">
           {purpose.example}
         </p>
       </div>
