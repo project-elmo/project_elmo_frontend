@@ -121,26 +121,30 @@ export default function StepParameter({
       title="Set Parameters"
       description="Set parameters to train your LLM."
     >
-      <div>
-        <div className="flex flex-col gap-7">
-          <div className="flex gap-8">
-            <TextInputWithLabel
-              id="model-name"
-              label="Model Name"
-              value={modelName}
-              onChange={({ target }) => setModelName(target.value)}
-            />
-            <SliderWithLabel
-              id="epochs"
-              label="Epochs"
-              info="One complete round of learning where the model goes through all the training data once. The more rounds, the better the model can learn."
-              value={parameter.epochs}
-              min={1}
-              onValueChange={(nums: number[]) =>
-                setParameter((prev) => ({ ...prev, epochs: nums[0] }))
-              }
-            />
-          </div>
+      <div className="flex gap-8 mb-4">
+        <TextInputWithLabel
+          id="model-name"
+          label="Model Name"
+          value={modelName}
+          onChange={({ target }) => setModelName(target.value)}
+        />
+        <SliderWithLabel
+          id="epochs"
+          label="Epochs"
+          info="One complete round of learning where the model goes through all the training data once. The more rounds, the better the model can learn."
+          value={parameter.epochs}
+          min={1}
+          onValueChange={(nums: number[]) =>
+            setParameter((prev) => ({ ...prev, epochs: nums[0] }))
+          }
+        />
+      </div>
+
+      <details>
+        <summary className="text-sm font-semibold cursor-pointer">
+          Advanced
+        </summary>
+        <div className="flex flex-col gap-6 pt-4 px-4 bg-gray-50">
           <div className="flex">
             <RadioGroupWithLabel
               label="Save Strategy"
@@ -163,7 +167,10 @@ export default function StepParameter({
               items={['no', 'steps', 'epoch']}
               value={parameter.logging_strategy}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, logging_strategy: value }))
+                setParameter((prev) => ({
+                  ...prev,
+                  logging_strategy: value,
+                }))
               }
             />
             <RadioGroupWithLabel
@@ -214,7 +221,10 @@ export default function StepParameter({
               items={[2, 4, 8, 16, 32, 64, 128, 256, 512].map(String)}
               value={String(parameter.batch_size)}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, batch_size: Number(value) }))
+                setParameter((prev) => ({
+                  ...prev,
+                  batch_size: Number(value),
+                }))
               }
             />
             <SelectWithLabel
@@ -225,7 +235,10 @@ export default function StepParameter({
               ].map(String)}
               value={String(parameter.eval_steps)}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, eval_steps: Number(value) }))
+                setParameter((prev) => ({
+                  ...prev,
+                  eval_steps: Number(value),
+                }))
               }
             />
             <SelectWithLabel
@@ -236,7 +249,10 @@ export default function StepParameter({
               ].map(String)}
               value={String(parameter.save_steps)}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, save_steps: Number(value) }))
+                setParameter((prev) => ({
+                  ...prev,
+                  save_steps: Number(value),
+                }))
               }
             />
             <SelectWithLabel
@@ -284,14 +300,14 @@ export default function StepParameter({
             </div>
           </div>
         </div>
-        <div className="pb-6 text-center">
-          <p className="w-full h-8 mb-2 flex justify-center items-end text-red-400 text-sm">
-            {message}
-          </p>
-          <Button disabled={!!message} onClick={handleClickTraining}>
-            Start Training!
-          </Button>
-        </div>
+      </details>
+      <div className="pb-6 text-center">
+        <p className="w-full h-8 mb-2 flex justify-center items-end text-red-400 text-sm">
+          {message}
+        </p>
+        <Button disabled={!!message} onClick={handleClickTraining}>
+          Start Training!
+        </Button>
       </div>
     </MainTemplate>
   );
