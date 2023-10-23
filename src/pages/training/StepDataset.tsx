@@ -55,34 +55,32 @@ export default function StepDataset({ setFormData, onNext }: Props) {
       title="Add Datasets"
       description="Upload dataset files(json, csv) and select one."
     >
-      <div>
-        <ListContainer title="Dataset List">
-          <input
-            type="file"
-            accept="application/json, .csv"
-            className="hidden"
-            ref={fileInput}
-            onChange={handleFileChange}
+      <ListContainer title="Dataset List">
+        <input
+          type="file"
+          accept="application/json, .csv"
+          className="hidden"
+          ref={fileInput}
+          onChange={handleFileChange}
+        />
+        <Button className="list" onClick={handleClickFileUpload}>
+          <MdOutlineAdd className="m-auto text-lg" />
+        </Button>
+        {datasets?.map((dataset) => (
+          <DatasetlListItem
+            key={dataset.filename}
+            dataset={dataset}
+            checked={selected?.filename === dataset.filename}
+            onCheckedChange={() =>
+              setSelected(selected === dataset ? null : dataset)
+            }
           />
-          <Button className="list-file" onClick={handleClickFileUpload}>
-            <MdOutlineAdd className="m-auto text-lg" />
-          </Button>
-          {datasets?.map((dataset) => (
-            <DatasetlListItem
-              key={dataset.filename}
-              dataset={dataset}
-              checked={selected?.filename === dataset.filename}
-              onCheckedChange={() =>
-                setSelected(selected === dataset ? null : dataset)
-              }
-            />
-          ))}
-        </ListContainer>
-        <div className="py-6 text-center">
-          <Button onClick={handleNext} disabled={!selected}>
-            Next
-          </Button>
-        </div>
+        ))}
+      </ListContainer>
+      <div className="py-6 text-center">
+        <Button onClick={handleNext} disabled={!selected}>
+          Next
+        </Button>
       </div>
     </MainTemplate>
   );
@@ -100,10 +98,7 @@ const DatasetlListItem = ({
   onCheckedChange,
 }: DatasetListItemProps) => {
   return (
-    <li
-      key={dataset.filename}
-      className="list-file flex justify-between items-center"
-    >
+    <li key={dataset.filename} className="list">
       <div className="flex gap-4 items-center">
         <CheckBox
           id={dataset.filename}

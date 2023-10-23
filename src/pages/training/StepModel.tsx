@@ -63,9 +63,9 @@ export default function StepModel({ setFormData, onNext }: Props) {
       description="Select pre-trained model to train."
     >
       <div className="w-full h-[28rem] flex">
-        <div className="flex flex-col basis-3/5">
-          <h4 className="px-6 py-3 font-bold bg-secondary">Models</h4>
-          <ul className="h-full border border-r-0 border-line overflow-y-scroll">
+        <div className="flex flex-col basis-3/5 border-2 border-secondary">
+          <h4 className="list-title">Models</h4>
+          <ul className="list-container p-3">
             {models?.map((model) => (
               <ModelListItem
                 key={model.pm_no}
@@ -80,7 +80,7 @@ export default function StepModel({ setFormData, onNext }: Props) {
             ))}
           </ul>
         </div>
-        <div className="flex-1 p-4 border border-line overflow-y-scroll whitespace-pre-line">
+        <div className="flex-1 p-4 border-2 border-l-0 border-secondary overflow-y-scroll whitespace-pre-line">
           {selected ? (
             <>
               <div className="flex gap-4 text-xs mb-2">
@@ -103,10 +103,10 @@ export default function StepModel({ setFormData, onNext }: Props) {
                   )}
               </div>
               <h3 className="text-2xl mb-2">{selected.name}</h3>
-              <p>{selected.description}</p>
+              <p className="text-sm">{selected.description}</p>
             </>
           ) : (
-            <p>Please select a model.</p>
+            <p className="text-sm">Please select a model.</p>
           )}
         </div>
       </div>
@@ -140,7 +140,7 @@ const ModelListItem = ({
   });
 
   return (
-    <li className="h-12 flex justify-between items-center p-3 border-b border-line">
+    <li className="list">
       <div className="flex gap-4 items-center">
         <CheckBox
           id={model.name}
