@@ -4,6 +4,7 @@ interface Props {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  inputRef?: React.Ref<HTMLInputElement>;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,6 +14,7 @@ export default function TextInput({
   placeholder,
   disabled,
   className,
+  inputRef,
   onChange,
 }: Props) {
   return (
@@ -21,8 +23,9 @@ export default function TextInput({
       value={value}
       placeholder={placeholder}
       disabled={disabled}
-      onChange={onChange}
       className={`input ${className}`}
+      ref={inputRef}
+      onChange={onChange}
     />
   );
 }

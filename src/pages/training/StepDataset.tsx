@@ -109,7 +109,7 @@ const DatasetlListItem = ({
           id={dataset.filename}
           label={dataset.filename}
           isSide
-          className="font-normal"
+          className="font-normal cursor-pointer"
         ></Label>
       </div>
     </li>
