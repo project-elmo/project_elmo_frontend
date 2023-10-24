@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { retrainModel, trainPreTrainedModel } from '@/api/rest';
 import Button from '@/components/Button';
@@ -50,7 +50,14 @@ export default function StepParameter({
     max_length: 512,
     load_best_at_the_end: false,
   });
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string>(
+    'Model name should not be empty.'
+  );
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!parameter.load_best_at_the_end && modelName) {
@@ -127,6 +134,7 @@ export default function StepParameter({
           label="Model Name"
           value={modelName}
           onChange={({ target }) => setModelName(target.value)}
+          inputRef={inputRef}
         />
         <SliderWithLabel
           id="epochs"
