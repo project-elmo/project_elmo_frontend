@@ -8,7 +8,7 @@ import SideNav from '@/components/SideNav';
 import SliderWithLabel from '@/components/SliderWithLabel';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
 import { formatNumber } from '@/utils';
-import { QUERY_KEYS } from '@/constants';
+import { QUERY_KEYS, INFOS } from '@/constants';
 import { TestMessage, TestMessageForm } from '@/types';
 
 interface Props {
@@ -142,7 +142,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="maximum-length"
           label="Maximum Length"
-          info="The maximum length the generated tokens can have."
+          info={INFOS.MAXIMUM_LENGTH}
           value={formData.max_length}
           max={512}
           min={10}
@@ -153,7 +153,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="temperature"
           label="Temperature"
-          info="This controls how random or creative the model's output is. Higher values make it more random."
+          info={INFOS.TEMPERATURE}
           value={formData.temperature}
           max={2}
           step={0.1}
@@ -164,7 +164,7 @@ export default function TestChat({ testNo }: Props) {
         <TextInputWithLabel
           id="top-k"
           label="Top K"
-          info="The number of highest probability vocabulary tokens to keep for top-k-filtering."
+          info={INFOS.TOP_K}
           value={formData.top_k}
           className="mb-4"
           onChange={({ target }) =>
@@ -177,7 +177,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="top-p"
           label="Top P"
-          info="This setting allows the model to keep only those words that have a high chance of coming next, as long as they collectively reach a certain likelihood."
+          info={INFOS.TOP_P}
           value={formData.top_p}
           max={2}
           step={0.1}
@@ -188,7 +188,7 @@ export default function TestChat({ testNo }: Props) {
         <SliderWithLabel
           id="repetition-penalty"
           label="Repetition Penalty"
-          info="The parameter for repetition penalty. 1.0 means no penalty."
+          info={INFOS.REPETITION_PENALTY}
           value={formData.repetition_penalty}
           min={1}
           max={2}
@@ -199,8 +199,8 @@ export default function TestChat({ testNo }: Props) {
         />
         <TextInputWithLabel
           id="no-repeat-ngram-size"
-          label="No Repeat Ngram Size"
-          info="This stops the model from repeating the same group of words in a specific size."
+          label="No Repeat N-gram Size"
+          info={INFOS.NO_REPEAT_NGRAM_SIZE}
           value={formData.no_repeat_ngram_size}
           className="mb-4"
           onChange={({ target }) =>
