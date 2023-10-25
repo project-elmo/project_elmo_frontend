@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDatasets, uploadDatasets } from '@/api/rest';
-import { MdOutlineAdd } from 'react-icons/md';
+import { MdOutlineAdd, MdDownload } from 'react-icons/md';
 import MainTemplate from '@/components/MainTemplate';
 import Button from '@/components/Button';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
-import { QUERY_KEYS } from '@/constants';
+import { API_PREFIX, QUERY_KEYS } from '@/constants';
 import { Dataset, TrainingForm } from '@/types';
 import ListContainer from '@/components/ListContainer';
 
@@ -99,18 +99,26 @@ const DatasetlListItem = ({
 }: DatasetListItemProps) => {
   return (
     <li key={dataset.filename} className="list">
-      <div className="flex gap-4 items-center">
-        <CheckBox
-          id={dataset.filename}
-          checked={checked}
-          onCheckedChange={onCheckedChange}
-        />
-        <Label
-          id={dataset.filename}
-          label={dataset.filename}
-          isSide
-          className="font-normal cursor-pointer"
-        ></Label>
+      <div className="w-full flex items-center justify-between">
+        <div className="flex gap-4">
+          <CheckBox
+            id={dataset.filename}
+            checked={checked}
+            onCheckedChange={onCheckedChange}
+          />
+          <Label
+            id={dataset.filename}
+            label={dataset.filename}
+            isSide
+            className="font-normal cursor-pointer"
+          ></Label>
+        </div>
+        <a
+          href={`${API_PREFIX}/training${dataset.download_link}`}
+          className="p-2"
+        >
+          <MdDownload className="text-lg" />
+        </a>
       </div>
     </li>
   );
