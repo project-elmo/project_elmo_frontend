@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { API_PREFIX } from '@/constants';
 import {
   TestMessage,
   Dataset,
@@ -10,9 +12,6 @@ import {
   TestMessageForm,
   Setting,
 } from '@/types';
-import axios from 'axios';
-
-const API_PREFIX = `${import.meta.env.VITE_API_URL}/api`;
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 

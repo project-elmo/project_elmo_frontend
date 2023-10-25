@@ -1,3 +1,5 @@
+export const API_PREFIX = `${import.meta.env.VITE_API_URL}/api`;
+
 export const SERVICE_NAME = 'ELMO';
 
 export const SOCKET_API_URL = `${
