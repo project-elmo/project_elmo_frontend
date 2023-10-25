@@ -73,6 +73,8 @@ export interface TrainingParameter extends Parameter {
   fm_no: number;
   model_name: string;
   dataset: string;
+  task: number;
+  train_loss: number;
 }
 
 export type Dataset = {

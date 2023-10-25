@@ -78,6 +78,7 @@ export default function HistoryPage() {
       state: {
         fmNo: selected?.fm_no,
         parentSessionNo: selected?.session_no,
+        task: trainingParameter?.task,
       },
     });
   };
@@ -140,6 +141,16 @@ export default function HistoryPage() {
                   <TextWithLabel
                     label="Model Name"
                     value={trainingParameter.model_name}
+                  />
+                  <TextWithLabel
+                    label="Purpose"
+                    value={
+                      trainingParameter.task === 0 ? 'QA' : 'Classification'
+                    }
+                  />
+                  <TextWithLabel
+                    label="Train Loss"
+                    value={trainingParameter.train_loss}
                   />
                   <TextWithLabel
                     label="Epochs"

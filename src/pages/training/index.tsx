@@ -20,6 +20,7 @@ export default function TrainingPage() {
     state: {
       fmNo?: number;
       parentSessionNo?: string;
+      task?: number;
     };
   };
   const [Funnel, setStep] = useFunnel(
@@ -41,7 +42,7 @@ export default function TrainingPage() {
     ts_model_name: '',
     parent_session_no: state?.parentSessionNo || undefined,
     dataset: '',
-    task: 0,
+    task: state?.task ?? 0,
     epochs: 3,
     save_strategy: 'steps',
     logging_strategy: 'steps',
