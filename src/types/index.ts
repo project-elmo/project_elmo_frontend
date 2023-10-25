@@ -82,6 +82,7 @@ export type Dataset = {
   size: number;
   filename: string;
   extension: string;
+  download_link: string;
 };
 
 export interface TrainingForm extends Parameter {
