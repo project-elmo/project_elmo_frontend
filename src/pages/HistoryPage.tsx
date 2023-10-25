@@ -9,7 +9,7 @@ import SideNav from '@/components/SideNav';
 import FlowNode from '@/components/flow/FlowNode';
 import Button from '@/components/Button';
 import TextWithLabel from '@/components/TextWithLabel';
-import { QUERY_KEYS, ROUTES } from '@/constants';
+import { API_PREFIX, QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
 import 'reactflow/dist/style.css';
 
@@ -149,6 +149,11 @@ export default function HistoryPage() {
                     }
                   />
                   <TextWithLabel
+                    label="Dataset"
+                    value={trainingParameter.dataset}
+                    link={`${API_PREFIX}/training${trainingParameter.dataset_download_link}`}
+                  />
+                  <TextWithLabel
                     label="Train Loss"
                     value={trainingParameter.train_loss}
                   />
@@ -202,12 +207,6 @@ export default function HistoryPage() {
                       trainingParameter.load_best_at_the_end ? 'on' : 'off'
                     }
                   />
-                  {trainingParameter.dataset && (
-                    <TextWithLabel
-                      label="Dataset"
-                      value={trainingParameter.dataset}
-                    />
-                  )}
                 </div>
               )}
             </div>

@@ -75,6 +75,7 @@ export interface TrainingParameter extends Parameter {
   dataset: string;
   task: number;
   train_loss: number;
+  dataset_download_link: string;
 }
 
 export type Dataset = {
