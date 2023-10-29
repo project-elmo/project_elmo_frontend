@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useFunnel from '@/hooks/useFunnel';
 import StepPurpose from '@/pages/training/StepPurpose';
@@ -64,11 +64,6 @@ export default function TrainingPage() {
   const [trainingSession, setTrainingSession] =
     useState<TrainingSession | null>(null);
 
-  useEffect(() => {
-    if (!result) return;
-    setStep('done');
-  }, [result]);
-
   return (
     <Funnel>
       <Funnel.Step name="purpose">
@@ -107,10 +102,7 @@ export default function TrainingPage() {
         />
       </Funnel.Step>
       <Funnel.Step name="training">
-        <StepTraining
-          loggingStrategy={formData.logging_strategy}
-          setResult={setResult}
-        />
+        <StepTraining setResult={setResult} onNext={() => setStep('done')} />
       </Funnel.Step>
       <Funnel.Step name="done">
         <StepDone
