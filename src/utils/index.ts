@@ -21,10 +21,6 @@ export const setLocalStorage = <T>(key: string, value: T) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
-export const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
 export const formatNumber = (str: string) => {
   let replaced = str.replace(/[^.\d]/g, '');
   const dot = replaced.indexOf('.');

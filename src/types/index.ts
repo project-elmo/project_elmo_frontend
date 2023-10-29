@@ -18,6 +18,14 @@ export type SocketProgress = {
   sec_per_dl: string;
 };
 
+export type TrainingLog = {
+  task: string;
+  model_name: string;
+  loss: string;
+  learning_rate: string;
+  epoch: string;
+};
+
 export type TrainingResult = {
   task: string;
   model_name: string;
