@@ -100,4 +100,8 @@ export const INFOS = {
   1.0 means no penalty.`,
   NO_REPEAT_NGRAM_SIZE: `The maximum size of repeating the same group of words.
   If it's 3, it means no sequences of three consecutive words are repeated.`,
+  TRAIN_RUNTIME: `The time it takes to train the model.`,
+  TRAIN_SAMPLES_PER_SECOND: `How fast the model learns from examples, with a bigger number meaning it learns faster, but it depends on the computer and how it's set up.`,
+  TRAIN_STEPS_PER_SECOND: `How fast the model completes training iterations in one second, indicating its training efficiency, with a higher value indicating faster training.`,
+  TRAIN_LOSS: `How well the model is performing during training, with lower values indicating better performance and accuracy.`,
 } as const;
