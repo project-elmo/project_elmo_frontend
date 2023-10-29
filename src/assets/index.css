@@ -37,11 +37,25 @@
     @apply text-xl;
   }
 
-  .list-file {
+  .list {
+    @apply flex justify-between items-center;
     @apply w-full h-12;
     @apply p-3;
     @apply text-primary;
     @apply bg-white border-2 border-line rounded-md;
+  }
+
+  .list-container {
+    @apply flex flex-col gap-2;
+    @apply h-full;
+    @apply bg-secondary;
+    @apply overflow-y-scroll;
+  }
+
+  .list-title {
+    @apply px-6 py-3;
+    @apply font-bold;
+    @apply border-b-2 border-secondary;
   }
 
   .input {

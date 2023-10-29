@@ -9,7 +9,7 @@ import SideNav from '@/components/SideNav';
 import FlowNode from '@/components/flow/FlowNode';
 import Button from '@/components/Button';
 import TextWithLabel from '@/components/TextWithLabel';
-import { QUERY_KEYS, ROUTES } from '@/constants';
+import { API_PREFIX, QUERY_KEYS, ROUTES } from '@/constants';
 import { TrainingParameter, TrainingSession } from '@/types';
 import 'reactflow/dist/style.css';
 
@@ -76,11 +76,9 @@ export default function HistoryPage() {
   const handleClickTrain = () => {
     navigate(ROUTES.TRAINING, {
       state: {
-        pmNo: selected?.pm_no,
         fmNo: selected?.fm_no,
-        pmName: selected?.pm_name,
-        fmName: selected?.fm_name,
         parentSessionNo: selected?.session_no,
+        task: trainingParameter?.task,
       },
     });
   };
@@ -145,6 +143,21 @@ export default function HistoryPage() {
                     value={trainingParameter.model_name}
                   />
                   <TextWithLabel
+                    label="Purpose"
+                    value={
+                      trainingParameter.task === 0 ? 'QA' : 'Classification'
+                    }
+                  />
+                  <TextWithLabel
+                    label="Dataset"
+                    value={trainingParameter.dataset}
+                    link={`${API_PREFIX}/training${trainingParameter.dataset_download_link}`}
+                  />
+                  <TextWithLabel
+                    label="Train Loss"
+                    value={trainingParameter.train_loss}
+                  />
+                  <TextWithLabel
                     label="Epochs"
                     value={trainingParameter.epochs}
                   />
@@ -194,12 +207,6 @@ export default function HistoryPage() {
                       trainingParameter.load_best_at_the_end ? 'on' : 'off'
                     }
                   />
-                  {trainingParameter.dataset && (
-                    <TextWithLabel
-                      label="Dataset"
-                      value={trainingParameter.dataset}
-                    />
-                  )}
                 </div>
               )}
             </div>

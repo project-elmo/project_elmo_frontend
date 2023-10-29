@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { API_PREFIX } from '@/constants';
 import {
   TestMessage,
   Dataset,
@@ -10,9 +12,6 @@ import {
   TestMessageForm,
   Setting,
 } from '@/types';
-import axios from 'axios';
-
-const API_PREFIX = `${import.meta.env.VITE_API_URL}/api`;
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
@@ -93,6 +92,22 @@ export const uploadDatasets = async (dataset: File) => {
     throw new Error(res.statusText);
   }
   return res;
+};
+
+export const getDataKeys = async (dataset: string): Promise<string[]> => {
+  const res = await axiosInstance.post(
+    '/training/training/get_data_keys',
+    { dataset },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data.keys_in_data;
 };
 
 export const trainPreTrainedModel = async (

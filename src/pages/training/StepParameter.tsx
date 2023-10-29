@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { retrainModel, trainPreTrainedModel } from '@/api/rest';
 import Button from '@/components/Button';
@@ -9,6 +9,7 @@ import SliderWithLabel from '@/components/SliderWithLabel';
 import SwitchWithLabel from '@/components/SwitchWithLabel';
 import TextInputWithLabel from '@/components/TextInputWithLabel';
 import { formatNumber } from '@/utils';
+import { INFOS } from '@/constants';
 import {
   FineTunedModel,
   Parameter,
@@ -50,7 +51,14 @@ export default function StepParameter({
     max_length: 512,
     load_best_at_the_end: false,
   });
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string>(
+    'Model name should not be empty.'
+  );
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!parameter.load_best_at_the_end && modelName) {
@@ -121,34 +129,35 @@ export default function StepParameter({
       title="Set Parameters"
       description="Set parameters to train your LLM."
     >
-      <div>
-        <div className="flex flex-col gap-7">
-          <div className="flex gap-8">
-            <TextInputWithLabel
-              id="model-name"
-              label="Model Name"
-              placeholder={formData.pm_name}
-              value={modelName}
-              onChange={({ target }) => setModelName(target.value)}
-            />
-            <SliderWithLabel
-              id="epochs"
-              label="Epochs"
-              info="One complete round of learning where the model goes through all the training data once. The more rounds, the better the model can learn."
-              value={parameter.epochs}
-              min={1}
-              onValueChange={(nums: number[]) =>
-                setParameter((prev) => ({ ...prev, epochs: nums[0] }))
-              }
-            />
-          </div>
+      <div className="flex gap-8 mb-4">
+        <TextInputWithLabel
+          id="model-name"
+          label="Model Name"
+          value={modelName}
+          onChange={({ target }) => setModelName(target.value)}
+          inputRef={inputRef}
+        />
+        <SliderWithLabel
+          id="epochs"
+          label="Epochs"
+          info={INFOS.EPOCHS}
+          value={parameter.epochs}
+          min={1}
+          onValueChange={(nums: number[]) =>
+            setParameter((prev) => ({ ...prev, epochs: nums[0] }))
+          }
+        />
+      </div>
+
+      <details>
+        <summary className="text-sm font-semibold cursor-pointer">
+          Advanced
+        </summary>
+        <div className="flex flex-col gap-6 pt-4 px-4 bg-gray-50">
           <div className="flex">
             <RadioGroupWithLabel
               label="Save Strategy"
-              info={`The checkpoint save strategy to adopt during training.  Possible values are:
-              "no": No save is done during training.
-              "epoch": Save is done at the end of each epoch.
-              "steps": Save is done every save_steps.`}
+              info={INFOS.SAVE_STRATEGY}
               items={['no', 'steps', 'epoch']}
               value={parameter.save_strategy}
               onValueChange={(value: string) =>
@@ -157,22 +166,19 @@ export default function StepParameter({
             />
             <RadioGroupWithLabel
               label="Logging Strategy"
-              info={`The logging strategy to adopt during training. Possible values are:
-              "no": No save is done during training.
-              "epoch": Save is done at the end of each epoch.
-              "steps": Save is done every save_steps.`}
+              info={INFOS.LOGGING_STRATEGY}
               items={['no', 'steps', 'epoch']}
               value={parameter.logging_strategy}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, logging_strategy: value }))
+                setParameter((prev) => ({
+                  ...prev,
+                  logging_strategy: value,
+                }))
               }
             />
             <RadioGroupWithLabel
               label="Evaluation Strategy"
-              info={`The evaluation strategy to adopt during training. Possible values are:
-              "no": No evaluation is done during training.
-              "steps": Evaluation is done (and logged) every eval_steps.
-              "epoch": Evaluation is done at the end of each epoch.`}
+              info={INFOS.EVALUATION_STRATEGY}
               items={['no', 'steps', 'epoch']}
               value={parameter.evaluation_strategy}
               onValueChange={(value: string) =>
@@ -187,7 +193,7 @@ export default function StepParameter({
             <TextInputWithLabel
               id="learning-rate"
               label="Learning Rate"
-              info={`Model's speed of learning. Higher values mean faster learning but can miss important details. Lower values are slower but more thorough.`}
+              info={INFOS.LEARNING_RATE}
               value={String(parameter.learning_rate)}
               onChange={({ target }) =>
                 setParameter((prev) => ({
@@ -199,7 +205,7 @@ export default function StepParameter({
             <SliderWithLabel
               id="weight-decay"
               label="Weight Decay"
-              info="This helps the model to not focus too much on any single pattern, making it more balanced."
+              info={INFOS.WEIGHT_DECAY}
               value={parameter.weight_decay}
               max={0.1}
               step={0.01}
@@ -211,38 +217,47 @@ export default function StepParameter({
           <div className="flex gap-8">
             <SelectWithLabel
               label="Batch Size"
-              info="The number of examples the model learns from in each mini-lesson within a round."
+              info={INFOS.BATCH_SIZE}
               items={[2, 4, 8, 16, 32, 64, 128, 256, 512].map(String)}
               value={String(parameter.batch_size)}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, batch_size: Number(value) }))
-              }
-            />
-            <SelectWithLabel
-              label="Eval Steps"
-              info={`Number of update steps between two evaluations if evaluation_strategy="steps".`}
-              items={[
-                1, 5, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
-              ].map(String)}
-              value={String(parameter.eval_steps)}
-              onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, eval_steps: Number(value) }))
+                setParameter((prev) => ({
+                  ...prev,
+                  batch_size: Number(value),
+                }))
               }
             />
             <SelectWithLabel
               label="Save Steps"
-              info={`Number of updates steps before two checkpoint saves if save_strategy="steps".`}
+              info={INFOS.SAVE_STEPS}
               items={[
                 1, 5, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
               ].map(String)}
               value={String(parameter.save_steps)}
               onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, save_steps: Number(value) }))
+                setParameter((prev) => ({
+                  ...prev,
+                  save_steps: Number(value),
+                }))
+              }
+            />
+            <SelectWithLabel
+              label="Eval Steps"
+              info={INFOS.EVAL_STEPS}
+              items={[
+                1, 5, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
+              ].map(String)}
+              value={String(parameter.eval_steps)}
+              onValueChange={(value: string) =>
+                setParameter((prev) => ({
+                  ...prev,
+                  eval_steps: Number(value),
+                }))
               }
             />
             <SelectWithLabel
               label="Save Total Limits"
-              info={`If a value is passed, will limit the total amount of checkpoints.`}
+              info={INFOS.SAVE_TOTAL_LIMITS}
               items={['unlimited', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
               value={
                 parameter.save_total_limits === -1
@@ -261,7 +276,7 @@ export default function StepParameter({
             <SliderWithLabel
               id="maximum-length"
               label="Maximum Length"
-              info={`The maximum length the generated tokens can have.`}
+              info={INFOS.MAXIMUM_LENGTH}
               value={parameter.max_length}
               min={1}
               max={512}
@@ -273,7 +288,7 @@ export default function StepParameter({
               <SwitchWithLabel
                 id="load-best-at-end"
                 label="Load Best At The End"
-                info={`Whether or not to load the best model found during training at the end of training. When this option is enabled, the best checkpoint will always be saved.`}
+                info={INFOS.LOAD_BEST_AT_THE_END}
                 checked={parameter.load_best_at_the_end}
                 onCheckedChange={(checked: boolean) =>
                   setParameter((prev) => ({
@@ -285,14 +300,14 @@ export default function StepParameter({
             </div>
           </div>
         </div>
-        <div className="pb-6 text-center">
-          <p className="w-full h-8 mb-2 flex justify-center items-end text-red-400 text-sm">
-            {message}
-          </p>
-          <Button disabled={!!message} onClick={handleClickTraining}>
-            Start Training!
-          </Button>
-        </div>
+      </details>
+      <div className="pb-6 text-center">
+        <p className="w-full h-8 mb-2 flex justify-center items-end text-red-400 text-sm">
+          {message}
+        </p>
+        <Button disabled={!!message} onClick={handleClickTraining}>
+          Start Training!
+        </Button>
       </div>
     </MainTemplate>
   );

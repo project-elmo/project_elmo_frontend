@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useFunnel from '@/hooks/useFunnel';
+import StepPurpose from '@/pages/training/StepPurpose';
 import StepModel from '@/pages/training/StepModel';
 import StepDataset from '@/pages/training/StepDataset';
+import StepColumn from '@/pages/training/StepColumn';
 import StepParameter from '@/pages/training/StepParameter';
 import StepTraining from '@/pages/training/StepTraining';
 import StepDone from '@/pages/training/StepDone';
@@ -16,26 +18,31 @@ import {
 export default function TrainingPage() {
   const { state } = useLocation() as {
     state: {
-      pmNo?: number;
-      pmName?: string;
       fmNo?: number;
-      fmName?: string;
       parentSessionNo?: string;
+      task?: number;
     };
   };
   const [Funnel, setStep] = useFunnel(
-    ['model', 'dataset', 'parameter', 'training', 'done'] as const,
-    state?.fmNo ? 'dataset' : 'model'
+    [
+      'purpose',
+      'model',
+      'dataset',
+      'column',
+      'parameter',
+      'training',
+      'done',
+    ] as const,
+    state?.fmNo ? 'dataset' : 'purpose'
   );
   const [formData, setFormData] = useState<TrainingForm>({
-    pm_no: state?.pmNo ?? null,
-    pm_name: state?.pmName || '',
+    pm_no: null,
     fm_no: state?.fmNo ?? undefined,
-    fm_name: state?.fmName || '',
+    fm_name: '',
     ts_model_name: '',
     parent_session_no: state?.parentSessionNo || undefined,
     dataset: '',
-    task: 0,
+    task: state?.task ?? 0,
     epochs: 3,
     save_strategy: 'steps',
     logging_strategy: 'steps',
@@ -48,6 +55,7 @@ export default function TrainingPage() {
     save_total_limits: -1,
     max_length: 512,
     load_best_at_the_end: false,
+    keys_to_use: ['question', 'answer'],
   });
   const [result, setResult] = useState<TrainingResult | null>(null);
   const [fineTunedModel, setFineTunedModel] = useState<FineTunedModel | null>(
@@ -56,13 +64,14 @@ export default function TrainingPage() {
   const [trainingSession, setTrainingSession] =
     useState<TrainingSession | null>(null);
 
-  useEffect(() => {
-    if (!result) return;
-    setStep('done');
-  }, [result]);
-
   return (
     <Funnel>
+      <Funnel.Step name="purpose">
+        <StepPurpose
+          onNext={() => setStep('model')}
+          setFormData={setFormData}
+        />
+      </Funnel.Step>
       <Funnel.Step name="model">
         <StepModel
           onNext={() => setStep('dataset')}
@@ -71,7 +80,15 @@ export default function TrainingPage() {
       </Funnel.Step>
       <Funnel.Step name="dataset">
         <StepDataset
+          onNext={() => setStep('column')}
+          setFormData={setFormData}
+        />
+      </Funnel.Step>
+      <Funnel.Step name="column">
+        <StepColumn
           onNext={() => setStep('parameter')}
+          task={formData.task}
+          dataset={formData.dataset}
           setFormData={setFormData}
         />
       </Funnel.Step>
@@ -85,10 +102,7 @@ export default function TrainingPage() {
         />
       </Funnel.Step>
       <Funnel.Step name="training">
-        <StepTraining
-          loggingStrategy={formData.logging_strategy}
-          setResult={setResult}
-        />
+        <StepTraining setResult={setResult} onNext={() => setStep('done')} />
       </Funnel.Step>
       <Funnel.Step name="done">
         <StepDone

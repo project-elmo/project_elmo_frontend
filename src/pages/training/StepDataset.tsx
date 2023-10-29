@@ -1,12 +1,13 @@
 import { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDatasets, uploadDatasets } from '@/api/rest';
-import { MdOutlineAdd } from 'react-icons/md';
+import { MdOutlineAdd, MdDownload } from 'react-icons/md';
 import MainTemplate from '@/components/MainTemplate';
+import ListContainer from '@/components/ListContainer';
 import Button from '@/components/Button';
 import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
-import { QUERY_KEYS } from '@/constants';
+import { API_PREFIX, QUERY_KEYS } from '@/constants';
 import { Dataset, TrainingForm } from '@/types';
 
 interface Props {
@@ -54,37 +55,32 @@ export default function StepDataset({ setFormData, onNext }: Props) {
       title="Add Datasets"
       description="Upload dataset files(json, csv) and select one."
     >
-      <div>
-        <div className="flex flex-col h-96 border-2 border-secondary">
-          <h4 className="px-6 py-3 font-bold">Dataset List</h4>
-          <ul className="h-full p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
-            <input
-              type="file"
-              accept="application/json, .csv"
-              className="hidden"
-              ref={fileInput}
-              onChange={handleFileChange}
-            />
-            <Button className="list-file" onClick={handleClickFileUpload}>
-              <MdOutlineAdd className="m-auto text-lg" />
-            </Button>
-            {datasets?.map((dataset) => (
-              <DatasetlListItem
-                key={dataset.filename}
-                dataset={dataset}
-                checked={selected?.filename === dataset.filename}
-                onCheckedChange={() =>
-                  setSelected(selected === dataset ? null : dataset)
-                }
-              />
-            ))}
-          </ul>
-        </div>
-        <div className="py-6 text-center">
-          <Button onClick={handleNext} disabled={!selected}>
-            Next
-          </Button>
-        </div>
+      <ListContainer title="Dataset List">
+        <input
+          type="file"
+          accept="application/json, .csv"
+          className="hidden"
+          ref={fileInput}
+          onChange={handleFileChange}
+        />
+        <Button className="list" onClick={handleClickFileUpload}>
+          <MdOutlineAdd className="m-auto text-lg" />
+        </Button>
+        {datasets?.map((dataset) => (
+          <DatasetlListItem
+            key={dataset.filename}
+            dataset={dataset}
+            checked={selected?.filename === dataset.filename}
+            onCheckedChange={() =>
+              setSelected(selected === dataset ? null : dataset)
+            }
+          />
+        ))}
+      </ListContainer>
+      <div className="py-6 text-center">
+        <Button onClick={handleNext} disabled={!selected}>
+          Next
+        </Button>
       </div>
     </MainTemplate>
   );
@@ -102,22 +98,27 @@ const DatasetlListItem = ({
   onCheckedChange,
 }: DatasetListItemProps) => {
   return (
-    <li
-      key={dataset.filename}
-      className="list-file flex justify-between items-center"
-    >
-      <div className="flex gap-4 items-center">
-        <CheckBox
-          id={dataset.filename}
-          checked={checked}
-          onCheckedChange={onCheckedChange}
-        />
-        <Label
-          id={dataset.filename}
-          label={dataset.filename}
-          isSide
-          className="font-normal"
-        ></Label>
+    <li key={dataset.filename} className="list">
+      <div className="w-full flex items-center justify-between">
+        <div className="flex gap-4">
+          <CheckBox
+            id={dataset.filename}
+            checked={checked}
+            onCheckedChange={onCheckedChange}
+          />
+          <Label
+            id={dataset.filename}
+            label={dataset.filename}
+            isSide
+            className="font-normal cursor-pointer"
+          ></Label>
+        </div>
+        <a
+          href={`${API_PREFIX}/training${dataset.download_link}`}
+          className="p-2"
+        >
+          <MdDownload className="text-lg" />
+        </a>
       </div>
     </li>
   );

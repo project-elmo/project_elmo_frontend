@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { MdOutlineInfo } from 'react-icons/md';
 
@@ -8,13 +7,13 @@ interface TooltipProps {
 
 export default function Tooltip({ info }: TooltipProps) {
   return (
-    <TooltipPrimitive.Provider>
+    <TooltipPrimitive.Provider delayDuration={300}>
       <TooltipPrimitive.Root>
-        <TooltipTrigger asChild>
+        <TooltipPrimitive.Trigger asChild>
           <button disabled>
             <MdOutlineInfo className="text-neutral-400" />
           </button>
-        </TooltipTrigger>
+        </TooltipPrimitive.Trigger>
         <TooltipPrimitive.Content
           sideOffset={4}
           className="max-w-sm inline-flex items-center border shadow shadow-line/30 rounded-md bg-white px-4 py-2.5 text-xs whitespace-pre-line"
@@ -25,13 +24,3 @@ export default function Tooltip({ info }: TooltipProps) {
     </TooltipPrimitive.Provider>
   );
 }
-
-const TooltipTrigger = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger> & {
-    children: React.ReactNode;
-    asChild?: boolean;
-  }
->((props, forwardedRef) => (
-  <TooltipPrimitive.Trigger {...props} ref={forwardedRef} />
-));

@@ -18,6 +18,14 @@ export type SocketProgress = {
   sec_per_dl: string;
 };
 
+export type TrainingLog = {
+  task: string;
+  model_name: string;
+  loss: string;
+  learning_rate: string;
+  epoch: string;
+};
+
 export type TrainingResult = {
   task: string;
   model_name: string;
@@ -73,6 +81,9 @@ export interface TrainingParameter extends Parameter {
   fm_no: number;
   model_name: string;
   dataset: string;
+  task: number;
+  train_loss: number;
+  dataset_download_link: string;
 }
 
 export type Dataset = {
@@ -80,17 +91,18 @@ export type Dataset = {
   size: number;
   filename: string;
   extension: string;
+  download_link: string;
 };
 
 export interface TrainingForm extends Parameter {
   pm_no: number | null;
-  pm_name: string;
   fm_no?: number;
   fm_name: string;
   parent_session_no?: string;
   ts_model_name: string;
   dataset: string;
   task: number;
+  keys_to_use: string[];
 }
 
 export type Test = {
@@ -132,4 +144,10 @@ export type Setting = {
   result_path: string;
   is_gpu_use: boolean;
   is_gpu_available?: boolean;
+};
+
+export type AccordionItem = {
+  id: string;
+  header: string;
+  content: React.ReactNode;
 };
