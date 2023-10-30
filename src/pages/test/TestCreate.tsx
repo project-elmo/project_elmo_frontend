@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createTest, getTrainingSessions } from '@/api/rest';
@@ -7,14 +7,15 @@ import CheckBox from '@/components/CheckBox';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
 import { QUERY_KEYS, ROUTES } from '@/constants';
-import { TrainingSession } from '@/types';
+import { Test, TrainingSession } from '@/types';
 
 interface Props {
   fmNo: number;
 }
 
 export default function TestCreate({ fmNo }: Props) {
-  const [selected, setSelected] = useState<TrainingSession | null>(null);
+  const [selected, setSelected] = useState<TrainingSession[]>([]);
+  const tests = useRef<Test[]>([]);
   const navigate = useNavigate();
 
   const { data: sessions } = useQuery({
@@ -24,36 +25,60 @@ export default function TestCreate({ fmNo }: Props) {
 
   const createTestMutation = useMutation({
     mutationFn: createTest,
-    onSuccess: (data) =>
-      navigate(`${ROUTES.TEST.INDEX}/${fmNo}/${data.test_no}`),
+    onSuccess: (data) => {
+      tests.current.push(data);
+      if (tests.current.length === selected.length) {
+        const testNoParam = tests.current
+          .map((t) => t.test_no)
+          .join('&testNo=');
+        const testsObj = tests.current.reduce(
+          (a, v) => ({ ...a, [v.test_no]: v.ts_model_name }),
+          {}
+        );
+        navigate(`${ROUTES.TEST.INDEX}/${fmNo}?testNo=${testNoParam}`, {
+          state: { tests: testsObj },
+        });
+      }
+    },
   });
 
   const handleClickStartTest = () => {
-    if (!selected) return;
-    createTestMutation.mutate(Number(selected.session_no));
+    selected.forEach((session) => {
+      createTestMutation.mutate(Number(session.session_no));
+    });
   };
 
   return (
     <MainTemplate
       title="Select Training Session"
-      description="Select a training session to test"
+      description="Select one or two training sessions to test."
     >
       <ul className="h-96 p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
-        {sessions?.map((session) => (
-          <TrainingSessionItem
-            key={session.session_no}
-            session={session}
-            checked={selected?.session_no === session.session_no}
-            onCheckedChange={() =>
-              setSelected(
-                selected?.session_no === session.session_no ? null : session
-              )
-            }
-          />
-        ))}
+        {sessions?.map((session) => {
+          const isSelected = selected.some(
+            (s) => s.session_no === session.session_no
+          );
+          return (
+            <TrainingSessionItem
+              key={session.session_no}
+              session={session}
+              checked={isSelected}
+              onCheckedChange={() => {
+                if (isSelected) {
+                  setSelected(
+                    selected.filter((s) => s.session_no !== session.session_no)
+                  );
+                } else {
+                  if (selected.length === 2) return;
+                  setSelected([...selected, session]);
+                }
+              }}
+            />
+          );
+        })}
       </ul>
       <div className="py-6 text-center">
-        <Button onClick={handleClickStartTest} disabled={!selected}>
+        <Button onClick={handleClickStartTest} disabled={!selected.length}>
           Start test
         </Button>
       </div>
