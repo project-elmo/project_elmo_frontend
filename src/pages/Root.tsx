@@ -86,7 +86,7 @@ export default function Root() {
                           }}
                           contents={model.list_test?.map((test) => ({
                             name: test.ts_model_name,
-                            to: `${ROUTES.TEST.INDEX}/${model.fm_no}/${test.test_no}`,
+                            to: `${ROUTES.TEST.INDEX}/${model.fm_no}?testNo=${test.test_no}`,
                             selected:
                               currentPage === 'test' &&
                               Number(test.test_no) === Number(testNo),
