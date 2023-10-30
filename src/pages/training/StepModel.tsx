@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MdDownload } from 'react-icons/md';
 import { downloadModel, getPreTrainedModels } from '@/api/rest';
@@ -24,23 +24,21 @@ export default function StepModel({ setFormData, onNext }: Props) {
   const socket = useRef<WebSocket | null>(null);
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!downloadProgress) return;
-    if (downloadProgress.curr_percent === 100) {
-      setIsDownloading(false);
-      setDownloadProgress(null);
-      socket.current?.close();
-      setSelected((prev) => prev && { ...prev, is_downloaded: true });
-    }
-  }, [downloadProgress, queryClient]);
-
   const { data: models } = useQuery({
     queryKey: [QUERY_KEYS.PRE_TRAINED_MODELS],
     queryFn: getPreTrainedModels,
   });
 
   const handleSocketMessage = (data: string) => {
-    setDownloadProgress(JSON.parse(data));
+    const parsed = JSON.parse(data);
+    setDownloadProgress(parsed);
+    if (parsed.curr_percent === 100) {
+      setIsDownloading(false);
+      setDownloadProgress(null);
+      setSelected((prev) => prev && { ...prev, is_downloaded: true });
+      queryClient.invalidateQueries([QUERY_KEYS.PRE_TRAINED_MODELS]);
+      socket.current?.close();
+    }
   };
 
   const handleDownload = () => {
