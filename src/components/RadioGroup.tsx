@@ -16,7 +16,7 @@ export default function RadioGroup({ items, value, onValueChange }: Props) {
             <RadioGroupPrimitive.Item
               id={item}
               value={item}
-              className="relative w-5 h-5 rounded-full border-2 border-line radix-state-checked:border-primary text-primary"
+              className="relative w-5 h-5 rounded-full border-2 border-line bg-white radix-state-checked:border-primary text-primary"
             >
               <RadioGroupIndicator className="flex items-center justify-center">
                 <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>

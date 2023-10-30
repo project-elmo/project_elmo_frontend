@@ -28,6 +28,7 @@ export const QUERY_KEYS = {
   CHAT_HISTORY: 'chatHistory',
   FINE_TUNED_WITH_TESTS: 'fineTunedWithTests',
   SETTING: 'setting',
+  PDF_FILES: 'pdfFiles',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {
