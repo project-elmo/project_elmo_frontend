@@ -74,7 +74,7 @@ export default function TestChat({ testNos }: Props) {
     },
     onSettled: (_, __, ___, context) => {
       const queryKey = [chatQueryKey, String(context!.testNo)];
-      queryClient.invalidateQueries({ queryKey, type: 'active' });
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 
