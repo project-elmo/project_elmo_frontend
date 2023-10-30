@@ -13,6 +13,7 @@ import { ReactFlowProvider } from 'reactflow';
 import {
   MdOutlineAdd,
   MdOutlineChevronLeft,
+  MdOutlineMenu,
   MdOutlineSettings,
 } from 'react-icons/md';
 import Button from '@/components/Button';
@@ -115,9 +116,9 @@ export default function Root() {
                 <Button
                   listStyle
                   onClick={() => setShowNav(true)}
-                  className="absolute m-1.5 z-10"
+                  className="absolute m-1.5 z-10 shadow-md"
                 >
-                  <MdOutlineChevronLeft />
+                  <MdOutlineMenu />
                 </Button>
               )}
 
