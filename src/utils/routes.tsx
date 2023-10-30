@@ -46,10 +46,6 @@ export const routes = (isOnboarded: boolean) => {
               path: ROUTES.TEST.CREATE,
               element: <TestPage />,
             },
-            {
-              path: ROUTES.TEST.CHAT,
-              element: <TestPage />,
-            },
           ],
         },
         {

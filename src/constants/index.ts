@@ -15,7 +15,6 @@ export const ROUTES = {
   TEST: {
     INDEX: '/test',
     CREATE: '/test/:fmNo',
-    CHAT: '/test/:fmNo/:testNo',
   },
 } as const;
 

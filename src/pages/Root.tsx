@@ -5,6 +5,7 @@ import {
   useLocation,
   useNavigate,
   useParams,
+  useSearchParams,
 } from 'react-router-dom';
 import { QueryErrorResetBoundary, useQuery } from '@tanstack/react-query';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
@@ -13,6 +14,7 @@ import { ReactFlowProvider } from 'reactflow';
 import {
   MdOutlineAdd,
   MdOutlineChevronLeft,
+  MdOutlineMenu,
   MdOutlineSettings,
 } from 'react-icons/md';
 import Button from '@/components/Button';
@@ -24,7 +26,9 @@ import ErrorFallback from '@/components/ErrorFallback';
 import { QUERY_KEYS, ROUTES } from '@/constants';
 
 export default function Root() {
-  const { fmNo, testNo } = useParams();
+  const { fmNo } = useParams();
+  const [searchParams] = useSearchParams();
+  const testNos = searchParams.getAll('testNo').map(Number);
   const { pathname } = useLocation();
   const [showNav, setShowNav] = useState(true);
   const [opened, setOpened] = useState<number[]>([]);
@@ -86,10 +90,10 @@ export default function Root() {
                           }}
                           contents={model.list_test?.map((test) => ({
                             name: test.ts_model_name,
-                            to: `${ROUTES.TEST.INDEX}/${model.fm_no}/${test.test_no}`,
+                            to: `${ROUTES.TEST.INDEX}/${model.fm_no}?testNo=${test.test_no}`,
                             selected:
                               currentPage === 'test' &&
-                              Number(test.test_no) === Number(testNo),
+                              testNos.includes(test.test_no),
                           }))}
                           isOpen={opened.includes(model.fm_no)}
                           onOpenChange={(open) =>
@@ -115,9 +119,9 @@ export default function Root() {
                 <Button
                   listStyle
                   onClick={() => setShowNav(true)}
-                  className="absolute m-1.5 z-10"
+                  className="absolute m-1.5 z-10 shadow-md"
                 >
-                  <MdOutlineChevronLeft />
+                  <MdOutlineMenu />
                 </Button>
               )}
 
