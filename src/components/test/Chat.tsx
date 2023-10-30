@@ -15,6 +15,7 @@ export default function Chat({ testNo, name }: Props) {
   const { data: messages } = useQuery({
     queryKey: [QUERY_KEYS.CHAT_HISTORY, String(testNo)],
     queryFn: () => getChatHistory(testNo),
+    refetchOnWindowFocus: false,
   });
 
   const scrollToBottom = () => {
@@ -29,7 +30,7 @@ export default function Chat({ testNo, name }: Props) {
   return (
     <section className="flex-1">
       {name && (
-        <p className="p-2 text-center bg-secondary text-sm font-semibold">
+        <p className="p-2 text-center bg-secondary border-b-2 border-line text-sm font-semibold">
           {name}
         </p>
       )}
@@ -37,7 +38,7 @@ export default function Chat({ testNo, name }: Props) {
         <div
           ref={messageRef}
           className={`${
-            name ? 'h-[calc(100vh-14.6255rem)]' : 'h-[calc(100vh-12.1255rem)]'
+            name ? 'h-[calc(100vh-8.5rem)]' : 'h-[calc(100vh-6.125rem)]'
           } overflow-y-scroll`}
         >
           <ul className="h-full flex flex-col gap-2.5 text-left">
@@ -47,6 +48,7 @@ export default function Chat({ testNo, name }: Props) {
                 message={message}
               />
             ))}
+            <div className="w-full py-12"></div>
           </ul>
         </div>
       ) : (
