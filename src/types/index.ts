@@ -131,6 +131,8 @@ export type TestMessageForm = {
   top_p: number;
   repetition_penalty: number;
   no_repeat_ngram_size: string;
+  pdf_file_name: string;
+  lang: 'eng' | 'ko';
 };
 
 export type MenuItem = {

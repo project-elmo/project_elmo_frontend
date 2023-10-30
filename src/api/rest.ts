@@ -178,6 +178,28 @@ export const getFineTunedModelsWithTests = async (): Promise<
   return res.data;
 };
 
+export const getPdfFiles = async (): Promise<Dataset[]> => {
+  const res = await axiosInstance.get('/test/get_pdf_files');
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res.data;
+};
+
+export const uploadPdf = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const res = await axiosInstance.post('/test/pdf_upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  if (res.status !== 200) {
+    throw new Error(res.statusText);
+  }
+  return res;
+};
+
 export const getSetting = async (): Promise<Setting> => {
   const res = await axiosInstance.get('/setting/get_setting');
   if (res.status !== 200) {

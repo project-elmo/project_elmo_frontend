@@ -1,23 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createMessage, getChatHistory } from '@/api/rest';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createMessage } from '@/api/rest';
 import { MdSend } from 'react-icons/md';
+import Chat from '@/components/test/Chat';
 import Button from '@/components/Button';
 import Textarea from '@/components/Textarea';
-import SideNav from '@/components/SideNav';
-import SliderWithLabel from '@/components/SliderWithLabel';
-import TextInputWithLabel from '@/components/TextInputWithLabel';
-import { formatNumber } from '@/utils';
-import { QUERY_KEYS, INFOS } from '@/constants';
+import ParamNav from '@/components/test/ParamNav';
+import { QUERY_KEYS } from '@/constants';
 import { TestMessage, TestMessageForm } from '@/types';
 
 interface Props {
-  testNo: number;
+  testNos: number[];
 }
 
-export default function TestChat({ testNo }: Props) {
+export default function TestChat({ testNos }: Props) {
+  const { state } = useLocation() as {
+    state: {
+      tests: {
+        [testNo: number]: string;
+      };
+    };
+  };
+  const tests = state?.tests ?? {};
   const [formData, setFormData] = useState<TestMessageForm>({
-    test_no: testNo,
+    test_no: testNos[0],
     msg: '',
     task: 0,
     max_length: 50,
@@ -26,28 +33,16 @@ export default function TestChat({ testNo }: Props) {
     top_p: 1,
     repetition_penalty: 1,
     no_repeat_ngram_size: '0',
+    pdf_file_name: '',
+    lang: 'eng',
   });
-  const messageRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
-  const queryKey = [QUERY_KEYS.CHAT_HISTORY, String(testNo)];
-
-  const { data: messages } = useQuery({
-    queryKey: queryKey,
-    queryFn: () => getChatHistory(testNo),
-  });
-
-  const scrollToBottom = () => {
-    if (!messageRef.current) return;
-    messageRef.current.scrollTop = messageRef.current.scrollHeight;
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const chatQueryKey = QUERY_KEYS.CHAT_HISTORY;
 
   const createMessageMutation = useMutation({
     mutationFn: createMessage,
     onMutate: async (formData) => {
+      const queryKey = [chatQueryKey, String(formData.test_no)];
       setFormData((prev) => ({ ...prev, msg: '' }));
       await queryClient.cancelQueries({ queryKey });
       const previousMessages =
@@ -71,16 +66,15 @@ export default function TestChat({ testNo }: Props) {
       queryClient.setQueryData<TestMessage[]>(queryKey, (old) =>
         old ? [...old, ...newMessages] : [...newMessages]
       );
-      return { previousMessages };
+      return { testNo: formData.test_no, previousMessages };
     },
     onError: (_, __, context) => {
-      queryClient.setQueryData<TestMessage[]>(
-        queryKey,
-        context!.previousMessages
-      );
+      const queryKey = [chatQueryKey, String(context!.testNo)];
+      queryClient.setQueriesData(queryKey, context!.previousMessages);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries(queryKey);
+    onSettled: (_, __, ___, context) => {
+      const queryKey = [chatQueryKey, String(context!.testNo)];
+      queryClient.invalidateQueries({ queryKey, type: 'active' });
     },
   });
 
@@ -91,29 +85,20 @@ export default function TestChat({ testNo }: Props) {
     }
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      createMessageMutation.mutate(formData);
+      testNos.forEach((testNo) => {
+        createMessageMutation.mutate({ ...formData, test_no: testNo });
+      });
     }
   };
 
   return (
     <main className="flex-1 flex">
-      <section className="flex-1 w-full h-full relative">
-        {messages?.length ? (
-          <div
-            ref={messageRef}
-            className="h-[calc(100vh-12.1255rem)] overflow-y-scroll "
-          >
-            <ul className="h-full flex flex-col gap-2.5 text-left">
-              {messages.map((message) => (
-                <MessageItem key={message.msg_no} message={message} />
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className="w-full text-center text-line">
-            <h3 className="pt-24">ELMO</h3>
-          </div>
-        )}
+      <div className="flex-1 w-full h-full relative">
+        <div className="flex gap-4">
+          {testNos.map((testNo) => (
+            <Chat key={testNo} testNo={testNo} name={tests[testNo]} />
+          ))}
+        </div>
         <form
           onKeyDown={handleKeyDown}
           className="absolute bottom-0 w-full h-24 flex justify-center bg-gradient-to-t from-white from-20%"
@@ -137,99 +122,8 @@ export default function TestChat({ testNo }: Props) {
             </Button>
           </div>
         </form>
-      </section>
-      <SideNav side="right" className="p-4">
-        <SliderWithLabel
-          id="maximum-length"
-          label="Maximum Length"
-          info={INFOS.MAXIMUM_LENGTH}
-          value={formData.max_length}
-          max={512}
-          min={10}
-          onValueChange={(value) =>
-            setFormData((prev) => ({ ...prev, max_length: value[0] }))
-          }
-        />
-        <SliderWithLabel
-          id="temperature"
-          label="Temperature"
-          info={INFOS.TEMPERATURE}
-          value={formData.temperature}
-          max={2}
-          step={0.1}
-          onValueChange={(value) =>
-            setFormData((prev) => ({ ...prev, temperature: value[0] }))
-          }
-        />
-        <TextInputWithLabel
-          id="top-k"
-          label="Top K"
-          info={INFOS.TOP_K}
-          value={formData.top_k}
-          className="mb-4"
-          onChange={({ target }) =>
-            setFormData((prev) => ({
-              ...prev,
-              top_k: formatNumber(target.value),
-            }))
-          }
-        />
-        <SliderWithLabel
-          id="top-p"
-          label="Top P"
-          info={INFOS.TOP_P}
-          value={formData.top_p}
-          max={2}
-          step={0.1}
-          onValueChange={(value) =>
-            setFormData((prev) => ({ ...prev, top_p: value[0] }))
-          }
-        />
-        <SliderWithLabel
-          id="repetition-penalty"
-          label="Repetition Penalty"
-          info={INFOS.REPETITION_PENALTY}
-          value={formData.repetition_penalty}
-          min={1}
-          max={2}
-          step={0.1}
-          onValueChange={(value) =>
-            setFormData((prev) => ({ ...prev, repetition_penalty: value[0] }))
-          }
-        />
-        <TextInputWithLabel
-          id="no-repeat-ngram-size"
-          label="No Repeat N-gram Size"
-          info={INFOS.NO_REPEAT_NGRAM_SIZE}
-          value={formData.no_repeat_ngram_size}
-          className="mb-4"
-          onChange={({ target }) =>
-            setFormData((prev) => ({
-              ...prev,
-              no_repeat_ngram_size: formatNumber(target.value),
-            }))
-          }
-        />
-      </SideNav>
-    </main>
-  );
-}
-
-interface MessageItemProps {
-  message: TestMessage;
-}
-
-function MessageItem({ message }: MessageItemProps) {
-  return (
-    <li
-      className={`w-full whitespace-pre-line p-4 ${
-        !message.is_user && 'bg-neutral-100 border-y border-line'
-      }`}
-    >
-      <div className="max-w-screen-md m-auto flex gap-4">
-        <span>{message.is_user ? '👤' : '🤖'}</span>
-        <p>{message.msg}</p>
       </div>
-    </li>
+      <ParamNav formData={formData} setFormData={setFormData} />
+    </main>
   );
 }

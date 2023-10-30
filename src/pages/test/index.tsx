@@ -1,16 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import TestMain from '@/pages/test/TestMain';
 import TestCreate from '@/pages/test/TestCreate';
 import TestChat from '@/pages/test/TestChat';
 
 export default function TestPage() {
-  const { fmNo, testNo } = useParams();
+  const { fmNo } = useParams();
+  const [searchParams] = useSearchParams();
+  const testNos = searchParams
+    .getAll('testNo')
+    .map(Number)
+    .sort((a, b) => a - b);
 
   return (
     <>
       {fmNo ? (
-        testNo ? (
-          <TestChat testNo={Number(testNo)} />
+        testNos.length ? (
+          <TestChat testNos={testNos} />
         ) : (
           <TestCreate fmNo={Number(fmNo)} />
         )
