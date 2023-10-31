@@ -58,7 +58,7 @@ export default function StepDone({
           <Button
             onClick={() =>
               navigate(
-                `${ROUTES.MAIN}${
+                `${ROUTES.HISTORY.INDEX}/${
                   isRetrain ? trainingSession.fm_no : fineTunedModel?.fm_no
                 }`
               )

@@ -8,7 +8,10 @@ export const SOCKET_API_URL = `${
 
 export const ROUTES = {
   MAIN: '/',
-  HISTORY: '/:fmNo',
+  HISTORY: {
+    INDEX: '/history',
+    DETAIL: '/history/:fmNo',
+  },
   WELCOME: '/welcome',
   SETTING: '/setting',
   TRAINING: '/training',
