@@ -17,7 +17,7 @@ export default function HomePage() {
 
   return (
     <main className="flex-1 flex flex-col gap-10">
-      <section className="flex items-center gap-6 py-20 px-16 bg-gradient-to-r from-cyan-500 to-blue-500">
+      <section className="flex justify-center items-center gap-6 py-20 px-16 bg-gradient-to-r from-cyan-500 to-blue-500">
         <div className="max-w-3xl flex-1 flex flex-col gap-6 text-white">
           <h1>Make your own GPT</h1>
           <p className="text-2xl font-light mb-4">
@@ -40,7 +40,7 @@ export default function HomePage() {
           {HOME_APPLICATIONS.map((application) => (
             <li
               key={application.title}
-              className="flex flex-col items-center gap-2 w-1/4 p-8 bg-gray-100 rounded-md text-center"
+              className="flex flex-col items-center gap-2 w-1/4 max-w-sm p-8 bg-gray-100 rounded-md text-center"
             >
               <h3>{application.title}</h3>
               <ul className="flex flex-col gap-4 text-left list-disc">
