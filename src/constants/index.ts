@@ -8,7 +8,10 @@ export const SOCKET_API_URL = `${
 
 export const ROUTES = {
   MAIN: '/',
-  HISTORY: '/:fmNo',
+  HISTORY: {
+    INDEX: '/history',
+    DETAIL: '/history/:fmNo',
+  },
   WELCOME: '/welcome',
   SETTING: '/setting',
   TRAINING: '/training',
@@ -105,3 +108,85 @@ export const INFOS = {
   TRAIN_STEPS_PER_SECOND: `How fast the model completes training iterations in one second, indicating its training efficiency, with a higher value indicating faster training.`,
   TRAIN_LOSS: `How well the model is performing during training, with lower values indicating better performance and accuracy.`,
 } as const;
+
+export const HOME_APPLICATIONS = [
+  {
+    title: 'Education',
+    contents: [
+      'Create customized learning materials, examples for each student',
+      'Answering questions about lectures, assignments, etc.',
+    ],
+  },
+  {
+    title: 'Enterprise',
+    contents: [
+      'In-house chatbot service specialized for corporate domains',
+      'Customer support chatbot services for small businesses',
+    ],
+  },
+  {
+    title: 'Research',
+    contents: [
+      'Extracting article summaries and keywords',
+      'Identify case studies and trends',
+    ],
+  },
+];
+
+export const HOME_TRAINING = [
+  {
+    title: 'Select training purpose',
+    description: `Choose the purpose of training.`,
+    imageSrc: '/images/training-purpose.png',
+    imageAlt: 'Select training purpose',
+  },
+  {
+    title: 'Add and select dataset',
+    description: `Add your own dataset to train your model or select one from the list.`,
+    imageSrc: '/images/training-dataset.png',
+    imageAlt: 'Select training purpose',
+  },
+  {
+    title: 'Set parameters',
+    description: `Set parameters for training.`,
+    imageSrc: '/images/training-parameter.png',
+    imageAlt: 'Select training purpose',
+  },
+];
+
+export const HOME_TEST = [
+  {
+    title: 'Test your model',
+    description: 'Test your model in chat format.',
+    imageSrc: '/images/test.png',
+    imageAlt: 'Test your model',
+  },
+  {
+    title: 'Compare models',
+    description:
+      'Chat with multiple models and compare their results side by side.',
+    imageSrc: '/images/test-compare.png',
+    imageAlt: 'Compare models',
+  },
+  {
+    title: 'Use PDF files',
+    description: 'Upload PDF files to supplement your data.',
+    imageSrc: '/images/test-pdf.png',
+    imageAlt: 'Use PDF files',
+  },
+];
+
+export const HOME_HISTORY = [
+  {
+    title: 'Get previous training results',
+    description: 'Check model relationships in tree structure.',
+    imageSrc: '/images/history.png',
+    imageAlt: 'Get previous training results',
+  },
+  {
+    title: 'Retrain your model',
+    description: 'Retrain your model with new data.',
+    imageSrc: '/images/history-retrain.png',
+    imageAlt: 'Retrain your model',
+  },
+];

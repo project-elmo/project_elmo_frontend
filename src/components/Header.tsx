@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const navigation = [
   { name: 'Training', path: ROUTES.TRAINING },
   { name: 'Test', path: ROUTES.TEST.INDEX },
-  { name: 'History', path: ROUTES.MAIN },
+  { name: 'History', path: ROUTES.HISTORY.INDEX },
 ];
 
 interface Props {
