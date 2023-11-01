@@ -1,9 +1,10 @@
 import { Navigate } from 'react-router-dom';
 import Root from '@/pages/Root';
 import WelcomePage from '@/pages/WelcomePage';
+import HomePage from '@/pages/HomePage';
 import SettingPage from '@/pages/SettingPage';
 import TrainingPage from '@/pages/training';
-import HistoryPage from '@/pages/HistoryPage';
+import HistoryPage from '@/pages/history';
 import TestPage from '@/pages/test';
 import { ROUTES } from '@/constants';
 
@@ -25,7 +26,20 @@ export const routes = (isOnboarded: boolean) => {
       children: [
         {
           index: true,
-          element: <HistoryPage />,
+          element: <HomePage />,
+        },
+        {
+          path: ROUTES.HISTORY.INDEX,
+          children: [
+            {
+              index: true,
+              element: <HistoryPage />,
+            },
+            {
+              path: ROUTES.HISTORY.DETAIL,
+              element: <HistoryPage />,
+            },
+          ],
         },
         {
           path: ROUTES.SETTING,
@@ -47,10 +61,6 @@ export const routes = (isOnboarded: boolean) => {
               element: <TestPage />,
             },
           ],
-        },
-        {
-          path: ROUTES.HISTORY,
-          element: <HistoryPage />,
         },
       ],
     },

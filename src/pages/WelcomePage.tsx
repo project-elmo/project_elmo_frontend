@@ -22,7 +22,7 @@ export default function WelcomePage() {
         <p className="font-bold">
           PLEASE READ THIS DISCLAIMER CAREFULLY BEFORE USING {SERVICE_NAME}.
         </p>
-        <div className="h-96 my-2.5 py-5 bg-secondary overflow-y-scroll">
+        <div className="max-h-[28rem] my-2.5 py-5 bg-secondary overflow-y-scroll">
           <ol className="px-10 list-decimal">
             <li>
               Copyright of Pre-trained Models: {SERVICE_NAME} does not own the

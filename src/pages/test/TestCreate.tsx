@@ -53,7 +53,7 @@ export default function TestCreate({ fmNo }: Props) {
       title="Select Training Session"
       description="Select one or two training sessions to test."
     >
-      <ul className="h-96 p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
+      <ul className="h-[28rem] p-5 flex flex-col gap-2 bg-secondary overflow-y-scroll">
         {sessions?.map((session) => {
           const isSelected = selected.some(
             (s) => s.session_no === session.session_no
