@@ -42,7 +42,9 @@ Easy LLM Online Model Optimizer
 
 Open source project solution to create your own LLM-trained GPT without a background in AI
 
-- Duration: Aug 2023 - Sep 2023 (4 weeks)
+- Duration
+  - 1st: Aug 2023 - Sep 2023 (4 weeks)
+  - 2nd: Oct 2023 - Nov 2023 (4 weeks)
 
 ### 1. Background
 
@@ -78,35 +80,43 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ### 3. Applications
 
-- **Marketing**
-  - Develop customized marketing campaigns based on customer interests and needs
-  - Create product-specific content such as blog posts, newsletters, etc.
 - **Education**
   - Create customized learning materials, examples for each student
   - Answering questions about lectures, assignments, etc.
 - **Enterprise**
   - In-house chatbot service specialized for corporate domains
   - Customer support chatbot services for small businesses
+- **Research**
+  - Extract article summaries and keywords
+  - Identify case studies and trends
 
 ## Features
 
 ### 1. Training models
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/a5a06711-3546-48ed-a5c2-18a64dc1884f" alt="Select a model" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/6c21bb6a-908a-4e6c-a0a9-02efa8c4f73f" alt="Select a purpose" width="500">
+
+- Select a purpose
+  - QA: Generate answers to questions
+  - Classification: Text classification
+
+<img src="https://github.com/project-elmo/frontend/assets/72433681/c08351b6-7311-46ca-a429-3cda50439c1f" alt="Select a model" width="500">
 
 - Select a pre-trained model
   - Show model list
   - Download the model
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/c9eef064-58d9-4d5e-ab44-d1e923cc0c1e" alt="Upload a dataset" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/ea7810ad-8a2a-4e9f-8394-e983e8d7b34b" alt="Upload a dataset" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/88fe46a1-1e65-4659-8394-1596307ae462" alt="Select dataset column or key" width="500">
 
 - Upload a dataset
   - Add JSON, CSV files
-  - ❗️ In the current demo, you can train QA (Question-Answering) models. Please ensure that the key values in JSON or the column names in CSV are labeled as 'question' and 'answer'.
+  - View and download previously uploaded files
+  - Select a column or key to be used for training in the selected dataset file
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/e52c9c53-f42d-433e-bc8e-ddd5185ca024" alt="Set parameters" width="500">
-<img src="https://github.com/project-elmo/frontend/assets/72433681/a14531f8-0ab2-40be-9186-dc1d3858ceb9" alt="Model training progress" width="500">
-<img src="https://github.com/project-elmo/frontend/assets/72433681/0f180642-39c2-4dd1-9472-d6d5c68bd4b4" alt="Model training results" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/7a3b79b9-0fcb-47f6-8b5e-853f3241b17d" alt="Set parameters" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/95fba068-86f6-4e39-94eb-6d1e2d63b89f" alt="Model training progress" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/6ca4f446-59ad-4212-8c0f-70189f7a9981" alt="Model training results" width="500">
 
 - Train a model
   - Adjust LLM training parameters
@@ -115,7 +125,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ### 2. Managing models
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/502e230a-0aba-4916-b2ac-7d594f0634b7" alt="Previous training results" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/9c1bcb2b-c1d6-4f2d-a44f-f12d80abba46" alt="Previous training results" width="500">
 
 - Get previous training results
   - Display model relationships in tree structure
@@ -126,12 +136,14 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ### 3. Testing models
 
-<img src="https://github.com/project-elmo/frontend/assets/72433681/2897cbb8-ecc7-449b-a69b-2e5a56e6a7ff" alt="Select a model to test" width="500">
-<img src="https://github.com/project-elmo/frontend/assets/72433681/e1bfe440-3b57-4604-ab57-552d8534f29e" alt="Test in chat format" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/c5dbb72d-83da-41df-8b50-a6b3ade18ca7" alt="Select a model to test" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/e19b384e-6452-45cb-ab8f-13c9124753ae" alt="Test in chat format" width="500">
+<img src="https://github.com/project-elmo/frontend/assets/72433681/17f54772-38bc-4c75-a7a3-2c98cb1ed92f" alt="Test multiple models side by side and upload PDF file" width="500">
 
 - Generating text
-  - Choosing which model to test
+  - Choosing which model to test: Able to test 2 models side by side
   - Test in chat format
+  - Upload PDF files to supplement your data
 
 ## Architecture
 
