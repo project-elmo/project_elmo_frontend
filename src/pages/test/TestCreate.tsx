@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createTest, getTrainingSessions } from '@/api/rest';
 import MainTemplate from '@/components/MainTemplate';
 import CheckBox from '@/components/CheckBox';
@@ -17,6 +17,7 @@ export default function TestCreate({ fmNo }: Props) {
   const [selected, setSelected] = useState<TrainingSession[]>([]);
   const tests = useRef<Test[]>([]);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: sessions } = useQuery({
     queryKey: [QUERY_KEYS.TRAINING_SESSIONS, fmNo],
@@ -28,6 +29,8 @@ export default function TestCreate({ fmNo }: Props) {
     onSuccess: (data) => {
       tests.current.push(data);
       if (tests.current.length === selected.length) {
+        queryClient.invalidateQueries([QUERY_KEYS.FINE_TUNED_WITH_TESTS]);
+
         const testNoParam = tests.current
           .map((t) => t.test_no)
           .join('&testNo=');

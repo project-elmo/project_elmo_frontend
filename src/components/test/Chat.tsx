@@ -15,7 +15,6 @@ export default function Chat({ testNo, name }: Props) {
   const { data: messages } = useQuery({
     queryKey: [QUERY_KEYS.CHAT_HISTORY, String(testNo)],
     queryFn: () => getChatHistory(testNo),
-    refetchOnWindowFocus: false,
   });
 
   const scrollToBottom = () => {
