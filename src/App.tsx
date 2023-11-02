@@ -27,6 +27,7 @@ export default function App() {
       queries: {
         retry: false,
         useErrorBoundary: true,
+        refetchOnWindowFocus: false,
       },
       mutations: {
         onError: (error) => {
