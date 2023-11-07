@@ -1,17 +1,5 @@
-import React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import Tooltip from '@/components/Tooltip';
-
-const LabelRef = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Label> & {
-    children: React.ReactNode;
-    htmlFor: string;
-    className?: string;
-  }
->((props, forwardedRef) => (
-  <LabelPrimitive.Label {...props} ref={forwardedRef} />
-));
 
 interface LabelProps {
   id?: string;
@@ -30,12 +18,12 @@ export default function Label({
 }: LabelProps) {
   return (
     <div className={`flex items-center gap-1 ${!isSide && 'mb-2'}`}>
-      <LabelRef
+      <LabelPrimitive.Label
         htmlFor={id || ''}
         className={`text-sm ${!isSide && 'font-semibold'} ${className}`}
       >
         {label}
-      </LabelRef>
+      </LabelPrimitive.Label>
       {info && <Tooltip info={info} />}
     </div>
   );

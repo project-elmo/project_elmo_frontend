@@ -64,7 +64,4 @@
     @apply text-base text-primary placeholder:text-line;
     @apply bg-white border-2 border-line rounded-md focus:outline-primary;
   }
-
-  .feature {
-  }
 }

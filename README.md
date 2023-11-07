@@ -26,6 +26,7 @@ Easy LLM Online Model Optimizer
   <a href="#프로젝트-구조">프로젝트 구조</a> •
   <a href="#사용-방법">사용 방법</a> •
   <a href="#기술-스택">기술 스택</a> •
+  <a href="#기여-방법">기여 방법</a> •
   <a href="#참고-자료">참고 자료</a> •
   <a href="#출처-알림">출처 알림</a>
 </p>
@@ -147,7 +148,7 @@ Easy LLM Online Model Optimizer
 
 ## 프로젝트 구조
 
-![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
+![image](https://github.com/project-elmo/frontend/assets/72433681/16577bee-4afa-45b2-8d47-07e74822befe)
 
 ## 사용 방법
 
@@ -279,6 +280,21 @@ Easy LLM Online Model Optimizer
 ![Notion](https://img.shields.io/badge/Notion-FFFFFF.svg?style=for-the-badge&logo=notion&logoColor=black)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![swagger](https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+
+## 기여 방법
+
+### 프로젝트 지향점
+
+1. **인공지능의 대중화**: Project ELMO는 누구나 쉽게 인공지능 모델을 학습시키고 사용할 수 있도록 지원하는 것을 목표로 합니다.
+2. **사용자 중심**: 사용자의 경험을 최우선으로 하여, 누구나 쉽게 접근하고 활용할 수 있는 기능 개발에 집중합니다.
+
+### Pull Request 시 따라야할 가이드
+
+1. **이슈 확인 및 생성**: PR을 시작하기 전에, 이미 존재하는 이슈인지 확인해주세요. 해당 내용에 관한 이슈가 없다면 새로운 이슈를 생성해 주세요.
+2. **명확한 커밋 메시지**: 커밋 메시지는 한눈에 변경사항을 알 수 있도록 명확하게 작성해주세요. 커밋의 주된 내용은 50자 이내로 요약하며, 세부 내용은 본문에 작성합니다.
+3. **코드 스타일 유지**: 기존의 코드 스타일과 포맷을 유지해주세요. 이를 위해 lint 도구나 포맷터를 활용할 수 있습니다.
+4. **문서화**: 기능 추가나 수정에 따라 관련 문서도 업데이트 해주세요. 특히 API나 사용법에 관한 변경 사항은 반드시 문서에 반영되어야 합니다.
+5. **리뷰 반영**: PR 후 리뷰가 있을 경우, 적극적으로 피드백을 반영하거나 의견을 나눠주세요. 상호 존중하는 커뮤니케이션을 지향합니다.
 
 ## 참고 자료
 

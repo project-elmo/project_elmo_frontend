@@ -59,11 +59,13 @@ export type TrainingSession = {
   ts_model_name: string;
 };
 
+export type Strategy = 'no' | 'steps' | 'epoch';
+
 export interface Parameter {
   epochs: number;
-  save_strategy: string;
-  logging_strategy: string;
-  evaluation_strategy: string;
+  save_strategy: Strategy;
+  logging_strategy: Strategy;
+  evaluation_strategy: Strategy;
   learning_rate: number | string;
   weight_decay: number;
   batch_size: number;
@@ -152,4 +154,11 @@ export type AccordionItem = {
   id: string;
   header: string;
   content: React.ReactNode;
+};
+
+export type Feature = {
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
 };

@@ -1,5 +1,5 @@
 import Label from '@/components/Label';
-import RadioGroup from './RadioGroup';
+import RadioGroup from '@/components/RadioGroup';
 
 interface Props {
   label: string;

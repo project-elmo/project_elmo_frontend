@@ -1,23 +1,21 @@
-import { getPdfFiles, uploadPdf } from '@/api/rest';
-import { QUERY_KEYS, INFOS, API_PREFIX } from '@/constants';
-import { Dataset, TestMessageForm } from '@/types';
-import { formatNumber } from '@/utils';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getPdfFiles, uploadPdf } from '@/api/rest';
 import {
   MdOutlineClose,
   MdOutlineAdd,
   MdOutlineChevronLeft,
-  MdDownload,
 } from 'react-icons/md';
-import Button from '../Button';
-import CheckBox from '../CheckBox';
-import Label from '../Label';
-import RadioGroupWithLabel from '../RadioGroupWithLabel';
-import SideNav from '../SideNav';
-import SliderWithLabel from '../SliderWithLabel';
-import SwitchWithLabel from '../SwitchWithLabel';
-import TextInputWithLabel from '../TextInputWithLabel';
+import Button from '@/components/Button';
+import RadioGroupWithLabel from '@/components/RadioGroupWithLabel';
+import SideNav from '@/components/SideNav';
+import SliderWithLabel from '@/components/SliderWithLabel';
+import SwitchWithLabel from '@/components/SwitchWithLabel';
+import TextInputWithLabel from '@/components/TextInputWithLabel';
+import PdfItem from '@/components/test/PdfItem';
+import { formatNumber } from '@/utils';
+import { QUERY_KEYS, INFOS } from '@/constants';
+import { TestMessageForm } from '@/types';
 
 interface Props {
   formData: TestMessageForm;
@@ -172,7 +170,7 @@ export default function ParamNav({ formData, setFormData }: Props) {
                   <MdOutlineAdd className="m-auto text-lg" />
                 </Button>
                 {files?.map((file) => (
-                  <PdflListItem
+                  <PdfItem
                     key={file.filename}
                     file={file}
                     checked={formData.pdf_file_name === file.filename}
@@ -206,34 +204,3 @@ export default function ParamNav({ formData, setFormData }: Props) {
     </>
   );
 }
-
-interface PdfListItemProps {
-  file: Dataset;
-  checked: boolean;
-  onCheckedChange: () => void;
-}
-
-const PdflListItem = ({ file, checked, onCheckedChange }: PdfListItemProps) => {
-  return (
-    <li key={file.filename} className="list">
-      <div className="w-full flex items-center justify-between">
-        <div className="flex gap-4">
-          <CheckBox
-            id={file.filename}
-            checked={checked}
-            onCheckedChange={onCheckedChange}
-          />
-          <Label
-            id={file.filename}
-            label={file.filename}
-            isSide
-            className="font-normal cursor-pointer text-xs"
-          ></Label>
-        </div>
-        <a href={`${API_PREFIX}/test${file.download_link}`} className="p-2">
-          <MdDownload />
-        </a>
-      </div>
-    </li>
-  );
-};
