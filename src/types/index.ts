@@ -59,13 +59,13 @@ export type TrainingSession = {
   ts_model_name: string;
 };
 
-type STRATEGY = 'no' | 'steps' | 'epoch';
+export type Strategy = 'no' | 'steps' | 'epoch';
 
 export interface Parameter {
   epochs: number;
-  save_strategy: STRATEGY;
-  logging_strategy: STRATEGY;
-  evaluation_strategy: STRATEGY;
+  save_strategy: Strategy;
+  logging_strategy: Strategy;
+  evaluation_strategy: Strategy;
   learning_rate: number | string;
   weight_decay: number;
   batch_size: number;

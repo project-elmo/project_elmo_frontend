@@ -13,6 +13,7 @@ import { INFOS } from '@/constants';
 import {
   FineTunedModel,
   Parameter,
+  Strategy,
   TrainingForm,
   TrainingSession,
 } from '@/types';
@@ -160,8 +161,11 @@ export default function StepParameter({
               info={INFOS.SAVE_STRATEGY}
               items={['no', 'steps', 'epoch']}
               value={parameter.save_strategy}
-              onValueChange={(value: string) =>
-                setParameter((prev) => ({ ...prev, save_strategy: value }))
+              onValueChange={(value) =>
+                setParameter((prev) => ({
+                  ...prev,
+                  save_strategy: value as Strategy,
+                }))
               }
             />
             <RadioGroupWithLabel
@@ -172,7 +176,7 @@ export default function StepParameter({
               onValueChange={(value: string) =>
                 setParameter((prev) => ({
                   ...prev,
-                  logging_strategy: value,
+                  logging_strategy: value as Strategy,
                 }))
               }
             />
@@ -184,7 +188,7 @@ export default function StepParameter({
               onValueChange={(value: string) =>
                 setParameter((prev) => ({
                   ...prev,
-                  evaluation_strategy: value,
+                  evaluation_strategy: value as Strategy,
                 }))
               }
             />
