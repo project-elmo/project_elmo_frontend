@@ -16,21 +16,22 @@ export default function StepTraining({ setResult, onNext }: Props) {
   const [logs, setLogs] = useState<TrainingLog[]>([]);
   const socket = useRef<WebSocket | null>(null);
 
-  const handleSocketMessage = (data: string) => {
-    const parsed = JSON.parse(data);
-    if (parsed.task === 'task_result') {
-      socket.current?.close();
-      setResult(parsed as TrainingResult);
-      onNext();
-    } else if (parsed.task === 'training') {
-      setProgress(parsed as SocketProgress);
-    } else if (parsed.task === 'training_log') {
-      setLogs((prev) => [...prev, parsed as TrainingLog]);
-    }
-  };
-
   useEffect(() => {
     if (socket.current) return;
+
+    const handleSocketMessage = (data: string) => {
+      const parsed = JSON.parse(data);
+      if (parsed.task === 'task_result') {
+        socket.current?.close();
+        setResult(parsed as TrainingResult);
+        onNext();
+      } else if (parsed.task === 'training') {
+        setProgress(parsed as SocketProgress);
+      } else if (parsed.task === 'training_log') {
+        setLogs((prev) => [...prev, parsed as TrainingLog]);
+      }
+    };
+
     socket.current = connectSocket(SOCKET_API_URL, handleSocketMessage);
   }, []);
 
