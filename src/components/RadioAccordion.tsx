@@ -1,7 +1,6 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { MdOutlineExpandMore } from 'react-icons/md';
-import { RadioGroupIndicator } from '@/components/RadioGroup';
 import { AccordionItem } from '@/types';
 
 interface Props {
@@ -31,9 +30,9 @@ export default function RadioAccordion({ items, value, onValueChange }: Props) {
                   value={id}
                   className="relative w-5 h-5 rounded-full border-2 border-line radix-state-checked:border-primary"
                 >
-                  <RadioGroupIndicator className="flex items-center justify-center">
+                  <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
                     <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                  </RadioGroupIndicator>
+                  </RadioGroupPrimitive.Indicator>
                 </RadioGroupPrimitive.Item>
               </RadioGroupPrimitive.Root>
               <AccordionPrimitive.Trigger asChild>

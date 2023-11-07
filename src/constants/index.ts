@@ -38,6 +38,16 @@ export const LOCAL_STORAGE_KEYS = {
   ONBOARDED: 'onboarded',
 } as const;
 
+export const TRAINING_STEPS = {
+  PURPOSE: 'purpose',
+  MODEL: 'model',
+  DATASET: 'dataset',
+  COLUMN: 'column',
+  PARAMETER: 'parameter',
+  TRAINING: 'training',
+  DONE: 'done',
+} as const;
+
 export const INFOS = {
   EPOCHS: `The number of times the entire dataset is iterated during the training process. The higher, the better the model can learn.`,
   SAVE_STRATEGY: `The method used to store a trained model, allowing its progress to be preserved for future use or further training.

@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { Children, isValidElement, useState } from 'react';
 
 export default function useFunnel<T extends readonly string[]>(
