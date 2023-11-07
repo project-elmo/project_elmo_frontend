@@ -8,6 +8,7 @@ import StepColumn from '@/pages/training/StepColumn';
 import StepParameter from '@/pages/training/StepParameter';
 import StepTraining from '@/pages/training/StepTraining';
 import StepDone from '@/pages/training/StepDone';
+import { TRAINING_STEPS } from '@/constants';
 import {
   FineTunedModel,
   TrainingForm,
@@ -24,16 +25,8 @@ export default function TrainingPage() {
     };
   };
   const [Funnel, setStep] = useFunnel(
-    [
-      'purpose',
-      'model',
-      'dataset',
-      'column',
-      'parameter',
-      'training',
-      'done',
-    ] as const,
-    state?.fmNo ? 'dataset' : 'purpose'
+    Object.values(TRAINING_STEPS),
+    state?.fmNo ? TRAINING_STEPS.DATASET : TRAINING_STEPS.PURPOSE
   );
   const [formData, setFormData] = useState<TrainingForm>({
     pm_no: null,
@@ -66,45 +59,48 @@ export default function TrainingPage() {
 
   return (
     <Funnel>
-      <Funnel.Step name="purpose">
+      <Funnel.Step name={TRAINING_STEPS.PURPOSE}>
         <StepPurpose
-          onNext={() => setStep('model')}
+          onNext={() => setStep(TRAINING_STEPS.MODEL)}
           setFormData={setFormData}
         />
       </Funnel.Step>
-      <Funnel.Step name="model">
+      <Funnel.Step name={TRAINING_STEPS.MODEL}>
         <StepModel
-          onNext={() => setStep('dataset')}
+          onNext={() => setStep(TRAINING_STEPS.DATASET)}
           setFormData={setFormData}
         />
       </Funnel.Step>
-      <Funnel.Step name="dataset">
+      <Funnel.Step name={TRAINING_STEPS.DATASET}>
         <StepDataset
-          onNext={() => setStep('column')}
+          onNext={() => setStep(TRAINING_STEPS.COLUMN)}
           setFormData={setFormData}
         />
       </Funnel.Step>
-      <Funnel.Step name="column">
+      <Funnel.Step name={TRAINING_STEPS.COLUMN}>
         <StepColumn
-          onNext={() => setStep('parameter')}
+          onNext={() => setStep(TRAINING_STEPS.PARAMETER)}
           task={formData.task}
           dataset={formData.dataset}
           setFormData={setFormData}
         />
       </Funnel.Step>
-      <Funnel.Step name="parameter">
+      <Funnel.Step name={TRAINING_STEPS.PARAMETER}>
         <StepParameter
-          onNext={() => setStep('training')}
+          onNext={() => setStep(TRAINING_STEPS.TRAINING)}
           formData={formData}
           setFormData={setFormData}
           setFineTunedModel={setFineTunedModel}
           setTrainingSession={setTrainingSession}
         />
       </Funnel.Step>
-      <Funnel.Step name="training">
-        <StepTraining setResult={setResult} onNext={() => setStep('done')} />
+      <Funnel.Step name={TRAINING_STEPS.TRAINING}>
+        <StepTraining
+          setResult={setResult}
+          onNext={() => setStep(TRAINING_STEPS.DONE)}
+        />
       </Funnel.Step>
-      <Funnel.Step name="done">
+      <Funnel.Step name={TRAINING_STEPS.DONE}>
         <StepDone
           result={result}
           fineTunedModel={fineTunedModel}
