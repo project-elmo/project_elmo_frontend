@@ -148,7 +148,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ## Architecture
 
-![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
+![image](https://github.com/project-elmo/frontend/assets/72433681/16577bee-4afa-45b2-8d47-07e74822befe)
 
 ## Development
 

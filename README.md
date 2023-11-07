@@ -148,7 +148,7 @@ Easy LLM Online Model Optimizer
 
 ## 프로젝트 구조
 
-![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
+![image](https://github.com/project-elmo/frontend/assets/72433681/16577bee-4afa-45b2-8d47-07e74822befe)
 
 ## 사용 방법
 
