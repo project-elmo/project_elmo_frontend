@@ -1,23 +1,23 @@
-import { getPdfFiles, uploadPdf } from '@/api/rest';
-import { QUERY_KEYS, INFOS, API_PREFIX } from '@/constants';
-import { Dataset, TestMessageForm } from '@/types';
-import { formatNumber } from '@/utils';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getPdfFiles, uploadPdf } from '@/api/rest';
 import {
   MdOutlineClose,
   MdOutlineAdd,
   MdOutlineChevronLeft,
   MdDownload,
 } from 'react-icons/md';
-import Button from '../Button';
-import CheckBox from '../CheckBox';
-import Label from '../Label';
-import RadioGroupWithLabel from '../RadioGroupWithLabel';
-import SideNav from '../SideNav';
-import SliderWithLabel from '../SliderWithLabel';
-import SwitchWithLabel from '../SwitchWithLabel';
-import TextInputWithLabel from '../TextInputWithLabel';
+import Button from '@/components/Button';
+import CheckBox from '@/components/CheckBox';
+import Label from '@/components/Label';
+import RadioGroupWithLabel from '@/components/RadioGroupWithLabel';
+import SideNav from '@/components/SideNav';
+import SliderWithLabel from '@/components/SliderWithLabel';
+import SwitchWithLabel from '@/components/SwitchWithLabel';
+import TextInputWithLabel from '@/components/TextInputWithLabel';
+import { formatNumber } from '@/utils';
+import { QUERY_KEYS, INFOS, API_PREFIX } from '@/constants';
+import { Dataset, TestMessageForm } from '@/types';
 
 interface Props {
   formData: TestMessageForm;
