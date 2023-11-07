@@ -1,4 +1,3 @@
-import * as React from 'react';
 import TextInput from '@/components/TextInput';
 import Label from '@/components/Label';
 
