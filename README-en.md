@@ -26,6 +26,7 @@ Easy LLM Online Model Optimizer
   <a href="#Architecture">Architecture</a> •
   <a href="#Development">Development</a> •
   <a href="#Tech-Stack">Tech Stack</a> •
+  <a href="#Contributing">Contributing</a> •
   <a href="#References">References</a> •
   <a href="#Credits">Credits</a>
 </p>
@@ -147,7 +148,7 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 
 ## Architecture
 
-![image](https://github.com/project-elmo/frontend/assets/72433681/aeebd11b-60ed-4872-add0-9aab406ae8a6)
+![image](https://github.com/project-elmo/frontend/assets/72433681/16577bee-4afa-45b2-8d47-07e74822befe)
 
 ## Development
 
@@ -280,6 +281,21 @@ Open source project solution to create your own LLM-trained GPT without a backgr
 ![Notion](https://img.shields.io/badge/Notion-FFFFFF.svg?style=for-the-badge&logo=notion&logoColor=black)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![swagger](https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+
+## Contributing
+
+### Project Goals
+
+1. **Democratize AI**: Project ELMO aims to make it easy for anyone to train and use AI models.
+2. **User-centric**: We prioritize the user's experience and focus on developing features that are easily accessible and utilized by everyone.
+
+### Guide to follow when making a pull request
+
+1. **Check before creating an issue**: Before starting a PR, please check if there is already an existing issue. If not, please create a new issue.
+2. **Write a clear commit message**: Your commit message should be clear so that the change can be understood at a glance. Summarize the main content of your commit in 50 characters or less, with details in the body.
+3. **Maintain code style**: Please maintain the existing code style and formatting. You can use lint tools or formatters to do this.
+4. **Documentation**: Please update your documentation as you add or modify features. In particular, any changes to the API or usage should be reflected in the documentation.
+5. **Respond to reviews**: If there are reviews after a PR, be sure to respond to them or share your thoughts. We aim for mutually respectful communication.
 
 ## References
 
