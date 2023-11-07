@@ -155,3 +155,10 @@ export type AccordionItem = {
   header: string;
   content: React.ReactNode;
 };
+
+export type Feature = {
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+};
