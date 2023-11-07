@@ -184,8 +184,8 @@ export const HOME_HISTORY = [
     imageAlt: 'Get previous training results',
   },
   {
-    title: 'Continue to train your model',
-    description: 'Continue to train your previous models with new parameters.',
+    title: 'Retrain your model',
+    description: 'Retrain your model with new data.',
     imageSrc: '/images/history-retrain.png',
     imageAlt: 'Retrain your model',
   },
