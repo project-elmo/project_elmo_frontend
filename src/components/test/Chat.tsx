@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getChatHistory } from '@/api/rest';
+import MessageItem from '@/components/test/MessageItem';
 import { QUERY_KEYS } from '@/constants';
-import { TestMessage } from '@/types';
 
 interface Props {
   testNo: number;
@@ -56,24 +56,5 @@ export default function Chat({ testNo, name }: Props) {
         </div>
       )}
     </section>
-  );
-}
-
-interface MessageItemProps {
-  message: TestMessage;
-}
-
-function MessageItem({ message }: MessageItemProps) {
-  return (
-    <li
-      className={`w-full whitespace-pre-line p-4 ${
-        !message.is_user && 'bg-neutral-100 border-y border-line'
-      }`}
-    >
-      <div className="max-w-screen-md m-auto flex gap-4">
-        <span>{message.is_user ? '👤' : '🤖'}</span>
-        <p>{message.msg}</p>
-      </div>
-    </li>
   );
 }
